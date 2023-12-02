@@ -1,4 +1,5 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Desktop5 from "./Desktop5";
 
 const theme = createTheme({
   palette: {
@@ -56,7 +57,11 @@ const theme = createTheme({
 });
 
 function App() {
-  return <ThemeProvider theme={theme}></ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme}>
+      <Desktop5></Desktop5>
+    </ThemeProvider>
+  );
 }
 
 export default App;
