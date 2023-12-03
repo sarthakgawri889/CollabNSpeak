@@ -1,4 +1,6 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Desktop3 from "./Haricharan/Desktop3";
+import Desktop8 from "./Haricharan/Desktop8";
 
 const theme = createTheme({
   palette: {
@@ -56,7 +58,11 @@ const theme = createTheme({
 });
 
 function App() {
-  return <ThemeProvider theme={theme}></ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme}>
+      <Desktop8></Desktop8>
+    </ThemeProvider>
+  );
 }
 
 export default App;
