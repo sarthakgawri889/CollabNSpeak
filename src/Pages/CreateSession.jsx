@@ -1,11 +1,11 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import Appbar from "./Appbar";
-import Topic from "./Topic";
-import TopicHeader from "./TopicHeader";
+import Appbar from "../Components/Appbar";
+import Topic from "../Components/Topic";
+import TopicHeader from "../Components/TopicHeader";
 import React from "react";
 import styled from "@emotion/styled";
 
-function Desktop5() {
+function CreateSession() {
   const [language, setLanguage] = React.useState("");
 
   const handleChange = (event) => {
@@ -68,4 +68,4 @@ function Desktop5() {
   );
 }
 
-export default Desktop5;
+export default CreateSession;

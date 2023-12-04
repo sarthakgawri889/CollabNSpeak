@@ -1,10 +1,10 @@
 import { Paper } from "@mui/material";
-import Appbar from "./Appbar";
-import Session from "./Session";
+import Appbar from "../Components/Appbar";
+import Session from "../Components/Session";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 
-function Desktop4() {
+function ExistingSession() {
   const theme = useTheme();
 
   const StyledPaper = styled(Paper)(() => ({
@@ -34,4 +34,4 @@ function Desktop4() {
   );
 }
 
-export default Desktop4;
+export default ExistingSession;

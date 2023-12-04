@@ -1,7 +1,7 @@
 import { Button, Card, Container, Typography } from "@mui/material";
-import Appbar from "./Appbar";
+import Appbar from "../Components/Appbar";
 
-function Desktop3() {
+function HomePage() {
   return (
     <div>
       <Appbar></Appbar>
@@ -71,4 +71,4 @@ function Desktop3() {
     </div>
   );
 }
-export default Desktop3;
+export default HomePage;

@@ -1,4 +1,12 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Login from "./Pages/Login";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import SignUp from "./Pages/SignUp";
+import HomePage from "./Pages/HomePage";
+import Desktop4 from "./Pages/ExistingSession";
+import CreateSession from "./Pages/CreateSession";
+import Profile from "./Pages/Profile";
 
 const theme = createTheme({
   palette: {
@@ -55,8 +63,47 @@ const theme = createTheme({
   },
 });
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <GoogleOAuthProvider>
+        <Login />
+      </GoogleOAuthProvider>
+    ),
+  },
+  {
+    path: "/signup",
+    element: (
+      <GoogleOAuthProvider>
+        <SignUp />
+      </GoogleOAuthProvider>
+    ),
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
+  {
+    path: "/home",
+    element: <HomePage />,
+  },
+  {
+    path: "/existsession",
+    element: <Desktop4 />,
+  },
+  {
+    path: "/createsession",
+    element: <CreateSession />,
+  },
+]);
+
 function App() {
-  return <ThemeProvider theme={theme}></ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 }
 
 export default App;

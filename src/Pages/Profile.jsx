@@ -14,7 +14,7 @@ import TextField from "@mui/material/TextField";
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 
-function Desktop8() {
+function Profile() {
   const theme = useTheme();
 
   const CustomPaper = styled(Paper)(() => ({
@@ -245,4 +245,4 @@ function Desktop8() {
   );
 }
 
-export default Desktop8;
+export default Profile;
