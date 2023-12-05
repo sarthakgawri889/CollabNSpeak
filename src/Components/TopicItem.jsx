@@ -1,8 +1,9 @@
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Card, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-function TopicItem() {
+function TopicItem({ topic }) {
   const theme = useTheme();
 
   const CustomCard = styled(Card)(() => ({
@@ -18,13 +19,19 @@ function TopicItem() {
     paddingTop: "15px",
     fontFamily: "Montserrat",
     fontWeight: "100",
-    fontSize: "15px",
+    fontSize: "12px",
     letterSpacing: "1px",
   }));
 
+  const navigate = useNavigate();
+
+  const navigateToLobby = () => {
+    navigate("/barcat");
+  };
+
   return (
-    <CustomCard>
-      <CardContent color="white">Topic</CardContent>
+    <CustomCard onClick={navigateToLobby}>
+      <CardContent color="white">{topic}</CardContent>
     </CustomCard>
   );
 }

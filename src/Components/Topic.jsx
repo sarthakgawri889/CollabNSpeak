@@ -17,10 +17,10 @@ function Topic() {
   return (
     <div>
       <CustomCard sx={{ boxShadow: 0 }}>
-        <TopicItem />
-        <TopicItem />
-        <TopicItem />
-        <TopicItem />
+        <TopicItem topic={"Israel Vs Palestine"} />
+        <TopicItem topic={"Batman Vs Ironman"} />
+        <TopicItem topic={"Office romance pros & cons"} />
+        <TopicItem topic={"Early risers Vs Night Owl"} />
       </CustomCard>
     </div>
   );

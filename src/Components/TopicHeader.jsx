@@ -2,7 +2,7 @@ import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Card, Typography } from "@mui/material";
 
-function TopicHeader() {
+function TopicHeader({ topic }) {
   const theme = useTheme();
 
   const CustomCard = styled(Card)(() => ({
@@ -28,7 +28,7 @@ function TopicHeader() {
 
   return (
     <CustomCard>
-      <CardContent color="white">Icebreaker</CardContent>
+      <CardContent color="white">{topic}</CardContent>
     </CustomCard>
   );
 }

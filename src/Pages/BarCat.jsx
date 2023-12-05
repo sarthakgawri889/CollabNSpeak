@@ -138,6 +138,7 @@ function BarCat() {
   const navigateToHome = () => {
     navigate("/home");
   };
+
   return (
     <>
       <BackPart>
