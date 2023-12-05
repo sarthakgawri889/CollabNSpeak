@@ -54,9 +54,9 @@ function CreateSession() {
       </CustomFormControl>
 
       <TopicBox>
-        <TopicHeader />
-        <TopicHeader />
-        <TopicHeader />
+        <TopicHeader topic={"Icebreaker"} />
+        <TopicHeader topic={"Group Discussion"} />
+        <TopicHeader topic={"Debate"} />
       </TopicBox>
 
       <TopicListBox>

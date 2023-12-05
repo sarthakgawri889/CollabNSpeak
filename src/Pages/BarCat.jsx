@@ -1,6 +1,7 @@
 import { Box, Typography, styled, Button } from "@mui/material";
 import Countdown from "react-countdown";
 import NameSlide from "../Components/NameSlide";
+import { useNavigate } from "react-router-dom";
 
 const BackPart = styled(Box)`
   position: absolute;
@@ -128,6 +129,16 @@ const renderer = ({ minutes, seconds }) => {
 };
 
 function BarCat() {
+  const navigate = useNavigate();
+
+  const navigateToVideoCall = () => {
+    navigate("/videocall");
+  };
+
+  const navigateToHome = () => {
+    navigate("/home");
+  };
+
   return (
     <>
       <BackPart>
@@ -147,8 +158,12 @@ function BarCat() {
         </Timer>
       </BackPart>
       <NameSlide />
-      <Start variant="contained">Start Now</Start>
-      <End variant="contained">End Now</End>
+      <Start variant="contained" onClick={navigateToVideoCall}>
+        Start Now
+      </Start>
+      <End variant="contained" onClick={navigateToHome}>
+        End Now
+      </End>
     </>
   );
 }

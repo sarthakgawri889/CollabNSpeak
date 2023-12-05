@@ -7,6 +7,8 @@ import HomePage from "./Pages/HomePage";
 import Desktop4 from "./Pages/ExistingSession";
 import CreateSession from "./Pages/CreateSession";
 import Profile from "./Pages/Profile";
+import BarCat from "./Pages/BarCat";
+import VideoCall from "./Pages/VideoCall";
 
 const theme = createTheme({
   palette: {
@@ -95,6 +97,14 @@ const router = createBrowserRouter([
   {
     path: "/createsession",
     element: <CreateSession />,
+  },
+  {
+    path: "/barcat",
+    element: <BarCat />,
+  },
+  {
+    path: "/videocall",
+    element: <VideoCall />,
   },
 ]);
 

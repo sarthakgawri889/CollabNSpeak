@@ -1,6 +1,7 @@
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function Session() {
   const theme = useTheme();
@@ -41,6 +42,12 @@ function Session() {
     margin: "1rem",
   }));
 
+  const navigate = useNavigate();
+
+  const navigateToBarCat = () => {
+    navigate("/barcat");
+  };
+
   return (
     <StyledPaper>
       <Box>
@@ -50,7 +57,11 @@ function Session() {
         <StyledButton variant="contained" color="bg">
           <ButtonText>Group Discussion</ButtonText>
         </StyledButton>
-        <StyledButton variant="contained" color="pri">
+        <StyledButton
+          variant="contained"
+          color="pri"
+          onClick={navigateToBarCat}
+        >
           <ButtonText>Join</ButtonText>
         </StyledButton>
       </Box>

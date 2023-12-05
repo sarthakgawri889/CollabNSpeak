@@ -1,7 +1,18 @@
 import { Button, Card, Container, Typography } from "@mui/material";
 import Appbar from "../Components/Appbar";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
+  const navigate = useNavigate();
+
+  const navigateToExistingPage = () => {
+    navigate("/existsession");
+  };
+
+  const navigateToCreateSession = () => {
+    navigate("/createsession");
+  };
+
   return (
     <div>
       <Appbar></Appbar>
@@ -31,6 +42,7 @@ function HomePage() {
                 marginX: ".5rem",
                 paddingY: "1rem",
               }}
+              onClick={navigateToCreateSession}
             >
               <Typography
                 variant="medium"
@@ -49,6 +61,7 @@ function HomePage() {
                 marginleft: "5rem",
                 paddingY: "1rem",
               }}
+              onClick={navigateToExistingPage}
             >
               <Typography variant="medium" sx={{ textTransform: "initial" }}>
                 Existing Session
