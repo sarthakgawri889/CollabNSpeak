@@ -13,10 +13,14 @@ import WcIcon from "@mui/icons-material/Wc";
 import TextField from "@mui/material/TextField";
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 function Profile() {
   const theme = useTheme();
-
+  const {user,logout } = useAuth0();
+  console.log(user);
   const CustomPaper = styled(Paper)(() => ({
     height: "670px",
     width: "950px",
@@ -28,7 +32,7 @@ function Profile() {
   const Profile = styled(Typography)(() => ({
     font: theme.typography.header2,
     fontSize: "30px",
-    margin: "0.1rem 0 0.1rem 6.5rem",
+    margin: "0.1rem 0 0.1rem 7.5rem",
   }));
 
   const Details = styled(Typography)(() => ({
@@ -38,23 +42,32 @@ function Profile() {
     color: "#00000096",
     marign: "30px 24px 30px 24px",
   }));
-
+ 
+  const userName = user.nickname;
+  const email = user.email;
   return (
     <div>
+      
       <CustomPaper>
         <Container sx={{ display: "flex" }}>
-          <Paper sx={{ width: "500px", height: "50px", marginY: "1rem" }}>
+          <Paper sx={{ width: "590px", height: "50px", marginY: "1rem" }}>
             <Profile>Profile</Profile>
           </Paper>
 
+          
+
           <Container sx={{ marginY: "1rem" }}>
+            <Link to='/'>
             <Avatar
               sx={{ marginLeft: "28rem", width: "50px", height: "50px" }}
+              src={user.picture}
             ></Avatar>
+            </Link>
+           
           </Container>
         </Container>
         <Container sx={{ display: "flex" }}>
-          <Card sx={{ height: "570px", width: "315px" }}>
+          <Card sx={{ height: "570px", width: "380px" }}>
             <Container sx={{ marginY: "10px" }}>
               <Details>Details</Details>
             </Container>
@@ -67,7 +80,7 @@ function Profile() {
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
               >
-                Samuel
+                {userName}
               </Typography>
             </Container>
 
@@ -75,7 +88,7 @@ function Profile() {
               <AssessmentIcon
                 sx={{ width: "30px", height: "30px" }}
               ></AssessmentIcon>
-              <Typography
+              <Typography 
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
               >
@@ -88,7 +101,7 @@ function Profile() {
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
               >
-                Sam@gm.com
+                {email}
               </Typography>
             </Container>
             <Container sx={{ display: "flex", marginTop: "0.7rem" }}>
@@ -108,44 +121,32 @@ function Profile() {
                 variant="contained"
                 color="sec"
                 sx={{
-                  marginX: "0.55rem",
+                  marginX: "1rem",
                   borderRadius: "25px",
                   color: "Black",
                   padding: "0.8rem",
-                  width: "150px",
+                  width: "225px",
                 }}
               >
                 <Typography variant="small" sx={{ fontWeight: "900" }}>
                   Settings
                 </Typography>
               </Button>
-              <Button
-                variant="contained"
-                color="sec"
-                sx={{
-                  marginX: "1.2rem",
-                  borderRadius: "25px",
-                  color: "Black",
-                  padding: "0.8rem",
-                  width: "150px",
-                }}
-              >
-                <Typography variant="small" sx={{ fontWeight: "900" }}>
-                  Logout
-                </Typography>
-              </Button>
+              
             </Container>
             <Container>
+              
               <Button
                 variant="contained"
                 color="pri"
                 sx={{
-                  marginX: "0.9rem",
+                  marginX: "1rem",
                   borderRadius: "25px",
                   color: "Black",
                   padding: "0.8rem",
                   width: "225px",
                 }}
+                onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
               >
                 <Typography
                   variant="small"
@@ -154,6 +155,8 @@ function Profile() {
                   Logout
                 </Typography>
               </Button>
+              
+              
             </Container>
           </Card>
           <Card sx={{ height: "570px", width: "568px", marginLeft: "1.5rem" }}>

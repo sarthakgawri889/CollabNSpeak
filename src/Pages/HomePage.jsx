@@ -1,8 +1,9 @@
 import { Button, Card, Container, Typography } from "@mui/material";
 import Appbar from "../Components/Appbar";
 import { useNavigate } from "react-router-dom";
-
+import AccountProvider from "../context/AccountProvider";
 function HomePage() {
+  
   const navigate = useNavigate();
 
   const navigateToExistingPage = () => {
@@ -13,9 +14,14 @@ function HomePage() {
     navigate("/createsession");
   };
 
+  
+
   return (
     <div>
-      <Appbar></Appbar>
+      <AccountProvider>
+         <Appbar />
+      </AccountProvider>
+      
       <Container
         sx={{
           display: "flex",
@@ -48,8 +54,8 @@ function HomePage() {
                 variant="medium"
                 sx={{ color: "white", textTransform: "initial" }}
               >
-                New Session{" "}
-              </Typography>{" "}
+                New Session
+              </Typography>
             </Button>
             <Button
               variant="contained"

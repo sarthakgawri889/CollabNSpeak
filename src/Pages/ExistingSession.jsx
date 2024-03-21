@@ -3,8 +3,10 @@ import Appbar from "../Components/Appbar";
 import Session from "../Components/Session";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
+import AccountProvider from "../context/AccountProvider";
 
 function ExistingSession() {
+
   const theme = useTheme();
 
   const StyledPaper = styled(Paper)(() => ({
@@ -21,7 +23,10 @@ function ExistingSession() {
 
   return (
     <div>
-      <Appbar />
+      <AccountProvider>
+        <Appbar/>
+      </AccountProvider>
+     
       <StyledPaper elevation={2}>
         <Session />
         <Session />

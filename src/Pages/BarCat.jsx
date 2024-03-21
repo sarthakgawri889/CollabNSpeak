@@ -2,13 +2,16 @@ import { Box, Typography, styled, Button } from "@mui/material";
 import Countdown from "react-countdown";
 import NameSlide from "../Components/NameSlide";
 import { useNavigate } from "react-router-dom";
-
+import AccountProvider from "../context/AccountProvider";
+import Appbar from "../Components/Appbar";
+import { AccountContext } from "../context/AccountProvider";
+import { useContext } from "react";
 const BackPart = styled(Box)`
   position: absolute;
   width: 1150px;
   height: 84px;
   left: 200px;
-  top: 6.5rem;
+  top: 7.5rem;
   background: #c8d8f0;
   border-radius: 30px;
   display: flex;
@@ -129,6 +132,7 @@ const renderer = ({ minutes, seconds }) => {
 };
 
 function BarCat() {
+  const account = useContext(AccountContext);
   const navigate = useNavigate();
 
   const navigateToVideoCall = () => {
@@ -136,11 +140,14 @@ function BarCat() {
   };
 
   const navigateToHome = () => {
-    navigate("/home");
+    navigate("/");
   };
 
   return (
     <>
+    <AccountProvider>
+      <Appbar account={account}/>
+    </AccountProvider>
       <BackPart>
         <FrontBox>
           <Text>Group Discussion</Text>

@@ -1,15 +1,14 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import Login from "./Pages/Login";
-import { GoogleOAuthProvider } from "@react-oauth/google";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SignUp from "./Pages/SignUp";
 import HomePage from "./Pages/HomePage";
 import Desktop4 from "./Pages/ExistingSession";
 import CreateSession from "./Pages/CreateSession";
 import Profile from "./Pages/Profile";
 import BarCat from "./Pages/BarCat";
 import VideoCall from "./Pages/VideoCall";
-
+import AccountProvider from "./context/AccountProvider";
+import { Auth0Provider } from '@auth0/auth0-react';
 const theme = createTheme({
   palette: {
     bg: {
@@ -67,44 +66,82 @@ const theme = createTheme({
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: (
-      <GoogleOAuthProvider>
-        <Login />
-      </GoogleOAuthProvider>
-    ),
-  },
-  {
-    path: "/signup",
-    element: (
-      <GoogleOAuthProvider>
-        <SignUp />
-      </GoogleOAuthProvider>
-    ),
-  },
-  {
     path: "/profile",
-    element: <Profile />,
-  },
+    element: 
+    <Auth0Provider
+    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
+    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  ><AccountProvider>
+  <Profile />,
+</AccountProvider></Auth0Provider>
+    
+},
   {
-    path: "/home",
-    element: <HomePage />,
+    path: "/",
+    element: 
+    <Auth0Provider
+    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
+    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  > <AccountProvider>
+  <HomePage />,
+</AccountProvider></Auth0Provider>
+   
   },
   {
     path: "/existsession",
-    element: <Desktop4 />,
+    element:
+    <Auth0Provider
+    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
+    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  > <AccountProvider><Desktop4 /></AccountProvider>,</Auth0Provider>
+   
   },
   {
     path: "/createsession",
-    element: <CreateSession />,
+    element:
+    <Auth0Provider
+    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
+    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  ><AccountProvider><CreateSession />,</AccountProvider></Auth0Provider>
+          
   },
   {
     path: "/barcat",
-    element: <BarCat />,
+    element: 
+    <Auth0Provider
+    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
+    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  ><AccountProvider>
+  <BarCat />,
+</AccountProvider></Auth0Provider>
+    
   },
   {
     path: "/videocall",
-    element: <VideoCall />,
+    element:
+    <Auth0Provider
+    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
+    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  ><AccountProvider><VideoCall />,</AccountProvider></Auth0Provider>
+    
   },
 ]);
 

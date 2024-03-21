@@ -4,8 +4,9 @@ import Topic from "../Components/Topic";
 import TopicHeader from "../Components/TopicHeader";
 import React from "react";
 import styled from "@emotion/styled";
-
+import AccountProvider from "../context/AccountProvider";
 function CreateSession() {
+  
   const [language, setLanguage] = React.useState("");
 
   const handleChange = (event) => {
@@ -34,10 +35,13 @@ function CreateSession() {
     position: "relative",
     top: "11rem",
   }));
-
+  
   return (
     <div>
-      <Appbar />
+      <AccountProvider>
+         <Appbar />
+      </AccountProvider>
+     
       <CustomFormControl>
         <InputLabel id="demo-simple-select-label">Language</InputLabel>
         <Select
