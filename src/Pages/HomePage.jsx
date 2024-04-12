@@ -31,10 +31,9 @@ function HomePage() {
         }}
       >
         <Container sx={{ width: "60%", position: "relative", top: "14rem" }}>
-          <Container sx={{ width: "30rem", marginRight: "8rem" }}>
+          <Container sx={{ width: "45rem", marginRight: "8rem" }}>
             <Typography variant="regular">
-              Lorem ipsum dolor sit amet, consectetur adipisg elit, sed do
-              eiusmod tempor incidi
+            Welcome to our language learning community, where you can collaborate and practice languages in a supportive and interactive environment!
             </Typography>
           </Container>
           <Container sx={{ marginTop: "2rem" }}>
