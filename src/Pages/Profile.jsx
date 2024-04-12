@@ -10,7 +10,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import MailIcon from "@mui/icons-material/Mail";
 import WcIcon from "@mui/icons-material/Wc";
-import TextField from "@mui/material/TextField";
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
@@ -117,21 +116,7 @@ function Profile() {
             <Container
               sx={{ display: "flex", marginY: "1rem", marginTop: "11.5rem" }}
             >
-              <Button
-                variant="contained"
-                color="sec"
-                sx={{
-                  marginX: "1rem",
-                  borderRadius: "25px",
-                  color: "Black",
-                  padding: "0.8rem",
-                  width: "225px",
-                }}
-              >
-                <Typography variant="small" sx={{ fontWeight: "900" }}>
-                  Settings
-                </Typography>
-              </Button>
+              
               
             </Container>
             <Container>
@@ -162,47 +147,15 @@ function Profile() {
           <Card sx={{ height: "570px", width: "568px", marginLeft: "1.5rem" }}>
             <Container>
               <Container Container sx={{ marginTop: "2rem" }}>
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  id="standard-basic"
-                  label="Name"
-                  variant="standard"
-                />
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  id="standard-basic"
-                  label="Email"
-                  variant="standard"
-                />
+                
               </Container>
             </Container>
             <Container sx={{ marginY: "6rem" }}>
               <Container sx={{ display: "flex" }}>
-                <Typography variant="regular" sx={{ marginX: "2rem" }}>
-                  Sex
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="sec"
-                  sx={{
-                    marginX: "1.2rem",
-                    borderRadius: "25px",
-                    color: "Black",
-                    padding: "0.8rem",
-                    width: "350px",
-                  }}
-                >
-                  <Typography variant="small" sx={{ fontWeight: "900" }}>
-                    Male
-                  </Typography>
-                </Button>
+                
               </Container>
               <Container sx={{ display: "flex", marginY: "1rem" }}>
-                <Typography variant="regular" sx={{ marginX: "2rem" }}>
-                  Level
-                </Typography>
+
                 <Button
                   variant="contained"
                   color="sec"
@@ -219,27 +172,6 @@ function Profile() {
                   </Typography>
                 </Button>
               </Container>
-            </Container>
-
-            <Container sx={{ marginTop: "7.2rem" }}>
-              <Button
-                variant="contained"
-                color="pri"
-                sx={{
-                  marginX: "9.5rem",
-                  borderRadius: "25px",
-                  color: "Black",
-                  padding: "0.8rem",
-                  width: "225px",
-                }}
-              >
-                <Typography
-                  variant="small"
-                  sx={{ fontWeight: "900", color: "white" }}
-                >
-                  Submit
-                </Typography>
-              </Button>
             </Container>
           </Card>
         </Container>
