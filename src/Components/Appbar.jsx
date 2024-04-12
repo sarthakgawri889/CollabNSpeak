@@ -32,7 +32,7 @@ function Appbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  console.log(user);
   const theme = useTheme();
 
   const CustomAppBar = styled(AppBar)(() => ({

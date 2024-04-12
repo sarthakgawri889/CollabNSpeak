@@ -74,9 +74,13 @@ const router = createBrowserRouter([
     authorizationParams={{
       redirect_uri: window.location.origin
     }}
-  ><AccountProvider>
-  <Profile />,
-</AccountProvider></Auth0Provider>
+    useRefreshTokens={true}
+    cacheLocation="localstorage"
+  > <AccountProvider><Profile />,
+  
+  </AccountProvider>
+  
+  </Auth0Provider>
     
 },
   {
@@ -88,6 +92,8 @@ const router = createBrowserRouter([
     authorizationParams={{
       redirect_uri: window.location.origin
     }}
+    useRefreshTokens={true}
+    cacheLocation="localstorage"
   > <AccountProvider>
   <HomePage />,
 </AccountProvider></Auth0Provider>
@@ -102,6 +108,8 @@ const router = createBrowserRouter([
     authorizationParams={{
       redirect_uri: window.location.origin
     }}
+    useRefreshTokens={true}
+    cacheLocation="localstorage"
   > <AccountProvider><Desktop4 /></AccountProvider>,</Auth0Provider>
    
   },
@@ -114,6 +122,8 @@ const router = createBrowserRouter([
     authorizationParams={{
       redirect_uri: window.location.origin
     }}
+    useRefreshTokens={true}
+    cacheLocation="localstorage"
   ><AccountProvider><CreateSession />,</AccountProvider></Auth0Provider>
           
   },
@@ -126,6 +136,8 @@ const router = createBrowserRouter([
     authorizationParams={{
       redirect_uri: window.location.origin
     }}
+    useRefreshTokens={true}
+    cacheLocation="localstorage"
   ><AccountProvider>
   <BarCat />,
 </AccountProvider></Auth0Provider>
@@ -140,6 +152,8 @@ const router = createBrowserRouter([
     authorizationParams={{
       redirect_uri: window.location.origin
     }}
+    useRefreshTokens={true}
+    cacheLocation="localstorage"
   ><AccountProvider><VideoCall />,</AccountProvider></Auth0Provider>
     
   },
