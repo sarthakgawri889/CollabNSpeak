@@ -71,7 +71,14 @@ function Profile() {
               <Details>Details</Details>
             </Container>
 
-            <Container sx={{ display: "flex" }}>
+            <Container sx={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
+             <Avatar
+              sx={{ width: "150px", height: "150px" }}
+              src={user.picture}
+              />
+            </Container>
+
+            <Container sx={{ display: "flex", marginTop: "1rem"  }}>
               <AccountCircleIcon
                 sx={{ width: "30px", height: "30px" }}
               ></AccountCircleIcon>
@@ -114,7 +121,7 @@ function Profile() {
             </Container>
 
             <Container
-              sx={{ display: "flex", marginY: "1rem", marginTop: "11.5rem" }}
+              sx={{ display: "flex", marginY: "1rem", marginTop: "5.5rem" }}
             >
               
               
