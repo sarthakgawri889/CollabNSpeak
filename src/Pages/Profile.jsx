@@ -4,7 +4,7 @@ import {
   Card,
   Container,
   Paper,
-  Typography,
+  Typography, 
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AssessmentIcon from "@mui/icons-material/Assessment";
@@ -14,12 +14,22 @@ import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { useEffect, useState } from "react";
+import { getUsers } from "../service/api";
 function Profile() {
   const theme = useTheme();
   const { user, logout, isAuthenticated } = useAuth0();
-  console.log(user);
+  
 
+  const [users,setUsers] = useState([]);
+  useEffect(()=>{
+    const fetchData = async()=>{
+        let response = await getUsers();
+        setUsers(response);
+    }
+    fetchData();
+  },[isAuthenticated])
+  
   const CustomPaper = styled(Paper)(() => ({
     height: "670px",
     width: "950px",
@@ -44,8 +54,12 @@ function Profile() {
 
   if (!isAuthenticated || !user) {
     // If not authenticated or user object is not available, return null
-    return null;
+    return null;  
   }
+
+  
+  console.log(users)
+  
 
   const userName = user.nickname;
   const email = user.email;
@@ -116,6 +130,7 @@ function Profile() {
             </Container>
             <Container sx={{ display: "flex", marginTop: "0.7rem" }}>
               <WcIcon sx={{ width: "30px", height: "30px" }} />
+             
               <Typography
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
@@ -125,15 +140,34 @@ function Profile() {
             </Container>
 
             <Container
-              sx={{ display: "flex", marginY: "1rem", marginTop: "5.5rem" }}
+              sx={{ display: "flex", marginY: "1rem", marginTop: "4rem" }}
             >
             </Container>
             <Container>
+            <Button
+                variant="contained"
+                color="pri"
+                sx={{
+                  marginX: "1.8rem",
+                  borderRadius: "25px",
+                  color: "Black",
+                  padding: "0.8rem",
+                  width: "225px",
+                  marginY: "0.5rem"
+                }}
+              >
+                <Typography
+                  variant="small"
+                  sx={{ fontWeight: "900", color: "White" }}
+                >
+                  Edit Profile
+                </Typography>
+              </Button>
               <Button
                 variant="contained"
                 color="pri"
                 sx={{
-                  marginX: "1rem",
+                  marginX: "1.8rem",
                   borderRadius: "25px",
                   color: "Black",
                   padding: "0.8rem",
@@ -186,3 +220,4 @@ function Profile() {
 }
 
 export default Profile;
+

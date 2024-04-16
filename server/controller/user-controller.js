@@ -1,4 +1,5 @@
 import User from "../model/User.js"
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const addUser = async(request,response)=>{
     try{
@@ -13,5 +14,14 @@ export const addUser = async(request,response)=>{
         response.status(200).json(newUser);
     }catch(error){
         return response.status(500).json(error.message)
+    }
+}
+
+export const getUsers = async (request,response) => {
+    try{
+        const users = await User.find({});
+        return response.status(200).json(users);
+    }catch(error){
+        return response.status(500).json(error.message);
     }
 }

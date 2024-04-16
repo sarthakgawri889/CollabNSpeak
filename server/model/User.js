@@ -25,15 +25,15 @@ const userSchema = mongoose.Schema({
     email_verified:{
         type:Boolean
     },
-    pictre:{
+    picture:{
         type:String
     },
-    locale:{
-        type:String
+    locale:{ 
+        type:String  
     }
 
 });
 
 const User = mongoose.model('user',userSchema);
 
-export default User;
+export default User; 
