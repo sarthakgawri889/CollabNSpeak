@@ -1,11 +1,10 @@
 import User from "../model/User.js"
-import { useAuth0 } from "@auth0/auth0-react";
 
 export const addUser = async(request,response)=>{
     try{
         let exist = await User.findOne({nickname:request.body.nickname})
         if(exist){
-            response.status(200).json({msg: 'user already exist'});
+            response.status(200).json({msg: 'user already exist'}); 
             return;
         }
 

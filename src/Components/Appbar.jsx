@@ -20,8 +20,10 @@ import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import { useAuth0 } from "@auth0/auth0-react";
 import { addUser } from "../service/api";
+import { useNavigate } from "react-router-dom";
 
 function Appbar() {
+  const navigate = useNavigate();
   const { loginWithRedirect,user } = useAuth0();
   const { logout, isAuthenticated } = useAuth0();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -36,7 +38,7 @@ function Appbar() {
   const theme = useTheme();
 
   const CustomAppBar = styled(AppBar)(() => ({
-    backgroundColor: "transparent",
+    backgroundColor: "white",
     padding: "3rem 9rem 1rem 9rem",
     display: "flex"
   }));
@@ -75,6 +77,15 @@ function Appbar() {
   if(isAuthenticated){
     adduser();
   }
+
+  const navigateToServices = () => {
+    navigate("/services");
+  };
+
+  const navigateToHome = () => {
+    navigate("/");
+  };
+
  
 
   return (
@@ -89,12 +100,18 @@ function Appbar() {
 
         <Box sx={{ marginLeft: 'auto', marginTop:'-52px' }}>
           <Toolbar>
-            <Typography variant="regular" color="black" sx={{ paddingX: "10px" }}>
-              Home
-            </Typography>
-            <Typography variant="regular" color="black" sx={{ paddingX: "10px" }}>
-              Services
-            </Typography>
+            <Button onClick={navigateToHome}>
+                <Typography variant="regular" color="black" sx={{ paddingX: "10px" }}>
+                  Home
+                </Typography>
+            </Button>
+            
+            <Button onClick={navigateToServices}>
+                <Typography variant="regular" color="black" sx={{ paddingX: "10px" }} >
+                  Services
+                </Typography>
+            </Button>
+           
             <Typography
               variant="regular"
               color="black"

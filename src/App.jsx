@@ -9,6 +9,7 @@ import BarCat from "./Pages/BarCat";
 import VideoCall from "./Pages/VideoCall";
 import AccountProvider from "./context/AccountProvider";
 import { Auth0Provider } from '@auth0/auth0-react';
+import Services from "./Pages/Services";
 const theme = createTheme({
   palette: {
     bg: {
@@ -155,6 +156,20 @@ const router = createBrowserRouter([
     useRefreshTokens={true}
     cacheLocation="localstorage"
   ><AccountProvider><VideoCall />,</AccountProvider></Auth0Provider>
+    
+  },
+  {
+    path: "/services",
+    element:
+    <Auth0Provider
+    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
+    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+    useRefreshTokens={true}
+    cacheLocation="localstorage"
+  ><AccountProvider><Services /></AccountProvider></Auth0Provider>
     
   },
 ]);

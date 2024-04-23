@@ -15,7 +15,6 @@ function HomePage() {
     navigate("/createsession");
   };
 
-  
 
   return (
     <div>
