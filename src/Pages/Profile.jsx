@@ -5,6 +5,10 @@ import {
   Container,
   Paper,
   Typography, 
+  IconButton,
+  Tooltip,
+  Menu,
+  Box
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AssessmentIcon from "@mui/icons-material/Assessment";
@@ -16,10 +20,33 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { getUsers } from "../service/api";
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Logout from '@mui/icons-material/Logout';
+import HomeIcon from '@mui/icons-material/Home';
 function Profile() {
   const theme = useTheme();
   const { user, logout, isAuthenticated } = useAuth0();
-  
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClickb = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const [, setIsClicked] = useState(false);
+ 
+  const handleClick = () => {
+    setIsClicked(true);
+  };
+
+  const Linked = styled(Link)`
+      text-decoration: none; /* Remove default underline */
+      color: inherit; /* Inherit color from parent */
+      cursor: pointer;
+  `
 
   const [users,setUsers] = useState([]);
   useEffect(()=>{
@@ -31,7 +58,7 @@ function Profile() {
   },[isAuthenticated])
   
   const CustomPaper = styled(Paper)(() => ({
-    height: "670px",
+    height: "685px",
     width: "950px",
     backgroundColor: theme.palette.gray.main,
     borderRadius: "25px",
@@ -39,9 +66,9 @@ function Profile() {
   }));
 
   const ProfileHeading = styled(Typography)(() => ({
-    font: theme.typography.header2,
+    font: theme.typography.header1,
     fontSize: "30px",
-    margin: "0.1rem 0 0.1rem 7.5rem",
+    margin: "0.5rem 0 0.2rem 1rem",
   }));
 
   const UserDetails = styled(Typography)(() => ({
@@ -57,7 +84,7 @@ function Profile() {
     return null;  
   }
 
-  
+
   console.log(users)
   
 
@@ -67,20 +94,82 @@ function Profile() {
   return (
     <div>
       <CustomPaper>
-        <Container sx={{ display: "flex" }}>
-          <Paper sx={{ width: "590px", height: "50px", marginY: "1rem" }}>
-            <ProfileHeading>Profile</ProfileHeading>
-          </Paper>
+      <Container sx={{ display: "flex", alignItems: "center" }}> {/* Align to center vertically */}
+  <Paper sx={{ width: "100%", height: "60px", marginY: "1rem",borderRadius:0 }}>
+    <ProfileHeading>Profile</ProfileHeading>
+  </Paper>
+  
+  <Container sx={{ width: "100%", height: "60px", marginY: "1rem",display: "flex", justifyContent: "flex-end", background:"white" }}>
+  <Tooltip title="Account settings">
+                  <IconButton
+                    onClick={handleClickb}
+                    size="small"
+                    sx={{ ml: 2 }}
+                    aria-controls={open ? 'account-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                  >
+                    <Avatar src={user.picture} sx={{ width: 56, height: 56 }}>M</Avatar>
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  anchorEl={anchorEl}
+                  id="account-menu"
+                  open={open}
+                  onClose={handleClose}
+                  onClick={handleClose}
+                  PaperProps={{
+                    elevation: 0,
+                    sx: {
+                      overflow: 'visible',
+                      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                      mt: 9.5,
+                      ml: 129,
+                      '& .MuiAvatar-root': {
+                        width: 32,
+                        height: 32,
+                        ml: -0.5,
+                        mr: 1,
+                      },
+                      '&::before': {
+                        content: '""',
+                        display: 'block',
+                        position: 'absolute',
+                        top: 0,
+                        right: 14,
+                        width: 10,
+                        height: 10,
+                        bgcolor: 'background.paper',
+                        transform: 'translateY(-50%) rotate(45deg)',
+                        zIndex: 0,
+                      },
+                    },
+                  }}
+                  transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                  anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                >
+                  <Linked to="/" onClick={handleClick} >
+                    <MenuItem onClick={handleClose}>
+                    <ListItemIcon>
+                      <HomeIcon  fontSize="small"/>
+                    </ListItemIcon>
+                      <Box sx={{ textDecoration: 'none' }}>Home</Box>
+                    </MenuItem>
+                  </Linked>
+                  <Box onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                  <MenuItem onClick={handleClose}>
+                    <ListItemIcon>
+                      <Logout fontSize="small"  />
+                    </ListItemIcon>
+                    Logout
+                  </MenuItem>
+                  </Box>
+                  
+                </Menu>
+  </Container>
+</Container>
 
-          <Container sx={{ marginY: "1rem" }}>
-            <Link to="/">
-              <Avatar
-                sx={{ marginLeft: "28rem", width: "50px", height: "50px" }}
-                src={user.picture}
-              />
-            </Link>
-          </Container>
-        </Container>
+
         <Container sx={{ display: "flex" }}>
           <Card sx={{ height: "570px", width: "380px" }}>
             <Container sx={{ marginY: "10px" }}>
@@ -173,46 +262,33 @@ function Profile() {
                   padding: "0.8rem",
                   width: "225px",
                 }}
-                onClick={() =>
-                  logout({ logoutParams: { returnTo: window.location.origin } })
-                }
+                
               >
                 <Typography
                   variant="small"
                   sx={{ fontWeight: "900", color: "White" }}
                 >
-                  Logout
+                  Take Test
                 </Typography>
               </Button>
             </Container>
           </Card>
-          <Card sx={{ height: "570px", width: "568px", marginLeft: "1.5rem" }}>
-            <Container>
-              <Container Container sx={{ marginTop: "2rem" }}>
-              </Container>
-            </Container>
-            <Container sx={{ marginY: "6rem" }}>
-              <Container sx={{ display: "flex" }}>
-              </Container>
-              <Container sx={{ display: "flex", marginY: "1rem" }}>
-                <Button
-                  variant="contained"
-                  color="sec"
-                  sx={{
-                    marginX: "0.2rem",
-                    borderRadius: "25px",
-                    color: "Black",
-                    padding: "0.8rem",
-                    width: "336px",
-                  }}
-                >
-                  <Typography variant="small" sx={{ fontWeight: "900" }}>
-                    Take Test
-                  </Typography>
-                </Button>
-              </Container>
-            </Container>
-          </Card>
+          <Card sx={{ height: "570px", width: "568px", marginLeft: "1.5rem", position: 'relative' }} >
+  <Container>
+    <Container Container sx={{}}>
+    </Container>
+  </Container>
+  <Container sx={{  }}>
+    <Container sx={{ display: "flex", justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+      <Avatar
+        alt="Remy Sharp"
+        src="/src/images/xmpKItamQSS5555tCSJevg.jpg"
+        sx={{ width: "558px", height: "570px", objectFit: 'cover', borderRadius: 0 }}
+      />
+    </Container>
+  </Container>
+</Card>
+
         </Container>
       </CustomPaper>
     </div>
@@ -220,4 +296,3 @@ function Profile() {
 }
 
 export default Profile;
-

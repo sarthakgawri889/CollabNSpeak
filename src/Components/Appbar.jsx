@@ -145,7 +145,7 @@ function Appbar() {
                     sx: {
                       overflow: 'visible',
                       filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                      mt: 7.5,
+                      mt: 11.5,
                       ml: 149,
                       '& .MuiAvatar-root': {
                         width: 32,

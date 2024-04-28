@@ -1,4 +1,4 @@
-import { Button, Card, Container, Typography } from "@mui/material";
+import { Avatar, Button, Card, Container, Typography } from "@mui/material";
 import Appbar from "../Components/Appbar";
 import { useNavigate } from "react-router-dom";
 import AccountProvider from "../context/AccountProvider";
@@ -76,15 +76,11 @@ function HomePage() {
            </Container>
          </Container>
          <Container sx={{ width: "40%" }}>
-           <Card
-             sx={{
-               borderRadius: "230px",
-               marginX: "5rem",
-               height: "450px",
-               width: "320px",
-               backgroundColor: "gray.main",
-             }}
-           ></Card>{" "}
+            <Avatar
+              alt="Remy Sharp"
+              src= '/src/images/Untitled-fotor-bg-remover-2024042841040-fotor-bg-remover-2024042841415.png'
+              sx={{ width: "30rem", height: "30rem",left:"1rem" }}
+           />
          </Container>
        </Container> : <>
        
@@ -102,15 +98,11 @@ function HomePage() {
            </Container>
          </Container>
          <Container sx={{ width: "40%" }}>
-           <Card
-             sx={{
-               borderRadius: "230px",
-               marginX: "5rem",
-               height: "450px",
-               width: "320px",
-               backgroundColor: "gray.main",
-             }}
-           ></Card>{" "}
+            <Avatar
+              alt="Remy Sharp"
+              src= '/src/images/Untitled-fotor-bg-remover-2024042841040-fotor-bg-remover-2024042841415.png'
+              sx={{ width: "30rem", height: "30rem",left:"1rem" }}
+           />
          </Container>
        </Container>
        
