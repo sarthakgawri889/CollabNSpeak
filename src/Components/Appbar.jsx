@@ -122,7 +122,7 @@ function Appbar() {
 
             {isAuthenticated ? (
               <>
-                <Tooltip title="Account settings">
+                <Tooltip title="Account">
                   <IconButton
                     onClick={handleClickb}
                     size="small"

@@ -11,7 +11,7 @@ const BackPart = styled(Box)`
   width: 1150px;
   height: 84px;
   left: 200px;
-  top: 7.5rem;
+  top: 8.5rem;
   background: #c8d8f0;
   border-radius: 30px;
   display: flex;
@@ -102,7 +102,7 @@ const Start = styled(Button)`
   width: 20rem;
   height: 5rem;
   left: 20rem;
-  top: 37rem;
+  top: 40rem;
   background: #747487;
   border-radius: 50px;
 `;
@@ -111,7 +111,7 @@ const End = styled(Button)`
   width: 20rem;
   height: 5rem;
   right: 20rem;
-  top: 37rem;
+  top: 40rem;
   background: #747487;
   border-radius: 50px;
 `;

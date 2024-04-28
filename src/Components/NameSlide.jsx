@@ -6,7 +6,7 @@ const BackPartN = styled(Box)`
     width: 45rem;
     height: 79px;
     left: 26rem;
-    top: 13rem;
+    top: 15rem;
     background: #2D8CFF;
     border-radius: 30px;
     margin: 0.8rem 0;

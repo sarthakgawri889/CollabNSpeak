@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, Container, Typography } from "@mui/material";
+import { Avatar, Button, Container, Typography } from "@mui/material";
 import Appbar from "../Components/Appbar";
 import { useNavigate } from "react-router-dom";
 import AccountProvider from "../context/AccountProvider";

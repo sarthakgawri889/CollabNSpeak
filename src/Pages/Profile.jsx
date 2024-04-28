@@ -100,7 +100,7 @@ function Profile() {
   </Paper>
   
   <Container sx={{ width: "100%", height: "60px", marginY: "1rem",display: "flex", justifyContent: "flex-end", background:"white" }}>
-  <Tooltip title="Account settings">
+  <Tooltip title="Account">
                   <IconButton
                     onClick={handleClickb}
                     size="small"
