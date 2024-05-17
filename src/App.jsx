@@ -7,9 +7,8 @@ import CreateSession from "./Pages/CreateSession";
 import Profile from "./Pages/Profile";
 import BarCat from "./Pages/BarCat";
 import VideoCall from "./Pages/VideoCall";
-import AccountProvider from "./context/AccountProvider";
-import { Auth0Provider } from '@auth0/auth0-react';
 import Services from "./Pages/Services";
+import MeetingTest from "./Pages/MeetingTest";
 const theme = createTheme({
   palette: {
     bg: {
@@ -68,109 +67,35 @@ const theme = createTheme({
 const router = createBrowserRouter([
   {
     path: "/profile",
-    element: 
-    <Auth0Provider
-    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
-    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
-    authorizationParams={{
-      redirect_uri: window.location.origin
-    }}
-    useRefreshTokens={true}
-    cacheLocation="localstorage"
-  > <AccountProvider><Profile />,
-  
-  </AccountProvider>
-  
-  </Auth0Provider>
-    
-},
+    element: <Profile />,
+  },
   {
     path: "/",
-    element: 
-    <Auth0Provider
-    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
-    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
-    authorizationParams={{
-      redirect_uri: window.location.origin
-    }}
-    useRefreshTokens={true}
-    cacheLocation="localstorage"
-  > <AccountProvider>
-  <HomePage />,
-</AccountProvider></Auth0Provider>
-   
+    element: <HomePage />,
   },
   {
     path: "/existsession",
-    element:
-    <Auth0Provider
-    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
-    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
-    authorizationParams={{
-      redirect_uri: window.location.origin
-    }}
-    useRefreshTokens={true}
-    cacheLocation="localstorage"
-  > <AccountProvider><Desktop4 /></AccountProvider>,</Auth0Provider>
-   
+    element: <Desktop4 />,
   },
   {
     path: "/createsession",
-    element:
-    <Auth0Provider
-    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
-    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
-    authorizationParams={{
-      redirect_uri: window.location.origin
-    }}
-    useRefreshTokens={true}
-    cacheLocation="localstorage"
-  ><AccountProvider><CreateSession />,</AccountProvider></Auth0Provider>
-          
+    element: <CreateSession />,
   },
   {
     path: "/barcat",
-    element: 
-    <Auth0Provider
-    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
-    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
-    authorizationParams={{
-      redirect_uri: window.location.origin
-    }}
-    useRefreshTokens={true}
-    cacheLocation="localstorage"
-  ><AccountProvider>
-  <BarCat />,
-</AccountProvider></Auth0Provider>
-    
+    element: <BarCat />,
   },
   {
     path: "/videocall",
-    element:
-    <Auth0Provider
-    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
-    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
-    authorizationParams={{
-      redirect_uri: window.location.origin
-    }}
-    useRefreshTokens={true}
-    cacheLocation="localstorage"
-  ><AccountProvider><VideoCall />,</AccountProvider></Auth0Provider>
-    
+    element: <VideoCall />,
   },
   {
     path: "/services",
-    element:
-    <Auth0Provider
-    domain="dev-7ewbym1pocfjtobq.us.auth0.com"
-    clientId="Hu86LWmBZbqtRUfpRhzWmZq7zs8KKdss"
-    authorizationParams={{
-      redirect_uri: window.location.origin
-    }}
-    useRefreshTokens={true}
-    cacheLocation="localstorage"
-  ><AccountProvider><Services /></AccountProvider></Auth0Provider>
-    
+    element: <Services />,
+  },
+  {
+    path: "/test",
+    element: <MeetingTest />,
   },
 ]);
 
