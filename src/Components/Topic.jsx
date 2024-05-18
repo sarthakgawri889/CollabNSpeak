@@ -3,7 +3,7 @@ import TopicItem from "./TopicItem";
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 
-function Topic() {
+function Topic({ topicHeader }) {
   const theme = useTheme();
 
   const CustomCard = styled(Card)(() => ({
@@ -17,10 +17,16 @@ function Topic() {
   return (
     <div>
       <CustomCard sx={{ boxShadow: 0 }}>
-        <TopicItem topic={"Israel Vs Palestine"} />
-        <TopicItem topic={"Batman Vs Ironman"} />
-        <TopicItem topic={"Office romance pros & cons"} />
-        <TopicItem topic={"Early risers Vs Night Owl"} />
+        <TopicItem topicHeader={topicHeader} topic={"Israel Vs Palestine"} />
+        <TopicItem topicHeader={topicHeader} topic={"Batman Vs Ironman"} />
+        <TopicItem
+          topicHeader={topicHeader}
+          topic={"Office romance pros & cons"}
+        />
+        <TopicItem
+          topicHeader={topicHeader}
+          topic={"Early risers Vs Night Owl"}
+        />
       </CustomCard>
     </div>
   );

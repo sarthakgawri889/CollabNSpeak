@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Card, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function TopicItem({ topic }) {
+function TopicItem({ topicHeader, topic }) {
   const theme = useTheme();
 
   const CustomCard = styled(Card)(() => ({
@@ -13,6 +13,12 @@ function TopicItem({ topic }) {
     borderRadius: "10px",
     margin: "1.4rem 1.5rem 1.4rem 1.5rem",
     textAlign: "center",
+    "&:hover": {
+      cursor: "pointer",
+      boxShadow: theme.shadows[10],
+      transform: "scale(1.02)",
+      transition: "transform 0.2s ease-in-out",
+    },
   }));
 
   const CardContent = styled(Typography)(() => ({
@@ -24,9 +30,10 @@ function TopicItem({ topic }) {
   }));
 
   const navigate = useNavigate();
+  const lobbyId = crypto.randomUUID();
 
   const navigateToLobby = () => {
-    navigate("/barcat");
+    navigate(`/barcat/${topicHeader}/${topic}/${lobbyId}`);
   };
 
   return (

@@ -6,7 +6,6 @@ import React from "react";
 import styled from "@emotion/styled";
 import AccountProvider from "../context/AccountProvider";
 function CreateSession() {
-  
   const [language, setLanguage] = React.useState("");
 
   const handleChange = (event) => {
@@ -35,13 +34,13 @@ function CreateSession() {
     position: "relative",
     top: "11rem",
   }));
-  
+
   return (
     <div>
       <AccountProvider>
-         <Appbar />
+        <Appbar />
       </AccountProvider>
-     
+
       <CustomFormControl>
         <InputLabel id="demo-simple-select-label">Language</InputLabel>
         <Select
@@ -64,9 +63,9 @@ function CreateSession() {
       </TopicBox>
 
       <TopicListBox>
-        <Topic />
-        <Topic />
-        <Topic />
+        <Topic topicHeader={"Icebreaker"} />
+        <Topic topicHeader={"Group Discussion"} />
+        <Topic topicHeader={"Debate"} />
       </TopicListBox>
     </div>
   );

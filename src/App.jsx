@@ -8,7 +8,9 @@ import Profile from "./Pages/Profile";
 import BarCat from "./Pages/BarCat";
 import VideoCall from "./Pages/VideoCall";
 import Services from "./Pages/Services";
-import MeetingTest from "./Pages/MeetingTest";
+import StartMeeting from "./Components/StartMeeting";
+import RoomPage from "./Pages/RoomPage";
+
 const theme = createTheme({
   palette: {
     bg: {
@@ -82,7 +84,7 @@ const router = createBrowserRouter([
     element: <CreateSession />,
   },
   {
-    path: "/barcat",
+    path: "/barcat/:topicHeader/:topic/:lobbyId",
     element: <BarCat />,
   },
   {
@@ -94,16 +96,22 @@ const router = createBrowserRouter([
     element: <Services />,
   },
   {
-    path: "/test",
-    element: <MeetingTest />,
+    path: "/startmeeting",
+    element: <StartMeeting />,
+  },
+  {
+    path: "/room/:roomId",
+    element: <RoomPage />,
   },
 ]);
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </>
   );
 }
 

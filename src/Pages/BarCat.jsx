@@ -1,7 +1,7 @@
 import { Box, Typography, styled, Button } from "@mui/material";
 import Countdown from "react-countdown";
 import NameSlide from "../Components/NameSlide";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AccountProvider from "../context/AccountProvider";
 import Appbar from "../Components/Appbar";
 import { AccountContext } from "../context/AccountProvider";
@@ -131,9 +131,10 @@ const renderer = ({ minutes, seconds }) => {
   );
 };
 
-function BarCat() {
+function BarCat({ topicClass, topicName }) {
   const account = useContext(AccountContext);
   const navigate = useNavigate();
+  const { topicHeader, topic } = useParams();
 
   const navigateToVideoCall = () => {
     navigate("/videocall");
@@ -145,15 +146,15 @@ function BarCat() {
 
   return (
     <>
-    <AccountProvider>
-      <Appbar account={account}/>
-    </AccountProvider>
+      <AccountProvider>
+        <Appbar account={account} />
+      </AccountProvider>
       <BackPart>
         <FrontBox>
-          <Text>Group Discussion</Text>
+          <Text>{topicHeader}</Text>
         </FrontBox>
         <FrontBox>
-          <Topic>Topic Name</Topic>
+          <Topic>{topic}</Topic>
         </FrontBox>
         <Timer>
           <TimerText>
