@@ -138,7 +138,7 @@ function Appbar() {
                   aria-expanded={open ? "true" : undefined}
                 >
                   <Avatar src={user.picture} sx={{ width: 56, height: 56 }}>
-                    M
+                    {user.name}
                   </Avatar>
                 </IconButton>
               </Tooltip>

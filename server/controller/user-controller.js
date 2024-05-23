@@ -2,13 +2,17 @@ import User from "../model/User.js"
 
 export const addUser = async(request,response)=>{
     try{
-        let exist = await User.findOne({nickname:request.body.nickname})
+        let exist = await User.findOne({sub:request.body.sub})
         if(exist){
             response.status(200).json({msg: 'user already exist'}); 
             return;
         }
 
-        const newUser = new User(request.body)
+        const newUser = new User({
+            ...request.body,
+            gender: 'choose',
+            level: 'Take Test', 
+          });
         await newUser.save();
         response.status(200).json(newUser);
     }catch(error){

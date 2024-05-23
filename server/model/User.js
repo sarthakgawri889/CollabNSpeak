@@ -16,7 +16,8 @@ const userSchema = mongoose.Schema({
     },
     sub:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     email:{
         type:String,
@@ -30,6 +31,12 @@ const userSchema = mongoose.Schema({
     },
     locale:{ 
         type:String  
+    },
+    gender:{
+        type:String
+    },
+    level:{
+        type:String
     }
 
 });
