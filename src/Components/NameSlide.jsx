@@ -1,26 +1,34 @@
-import React from "react";
-import { Box, Typography, styled, Avatar } from "@mui/material";
-import { useAuth0 } from "@auth0/auth0-react";
+import {
+  Box,
+  Typography,
+  styled,
+  Avatar,
+  CircularProgress,
+} from "@mui/material";
+import axios from "axios";
+
+const url = "http://localhost:8000";
 
 const BackPartN = styled(Box)`
   position: relative;
-  width: 45rem;
-  height: 79px;
-  left: 26rem;
+  width: 27rem;
+  height: 50px;
+  left: 33.5rem;
   top: 15rem;
   background: #2d8cff;
-  border-radius: 30px;
+  border-radius: 18px;
   margin: 0.8rem 0;
   display: flex;
+  display: "flex";
 `;
 
 const Name = styled(Typography)`
-  position: relative;
-  padding: 1.8rem 2rem;
+  position: "relative";
+  padding: 1.6rem 1.5rem;
   font-family: "Montserrat";
   font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
+  font-weight: 200;
+  font-size: 16px;
   line-height: 20px;
   /* or 83% */
   display: flex;
@@ -30,43 +38,31 @@ const Name = styled(Typography)`
   color: white;
 `;
 
-function NameSlide() {
-  const { user } = useAuth0();
+function NameSlide({ lobby }) {
+  if (lobby === null) {
+    return <CircularProgress />;
+  }
   return (
-    <>
-      <BackPartN>
-        <Name>{user.name}</Name>
-        <Avatar
-          alt="Remy Sharp"
-          src={user.picture}
-          sx={{ width: 56, height: 56 /* Ellipse 18 */, left: 500, top: 10 }}
-        />
-      </BackPartN>
-      <BackPartN>
-        <Name>Name</Name>
-        <Avatar
-          alt="Remy Sharp"
-          src="/static/images/avatar/1.jpg"
-          sx={{ width: 56, height: 56 /* Ellipse 18 */, left: 500, top: 10 }}
-        />
-      </BackPartN>
-      <BackPartN>
-        <Name>Name</Name>
-        <Avatar
-          alt="Remy Sharp"
-          src="/static/images/avatar/1.jpg"
-          sx={{ width: 56, height: 56 /* Ellipse 18 */, left: 500, top: 10 }}
-        />
-      </BackPartN>
-      <BackPartN>
-        <Name>Name</Name>
-        <Avatar
-          alt="Remy Sharp"
-          src="/static/images/avatar/1.jpg"
-          sx={{ width: 56, height: 56 /* Ellipse 18 */, left: 500, top: 10 }}
-        />
-      </BackPartN>
-    </>
+    <div>
+      {lobby.users?.map((user) => {
+        return (
+          <BackPartN>
+            <Name>{user.name}</Name>
+            <Avatar
+              alt="Remy Sharp"
+              src={user.picture}
+              sx={{
+                width: 35,
+                height: 35 /* Ellipse 18 */,
+                top: 7,
+                marginLeft: "auto",
+                marginRight: "0.5rem",
+              }}
+            />
+          </BackPartN>
+        );
+      })}
+    </div>
   );
 }
 

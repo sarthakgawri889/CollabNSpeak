@@ -1,77 +1,152 @@
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { addUserToLobby } from "../service/lobbyApi";
+import { useAuth0 } from "@auth0/auth0-react";
 
-function Session() {
+function Session({ lobby, isUserPresent }) {
   const theme = useTheme();
 
   const StyledPaper = styled(Paper)(() => ({
     backgroundColor: theme.palette.gray.main,
     display: "flex",
-    width: "70rem",
-    height: "3.5rem",
-    alignItems: "center",
-    paddingLeft: "2rem",
-    margin: "0.8rem 1rem 1rem 1.5rem",
+    flexDirection: "column",
+    width: "30rem",
+    height: "13rem",
+    marginLeft: "2rem",
+    borderRadius: "25px",
   }));
 
   const StyledButton = styled(Button)(() => ({
     height: "2rem",
     borderRadius: "25px",
-    margin: "1.5rem 2rem 1.5rem 2rem",
+    margin: "0.7rem 2rem 0rem 2rem",
+    backgroundColor: "#D6DBDF",
+    color: "black",
+    pointerEvents: "none",
   }));
 
   const ButtonText = styled(Typography)(() => ({
     fontFamily: "Montserrat",
-    fontWeight: "400",
+    fontWeight: "700",
     textTransform: "initial",
   }));
 
   const AvatarBox = styled(Box)(() => ({
+    width: "12rem",
     display: "flex",
-    marginLeft: "auto",
+    marginLeft: "1.7rem",
     alignItems: "center",
-    paddingRight: "4rem",
+    paddingRight: "3rem",
   }));
 
   const CustomAvatar = styled(Avatar)(() => ({
-    height: "2.7rem",
-    width: "2.7rem",
+    height: "2.5rem",
+    width: "2.5rem",
+    margin: "0.5rem",
     backgroundColor: theme.palette.sec.main,
-    margin: "1rem",
   }));
 
   const navigate = useNavigate();
+  const { user } = useAuth0();
 
-  const navigateToBarCat = () => {
-    navigate("/barcat");
-  };
+  const handleClick = useCallback(() => {
+    const data = {
+      lobbyId: lobby.lobbyId,
+      user: {
+        name: user.name,
+        email: user.email,
+        picture: user.picture,
+      },
+    };
+
+    const addUser = async () => {
+      await addUserToLobby(data);
+    };
+    addUser();
+    navigate(
+      `/barcat/${lobby.language}/${lobby.topicHeader}/${lobby.topicName}/${lobby.lobbyId}`
+    );
+  }, [
+    lobby.language,
+    lobby.lobbyId,
+    lobby.topicHeader,
+    lobby.topicName,
+    navigate,
+    user.email,
+    user.name,
+    user.picture,
+  ]);
 
   return (
     <StyledPaper>
-      <Box>
-        <StyledButton variant="contained" color="bg">
-          <ButtonText>Topic</ButtonText>
-        </StyledButton>
-        <StyledButton variant="contained" color="bg">
-          <ButtonText>Group Discussion</ButtonText>
-        </StyledButton>
-        <StyledButton
-          variant="contained"
-          color="pri"
-          onClick={navigateToBarCat}
-        >
-          <ButtonText>Join</ButtonText>
-        </StyledButton>
-      </Box>
+      <StyledButton variant="contained" disableRipple>
+        <ButtonText>{lobby.topicHeader}</ButtonText>
+      </StyledButton>
+      <StyledButton variant="contained" disableRipple>
+        <ButtonText>{lobby.topicName}</ButtonText>
+      </StyledButton>
+      <StyledButton variant="contained" disableRipple>
+        <ButtonText>{lobby.language}</ButtonText>
+      </StyledButton>
 
-      <AvatarBox>
-        <CustomAvatar>A</CustomAvatar>
-        <CustomAvatar>B</CustomAvatar>
-        <CustomAvatar>C</CustomAvatar>
-        <CustomAvatar>D</CustomAvatar>
-      </AvatarBox>
+      <Box sx={{ display: "flex", marginTop: "1rem" }}>
+        <AvatarBox>
+          {lobby.users.map((user) => {
+            const { picture } = user;
+            return <CustomAvatar alt="user" src={picture} />;
+          })}
+        </AvatarBox>
+
+        {lobby.countUser >= 4 || isUserPresent ? (
+          <Button
+            variant="contained"
+            color="pri"
+            sx={{
+              backgroundColor: theme.palette.sec.main,
+              color: "black",
+              height: "2.5rem",
+              width: "8rem",
+              borderRadius: "12px",
+              position: "relative",
+              top: "0.5rem",
+              left: "2.1rem",
+            }}
+            disableFocusRipple
+            disableTouchRipple
+            disableElevation
+          >
+            <Typography
+              sx={{
+                fontFamily: "Montserrat",
+                fontWeight: "700",
+                textTransform: "initial",
+              }}
+            >
+              Can't Enter
+            </Typography>
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            color="pri"
+            onClick={handleClick}
+            sx={{
+              color: "white",
+              height: "2.5rem",
+              width: "9rem",
+              borderRadius: "12px",
+              position: "relative",
+              top: "0.5rem",
+              left: "2.1rem",
+            }}
+          >
+            <ButtonText>Join</ButtonText>
+          </Button>
+        )}
+      </Box>
     </StyledPaper>
   );
 }

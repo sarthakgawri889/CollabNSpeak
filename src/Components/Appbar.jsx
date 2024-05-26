@@ -39,7 +39,7 @@ function Appbar() {
 
   const CustomAppBar = styled(AppBar)(() => ({
     backgroundColor: "white",
-    padding: "3rem 9rem 1rem 9rem",
+    padding: "1.2rem 9rem 1rem 9rem",
     display: "flex",
   }));
 
@@ -96,35 +96,25 @@ function Appbar() {
         </LogoContent>
       </Logo>
 
-      <Box sx={{ marginLeft: "auto", marginTop: "-52px" }}>
+      <Box sx={{ marginLeft: "auto", marginTop: "-60px" }}>
         <Toolbar>
           <Button onClick={navigateToHome}>
-            <Typography
-              variant="regular"
-              color="black"
-              sx={{ paddingX: "10px" }}
-            >
+            <Typography variant="medium" color="black" sx={{ paddingX: "5px" }}>
               Home
             </Typography>
           </Button>
 
           <Button onClick={navigateToServices}>
-            <Typography
-              variant="regular"
-              color="black"
-              sx={{ paddingX: "10px" }}
-            >
+            <Typography variant="medium" color="black" sx={{ paddingX: "5px" }}>
               Services
             </Typography>
           </Button>
 
-          <Typography
-            variant="regular"
-            color="black"
-            sx={{ paddingRight: "40px", paddingLeft: "10px" }}
-          >
-            About Us
-          </Typography>
+          <Button>
+            <Typography variant="medium" color="black" sx={{ paddingX: "5px" }}>
+              About Us
+            </Typography>
+          </Button>
 
           {isAuthenticated ? (
             <>
@@ -132,12 +122,12 @@ function Appbar() {
                 <IconButton
                   onClick={handleClickb}
                   size="small"
-                  sx={{ ml: 2 }}
+                  sx={{ ml: 1 }}
                   aria-controls={open ? "account-menu" : undefined}
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
                 >
-                  <Avatar src={user.picture} sx={{ width: 56, height: 56 }}>
+                  <Avatar src={user.picture} sx={{ width: 40, height: 40 }}>
                     M
                   </Avatar>
                 </IconButton>
