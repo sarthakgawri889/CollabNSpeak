@@ -8,6 +8,7 @@ import Profile from "./Pages/Profile";
 import BarCat from "./Pages/BarCat";
 import Services from "./Pages/Services";
 import RoomPage from "./Pages/RoomPage";
+import Quiz from "./Components/Quiz";
 
 const theme = createTheme({
   palette: {
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
   {
     path: "/room/:language/:topicHeader/:topic/:roomId",
     element: <RoomPage />,
+  },
+  {
+    path: "/quiz",
+    element: <Quiz />,
   },
 ]);
 

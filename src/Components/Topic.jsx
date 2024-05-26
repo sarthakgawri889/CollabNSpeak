@@ -2,7 +2,7 @@ import { Card } from "@mui/material";
 import TopicItem from "./TopicItem";
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Debate, GroupDiscussion, Icebreaker } from "../service/TopicDetail";
+import { Debate, GroupDiscussion, Icebreaker } from "../Assets/TopicDetail";
 
 function Topic({ topicHeader, language }) {
   const theme = useTheme();

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Debate, GroupDiscussion, Icebreaker } from "../service/TopicDetail";
-import { Container, styled } from "@mui/material";
+import { Debate, GroupDiscussion, Icebreaker } from "../Assets/TopicDetail";
 
 const RoomPage = () => {
   const { user } = useAuth0();

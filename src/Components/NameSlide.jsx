@@ -5,9 +5,6 @@ import {
   Avatar,
   CircularProgress,
 } from "@mui/material";
-import axios from "axios";
-
-const url = "http://localhost:8000";
 
 const BackPartN = styled(Box)`
   position: relative;
