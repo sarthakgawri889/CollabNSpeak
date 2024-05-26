@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import "../styles/Quiz.css";
 import { questions } from "../Assets/Questions";
-import Appbar from "./Appbar";
+import Appbar from "../Components/Appbar";
 import { useNavigate } from "react-router-dom";
 
 const Quiz = () => {

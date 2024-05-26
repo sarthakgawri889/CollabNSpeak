@@ -8,7 +8,7 @@ import Profile from "./Pages/Profile";
 import BarCat from "./Pages/BarCat";
 import Services from "./Pages/Services";
 import RoomPage from "./Pages/RoomPage";
-import Quiz from "./Components/Quiz";
+import Quiz from "./Pages/Quiz";
 
 const theme = createTheme({
   palette: {
