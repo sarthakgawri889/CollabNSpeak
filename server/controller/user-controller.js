@@ -1,5 +1,6 @@
 import User from "../model/User.js"
 
+
 export const addUser = async(request,response)=>{
     try{
         let exist = await User.findOne({sub:request.body.sub})
@@ -28,3 +29,5 @@ export const getUsers = async (request,response) => {
         return response.status(500).json(error.message);
     }
 }
+
+

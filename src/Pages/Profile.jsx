@@ -8,65 +8,67 @@ import {
   IconButton,
   Tooltip,
   Menu,
-  Box
+  Box,
+  FormControl,
+  InputLabel,
+  Input,
+  MenuItem,
+  ListItemIcon,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import MailIcon from "@mui/icons-material/Mail";
 import WcIcon from "@mui/icons-material/Wc";
+import HomeIcon from '@mui/icons-material/Home';
+import Logout from '@mui/icons-material/Logout';
+import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { getUsers } from "../service/api";
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Logout from '@mui/icons-material/Logout';
-import HomeIcon from '@mui/icons-material/Home';
-import CloseIcon from '@mui/icons-material/Close';
+
 
 function Profile() {
   const theme = useTheme();
   const { user, logout, isAuthenticated } = useAuth0();
   const [anchorEl, setAnchorEl] = useState(null);
+ 
   const open = Boolean(anchorEl);
+  
   const handleClickb = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-
   const [isEditing, setIsEditing] = useState(false);
+
   const handleEditClick = () => {
     setIsEditing(true);
   };
-  const hancleEditingClose = () => {
+
+  const handleEditingClose = () => {
     setIsEditing(false);
   };
-  const [, setIsClicked] = useState(false);
-  const handleClick = () => {
-    setIsClicked(true);
-  };
-
-  const Linked = styled(Link)`
-    text-decoration: none; /* Remove default underline */
-    color: inherit; /* Inherit color from parent */
-    cursor: pointer;
-  `;
 
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const defaultObject = currentUser;
+  const [userpp,setUserp] = useState(defaultObject);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getUsers();
         if (user) {
-          const loggedInUser = response.find(u => u.sub === user.sub);
+          const loggedInUser = response.find((u) => u.sub === user.sub);
           setCurrentUser(loggedInUser);
+          setUserp(loggedInUser)
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -77,6 +79,20 @@ function Profile() {
     fetchData();
   }, [user]);
 
+ 
+ 
+
+  const onValueChange = (e) => {
+    setUserp({ ...userpp, [e.target.name]: e.target.value });
+    console.log(userpp);
+  };
+  
+  const Linked = styled(Link)`
+    text-decoration: none; /* Remove default underline */
+    color: inherit; /* Inherit color from parent */
+    cursor: pointer;
+  `;
+
   const CustomPaper = styled(Paper)(() => ({
     height: "685px",
     width: "950px",
@@ -84,8 +100,6 @@ function Profile() {
     borderRadius: "25px",
     margin: "1.4rem 17rem 1.4rem 17rem",
   }));
-
-  console.log(currentUser)
 
   const ProfileHeading = styled(Typography)(() => ({
     font: theme.typography.header1,
@@ -108,9 +122,6 @@ function Profile() {
   if (!isAuthenticated || !user || !currentUser) {
     return <div>No user data available</div>;
   }
-
-  const userName = currentUser.nickname;
-  const email = currentUser.email;
 
   return (
     <div>
@@ -169,12 +180,12 @@ function Profile() {
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-              <Linked to="/" onClick={handleClick}>
-                <MenuItem onClick={handleClose}>
+              <Linked to="/" onClick={handleClose}>
+                <MenuItem>
                   <ListItemIcon>
                     <HomeIcon fontSize="small" />
                   </ListItemIcon>
-                  <Box sx={{ textDecoration: 'none' }}>Home</Box>
+                  Home
                 </MenuItem>
               </Linked>
               <Box onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
@@ -202,7 +213,7 @@ function Profile() {
             <Container sx={{ display: "flex", marginTop: "1rem" }}>
               <AccountCircleIcon sx={{ width: "30px", height: "30px" }} />
               <Typography variant="medium" sx={{ marginY: "0.68rem", marginX: "1rem" }}>
-                {userName}
+                {currentUser.nickname}
               </Typography>
             </Container>
 
@@ -215,7 +226,7 @@ function Profile() {
             <Container sx={{ display: "flex", marginY: "0.7rem" }}>
               <MailIcon sx={{ width: "30px", height: "30px" }} />
               <Typography variant="medium" sx={{ marginY: "0.68rem", marginX: "1rem" }}>
-                {email}
+                {currentUser.email}
               </Typography>
             </Container>
             <Container sx={{ display: "flex", marginTop: "0.7rem" }}>
@@ -262,39 +273,74 @@ function Profile() {
             </Container>
           </Card>
           <Card sx={{ height: "570px", width: "568px", marginLeft: "1.5rem", position: 'relative' }}>
-           
             <Container>
               <Container>
                 {
-                    isEditing? 
+                  isEditing ?
                     <>
-                        <Container sx={{ display: 'flex', alignItems: 'center', position: 'relative', marginTop: '2vh' }}>
-                            <Typography sx={{ fontFamily: 'Montserrat', fontWeight: '400', fontSize: '30px', flex: 1, textAlign: 'center' }}>
-                                Edit Profile
-                            </Typography>
-                            <Box sx={{ position: 'absolute', right: 0 }}>
-                                <Button onClick={hancleEditingClose}>
-                                  <CloseIcon />
-                                </Button>
-                                
-                            </Box>
+                      <Container sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '2vh', position: 'relative' }}>
+                        <Typography sx={{ fontFamily: 'Montserrat', fontWeight: '400', fontSize: '30px' }}>
+                          Edit Profile
+                        </Typography>
+                        <Box sx={{ position: 'absolute', right: 0 }}>
+                          <Button onClick={handleEditingClose}>
+                            <CloseIcon />
+                          </Button>
+                        </Box>
                       </Container>
-                        
-                    </>
-                    
-                    :
-                    <Container sx={{ display: "flex", justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+
+                      <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem', position: 'relative' }}>
                         <Avatar
-                            alt="Profile Picture"
-                            src={"/src/images/xmpKItamQSS5555tCSJevg.jpg"}
-                            sx={{ width: "558px", height: "570px", objectFit: 'cover', borderRadius: 0 }}
+                          src={currentUser.picture}
+                          alt="Profile Photo"
+                          sx={{ width: 150, height: 150 }}
+                        />
+                        <IconButton sx={{ position: 'absolute', right: '8rem', top: '7rem' }}>
+                          <EditIcon />
+                        </IconButton>
+                      </Container>
+
+                      <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
+                        <FormControl sx={{ width: '100%' }}>
+                          <InputLabel htmlFor="username-input">Username</InputLabel>
+                          <Input
+                            type='text'
+                            name='nickname'
+                            id="username-input"
+                            aria-describedby="username-helper-text"
+                            // onChange={(e)=>onValueChange(e)}
                           />
+                        </FormControl>
+                      </Container>
+
+                      <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+                        <FormControl sx={{ width: '100%' }}>
+                          
+                          
+                          <InputLabel htmlFor="gender-input">Gender</InputLabel>
+                          <Input
+                            type='text'
+                            id="gender-input"
+                            name="gender"
+                            aria-describedby="gender-helper-text"
+                            // onChange={(e)=>onValueChange(e)}
+                          />
+                        </FormControl>
+                      </Container>
+
+                      <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+                        <Button variant="contained">Save</Button>
+                      </Container>
+                    </> :
+                    <Container sx={{ display: "flex", justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                      <Avatar
+                        alt="Profile Picture"
+                        src={"/src/images/xmpKItamQSS5555tCSJevg.jpg"}
+                        sx={{ width: "558px", height: "570px", objectFit: 'cover', borderRadius: 0 }}
+                      />
                     </Container>
-                    
-                  }
+                }
               </Container>
-                
-              
             </Container>
           </Card>
         </Container>
