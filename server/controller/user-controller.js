@@ -1,6 +1,5 @@
 import User from "../model/User.js"
 
-
 export const addUser = async(request,response)=>{
     try{
         let exist = await User.findOne({sub:request.body.sub})
@@ -30,4 +29,19 @@ export const getUsers = async (request,response) => {
     }
 }
 
-
+export const updateUser = async (req, res) => {
+    const { sub, nickname, gender } = req.body;
+    try {
+        const updatedUser = await User.findOneAndUpdate(
+            { sub }, // Find the user by their unique identifier
+            { nickname, gender }, // Update the nickname and gender
+            { new: true } // Return the updated document
+        );
+        if (!updatedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to update profile' });
+    }
+};

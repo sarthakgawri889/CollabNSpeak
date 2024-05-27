@@ -10,6 +10,7 @@ import VideoCall from "./Pages/VideoCall";
 import Services from "./Pages/Services";
 import StartMeeting from "./Components/StartMeeting";
 import RoomPage from "./Pages/RoomPage";
+import EditProfile from "./Pages/EditProfile";
 
 
 const theme = createTheme({
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
   {
     path: "/startmeeting",
     element: <StartMeeting />,
+  },
+  {
+    path: "/editp",
+    element: <EditProfile />,
   },
   {
     path: "/room/:roomId",
