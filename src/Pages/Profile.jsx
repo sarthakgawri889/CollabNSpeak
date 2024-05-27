@@ -60,7 +60,8 @@ function Profile() {
   const [loading, setLoading] = useState(true);
   const defaultObject = currentUser;
   const [userpp,setUserp] = useState(defaultObject);
-
+  const [name,setName] = useState('');
+  const [gender,setGender] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -79,13 +80,11 @@ function Profile() {
     fetchData();
   }, [user]);
 
- 
- 
-
-  const onValueChange = (e) => {
-    setUserp({ ...userpp, [e.target.name]: e.target.value });
-    console.log(userpp);
-  };
+  const handleSubmit = ()=>{
+    console.log(name)
+    console.log(gender);
+  }
+  
   
   const Linked = styled(Link)`
     text-decoration: none; /* Remove default underline */
@@ -308,7 +307,8 @@ function Profile() {
                             name='nickname'
                             id="username-input"
                             aria-describedby="username-helper-text"
-                            // onChange={(e)=>onValueChange(e)}
+                            value={name}
+                            onChange={(e)=>setName(e.target.value)}
                           />
                         </FormControl>
                       </Container>
@@ -322,14 +322,15 @@ function Profile() {
                             type='text'
                             id="gender-input"
                             name="gender"
+                            value={gender}
                             aria-describedby="gender-helper-text"
-                            // onChange={(e)=>onValueChange(e)}
+                            onChange={(e)=>setGender(e.target.value)}
                           />
                         </FormControl>
                       </Container>
 
                       <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-                        <Button variant="contained">Save</Button>
+                        <Button variant="contained" onClick={handleSubmit()}>Save</Button>
                       </Container>
                     </> :
                     <Container sx={{ display: "flex", justifyContent: 'center', alignItems: 'center', height: '100%' }}>
