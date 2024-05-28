@@ -127,8 +127,9 @@ function Appbar() {
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
                 >
-                  <Avatar src={user.picture} sx={{ width: 40, height: 40 }}>
-                    M
+                  <Avatar src={user.picture} sx={{ width: 56, height: 56 }}>
+                    {user.name}
+
                   </Avatar>
                 </IconButton>
               </Tooltip>

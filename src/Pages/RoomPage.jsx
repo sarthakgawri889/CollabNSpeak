@@ -1,8 +1,14 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Debate, GroupDiscussion, Icebreaker } from "../Assets/TopicDetail";
+
+import { useParams } from "react-router-dom";
+
+
+
 
 const RoomPage = () => {
   const { user } = useAuth0();
