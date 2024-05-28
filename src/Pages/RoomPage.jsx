@@ -58,7 +58,7 @@ const RoomPage = () => {
         navigate("/existsession");
       },
     });
-    //if (seconds === 0) zc.destroy();
+    if (seconds === 0) zc.destroy();
   };
 
   let index = 0;
