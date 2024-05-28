@@ -1,10 +1,14 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Card, Typography } from "@mui/material";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { createLobby } from "../service/lobbyApi";
 
-function TopicItem({ topicHeader, topic }) {
+function TopicItem({ topicHeader, topic, language }) {
   const theme = useTheme();
+  const { user } = useAuth0();
 
   const CustomCard = styled(Card)(() => ({
     height: "3.5rem",
@@ -32,13 +36,42 @@ function TopicItem({ topicHeader, topic }) {
   const navigate = useNavigate();
   const lobbyId = crypto.randomUUID();
 
-  const navigateToLobby = () => {
-    navigate(`/barcat/${topicHeader}/${topic}/${lobbyId}`);
-  };
+  const handleClick = useCallback(() => {
+    if (language === "") {
+      alert("Please select the language before creating the lobby");
+      return;
+    }
+
+    const lobby = {
+      lobbyId: lobbyId,
+      topicHeader: topicHeader,
+      topicName: topic,
+      language: language,
+      userCount: 1,
+      hasMeetingStarted: false,
+      users: [{ name: user?.name, email: user?.email, picture: user?.picture }],
+    };
+    const addLobby = async () => {
+      await createLobby(lobby);
+    };
+    addLobby();
+    navigate(`/barcat/${language}/${topicHeader}/${topic}/${lobbyId}`);
+  }, [
+    language,
+    lobbyId,
+    navigate,
+    topic,
+    topicHeader,
+    user?.email,
+    user?.name,
+    user?.picture,
+  ]);
 
   return (
-    <CustomCard onClick={navigateToLobby}>
-      <CardContent color="white">{topic}</CardContent>
+    <CustomCard>
+      <CardContent color="white" onClick={handleClick}>
+        {topic}
+      </CardContent>
     </CustomCard>
   );
 }
