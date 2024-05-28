@@ -5,15 +5,21 @@ import { useNavigate, useParams } from "react-router-dom";
 import AccountProvider from "../context/AccountProvider";
 import Appbar from "../Components/Appbar";
 import { AccountContext } from "../context/AccountProvider";
-import { useContext } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { deleteUserFromLobby } from "../service/lobbyApi";
+import axios from "axios";
+
+const url = "http://localhost:8000";
+
 const BackPart = styled(Box)`
   position: absolute;
   width: 1150px;
-  height: 84px;
+  height: 55px;
   left: 200px;
-  top: 8.5rem;
+  top: 10.5rem;
   background: #c8d8f0;
-  border-radius: 30px;
+  border-radius: 20px;
   display: flex;
 `;
 
@@ -21,98 +27,76 @@ const FrontBox = styled(Box)`
   position: relative;
   margin: 0 0.3em auto;
   width: 250px;
-  height: 60px;
+  height: 40px;
   left: 10px;
-  top: 12px;
+  top: 7.5px;
   background: #747487;
-  border-radius: 50px;
-  text-align: center;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Timer = styled(Box)`
   position: relative;
-  margin: 0 0.3em auto;
+  margin: 0 0.3rem auto;
   width: 200px;
-  height: 60px;
-  left: 26rem;
-  top: 12px;
+  height: 40px;
+  left: 13.5rem;
+  top: 7.5px;
   background: #747487;
   border-radius: 50px;
 `;
 
 const Text = styled(Typography)`
   position: relative;
-  width: 276px;
+  width: 280px;
   height: 51px;
-  left: 0.4em;
-  top: 4px;
+
   /* Body Thin Header */
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
-  font-size: 24px;
-  line-height: 20px;
+  font-size: 22px;
+  line-height: 18px;
   /* or 83% */
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  text-transform: none;
   display: flex;
   align-items: center;
-  text-align: center;
-  letter-spacing: 0.05em;
-  color: #000000;
+  justify-content: center;
 `;
 const TimerText = styled(Typography)`
   margin: 0 auto;
   position: relative;
-  padding: 1.2rem 1rem 1.4rem 4rem;
+  padding-left: 4.5rem;
+  padding-top: 0.6rem;
 
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
-  font-size: 24px;
-  line-height: 20px;
+  font-size: 22px;
+  line-height: 18px;
   /* or 83% */
-  display: flex;
-  align-items: center;
-  text-align: center;
   letter-spacing: 0.05em;
-  color: #000000;
-`;
-
-const Topic = styled(Typography)`
-  position: relative;
-  width: 276px;
-  height: 51px;
-  left: 47px;
-  top: 4px;
-  /* Body Thin Header */
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 20px;
-  /* or 83% */
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: 0.05em;
-  color: #000000;
+  color: #ffffff;
 `;
 
 const Start = styled(Button)`
   position: absolute;
-  width: 20rem;
-  height: 5rem;
+  width: 12rem;
+  height: 3rem;
   left: 20rem;
-  top: 40rem;
-  background: #747487;
+  top: 32.5rem;
   border-radius: 50px;
 `;
 const End = styled(Button)`
   position: absolute;
-  width: 20rem;
-  height: 5rem;
-  right: 20rem;
-  top: 40rem;
-  background: #747487;
+  width: 12rem;
+  height: 3rem;
+  right: 23rem;
+  top: 32.5rem;
   border-radius: 50px;
 `;
 
@@ -131,18 +115,109 @@ const renderer = ({ minutes, seconds }) => {
   );
 };
 
-function BarCat({ topicClass, topicName }) {
+function BarCat() {
   const account = useContext(AccountContext);
   const navigate = useNavigate();
-  const { topicHeader, topic } = useParams();
+  const { language, topicHeader, topic, lobbyId } = useParams();
+  const { user } = useAuth0();
+  const [lobby, setLobby] = useState({});
 
-  const navigateToVideoCall = () => {
-    navigate("/videocall");
-  };
+  const handleJoinRoom = useCallback(() => {
+    const data = {
+      lobbyId: lobbyId,
+      email: user.email,
+      hasMeetingStarted: true,
+    };
 
-  const navigateToHome = () => {
-    navigate("/");
-  };
+    const pullUser = async () => {
+      await deleteUserFromLobby(data);
+    };
+    pullUser();
+
+    navigate(`/room/${language}/${topicHeader}/${topic}/${lobbyId}`);
+  }, [language, lobbyId, navigate, topic, topicHeader, user.email]);
+
+  const handleEndNow = useCallback(() => {
+    const data = {
+      lobbyId: lobbyId,
+      email: user.email,
+      hasMeetingStarted: false,
+    };
+
+    const pullUser = async () => {
+      await deleteUserFromLobby(data);
+    };
+    pullUser();
+
+    navigate("/existsession");
+  }, [lobbyId, navigate, user.email]);
+
+  useEffect(() => {
+    const getLobby = async () => {
+      try {
+        const response = await axios.get(`${url}/api/lobbies/${lobbyId}`);
+        setLobby(response.data);
+      } catch (error) {
+        console.log("error while calling getLobbies api", error.message);
+      }
+    };
+    getLobby();
+
+    const interval = setInterval(getLobby, 3000); // Poll every 3 seconds
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [lobbyId]);
+
+  if (lobby?.hasMeetingStarted === true) {
+    return (
+      <>
+        <AccountProvider>
+          <Appbar account={account} />
+        </AccountProvider>
+        <Box
+          sx={{
+            position: "relative",
+            top: "7rem",
+            marginLeft: "27rem",
+            borderRadius: "25px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#EEAF8B",
+            width: "40rem",
+            height: "2rem",
+          }}
+        >
+          <Typography>
+            Meeting has started 🙋‍♂️!!, please entered before timer ends 🙏
+          </Typography>
+        </Box>
+
+        <BackPart>
+          <FrontBox>
+            <Text>{topicHeader}</Text>
+          </FrontBox>
+          <FrontBox sx={{ width: "450px" }}>
+            <Text sx={{ width: "400px" }}>{topic}</Text>
+          </FrontBox>
+          <Timer>
+            <TimerText>
+              <Countdown
+                date={Date.now() + 150000}
+                renderer={renderer}
+              ></Countdown>
+            </TimerText>
+          </Timer>
+        </BackPart>
+        <NameSlide lobby={lobby} />
+        <Start variant="contained" onClick={handleJoinRoom} color="success">
+          <Text>Start</Text>
+        </Start>
+        <End variant="contained" onClick={handleEndNow} color="error">
+          <Text>End</Text>
+        </End>
+      </>
+    );
+  }
 
   return (
     <>
@@ -153,8 +228,8 @@ function BarCat({ topicClass, topicName }) {
         <FrontBox>
           <Text>{topicHeader}</Text>
         </FrontBox>
-        <FrontBox>
-          <Topic>{topic}</Topic>
+        <FrontBox sx={{ width: "450px" }}>
+          <Text sx={{ width: "400px" }}>{topic}</Text>
         </FrontBox>
         <Timer>
           <TimerText>
@@ -165,12 +240,12 @@ function BarCat({ topicClass, topicName }) {
           </TimerText>
         </Timer>
       </BackPart>
-      <NameSlide />
-      <Start variant="contained" onClick={navigateToVideoCall}>
-        Start Now
+      <NameSlide lobby={lobby} />
+      <Start variant="contained" onClick={handleJoinRoom} color="success">
+        <Text>Start</Text>
       </Start>
-      <End variant="contained" onClick={navigateToHome}>
-        End Now
+      <End variant="contained" onClick={handleEndNow} color="error">
+        <Text>End</Text>
       </End>
     </>
   );

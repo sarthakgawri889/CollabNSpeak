@@ -6,11 +6,13 @@ import Desktop4 from "./Pages/ExistingSession";
 import CreateSession from "./Pages/CreateSession";
 import Profile from "./Pages/Profile";
 import BarCat from "./Pages/BarCat";
-import VideoCall from "./Pages/VideoCall";
 import Services from "./Pages/Services";
-import StartMeeting from "./Components/StartMeeting";
 import RoomPage from "./Pages/RoomPage";
+
 import EditProfile from "./Pages/EditProfile";
+
+import Quiz from "./Pages/Quiz";
+
 
 
 const theme = createTheme({
@@ -86,28 +88,27 @@ const router = createBrowserRouter([
     element: <CreateSession />,
   },
   {
-    path: "/barcat/:topicHeader/:topic/:lobbyId",
+    path: "/barcat/:language/:topicHeader/:topic/:lobbyId",
     element: <BarCat />,
-  },
-  {
-    path: "/videocall",
-    element: <VideoCall />,
   },
   {
     path: "/services",
     element: <Services />,
   },
   {
-    path: "/startmeeting",
-    element: <StartMeeting />,
+    path: "/room/:language/:topicHeader/:topic/:roomId",
+    element: <RoomPage />,
   },
   {
+
     path: "/editp",
     element: <EditProfile />,
   },
+
   {
-    path: "/room/:roomId",
-    element: <RoomPage />,
+    path: "/quiz",
+    element: <Quiz />,
+
   },
 ]);
 

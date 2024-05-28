@@ -2,14 +2,23 @@ import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Appbar from "../Components/Appbar";
 import Topic from "../Components/Topic";
 import TopicHeader from "../Components/TopicHeader";
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import AccountProvider from "../context/AccountProvider";
+
 function CreateSession() {
   const [language, setLanguage] = React.useState("");
+  const [v, setV] = useState("");
 
   const handleChange = (event) => {
-    setLanguage(event.target.value);
+    if (event.target.value === 10) {
+      setLanguage("Hindi");
+    } else if (event.target.value === 20) {
+      setLanguage("English");
+    } else {
+      setLanguage("German");
+    }
+    setV(event.target.value);
   };
 
   const CustomFormControl = styled(FormControl)(() => ({
@@ -46,7 +55,7 @@ function CreateSession() {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={language}
+          value={v}
           label="Language"
           onChange={handleChange}
         >
@@ -63,9 +72,9 @@ function CreateSession() {
       </TopicBox>
 
       <TopicListBox>
-        <Topic topicHeader={"Icebreaker"} />
-        <Topic topicHeader={"Group Discussion"} />
-        <Topic topicHeader={"Debate"} />
+        <Topic topicHeader={"Icebreaker"} language={language} />
+        <Topic topicHeader={"Group Discussion"} language={language} />
+        <Topic topicHeader={"Debate"} language={language} />
       </TopicListBox>
     </div>
   );
