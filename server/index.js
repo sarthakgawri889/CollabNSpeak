@@ -11,8 +11,10 @@ const PORT = 8000;
 // Apply CORS middleware before defining routes
 app.use(cors()); // Allow requests from all origins
 
-app.use(bodyParser.json({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(bodyParser.json({extended: true}));
+app.use(bodyParser.urlencoded({extended:true}));
+
 // Define your routes
 app.use("/", route);
 app.use("/api/lobbies", lobbyRoute);
@@ -30,3 +32,5 @@ Connection();
 app.listen(PORT, () => {
   console.log(`Server is running successfully on PORT ${PORT}`);
 });
+
+

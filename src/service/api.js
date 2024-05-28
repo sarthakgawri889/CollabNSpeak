@@ -10,11 +10,21 @@ export const addUser = async (data) => {
   }
 };
 
-export const getUsers = async () => {
-  try {
-    let response = await axios.get(`${url}/users`);
-    return response.data;
-  } catch (error) {
-    console.log("error while calling getUsers api", error.message);
-  }
+export const getUsers = async ()=>{
+    try{
+        let response = await axios.get(`${url}/users`);
+        return response.data;
+    }catch(error){
+        console.log('error while calling getUsers api',error.message);
+    }
+}
+export const updateUserProfile = async (user) => {
+    try {
+        const response = await axios.put(`${url}/editusers`, user); // Ensure the correct URL
+        return response.data;
+    } catch (error) {
+        console.error('Error while calling updateUserProfile API:', error.message);
+        throw error;
+    }
+
 };

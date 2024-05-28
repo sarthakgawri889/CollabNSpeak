@@ -8,7 +8,11 @@ import Profile from "./Pages/Profile";
 import BarCat from "./Pages/BarCat";
 import Services from "./Pages/Services";
 import RoomPage from "./Pages/RoomPage";
+
+import EditProfile from "./Pages/EditProfile";
+
 import Quiz from "./Pages/Quiz";
+
 
 
 const theme = createTheme({
@@ -96,8 +100,15 @@ const router = createBrowserRouter([
     element: <RoomPage />,
   },
   {
+
+    path: "/editp",
+    element: <EditProfile />,
+  },
+
+  {
     path: "/quiz",
     element: <Quiz />,
+
   },
 ]);
 
