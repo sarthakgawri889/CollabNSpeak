@@ -12,17 +12,14 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import Appbar from '../Components/Appbar';
 import { useLocation } from 'react-router-dom';
-import { updateUserProfile, uploadProfileImage } from '../service/api'; // Import the API functions
+import { updateUserProfile } from '../service/api'; // Import the API function to update user profile
 import { useNavigate } from "react-router-dom";
-
 function EditProfile() {
     const location = useLocation();
     const { currentUser } = location.state || {};
     const navigate = useNavigate();
     const [nickname, setNickname] = useState(currentUser?.nickname || '');
     const [gender, setGender] = useState(currentUser?.gender || '');
-    const [profileImage, setProfileImage] = useState(currentUser?.picture || '');
-    const [selectedImage, setSelectedImage] = useState(null);
 
     const handleNicknameChange = (e) => {
         setNickname(e.target.value);
@@ -32,35 +29,17 @@ function EditProfile() {
         setGender(e.target.value);
     };
 
-    const handleImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            setSelectedImage(e.target.files[0]);
-            setProfileImage(URL.createObjectURL(e.target.files[0])); // Preview the image
-        }
-    };
-
     const handleSave = async () => {
-        let updatedUser = {
+        const updatedUser = {
             ...currentUser,
             nickname,
             gender,
         };
 
-        if (selectedImage) {
-            try {
-                const imageUrl = await uploadProfileImage(selectedImage);
-                updatedUser.picture = imageUrl;
-            } catch (error) {
-                console.error('Error uploading image:', error);
-                alert('Failed to upload image.');
-                return;
-            }
-        }
-
         try {
             await updateUserProfile(updatedUser);
             alert('Profile updated successfully!');
-            navigate('/profile');
+            navigate('/profile')
         } catch (error) {
             console.error('Error updating profile:', error);
             alert('Failed to update profile.');
@@ -78,13 +57,12 @@ function EditProfile() {
 
             <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem', position: 'relative' }}>
                 <Avatar
-                    src={profileImage}
+                    src={currentUser?.picture}
                     alt="Profile Photo"
                     sx={{ width: '10rem', height: '10rem' }}
                 />
-                <IconButton component="label" sx={{ position: 'absolute', right: '30rem', top: '7.5rem' }}>
+                <IconButton sx={{ position: 'absolute', right: '30rem', top: '7.5rem' }}>
                     <EditIcon />
-                    <input type="file" accept="image/*" onChange={handleImageChange} hidden />
                 </IconButton>
             </Container>
 
