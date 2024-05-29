@@ -105,14 +105,15 @@ function Appbar() {
     fetchData();
   }, [user]);
 
-  const [picture, ] = useState(null);
+  const [picture] = useState(null);
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (!isAuthenticated || !user || !currentUser) {
-    return <div>No user data available</div>;
-  }
+
+  
+
+  
 
   return (
     <CustomAppBar sx={{ boxShadow: 0 }}>
@@ -144,7 +145,7 @@ function Appbar() {
             </Typography>
           </Button>
 
-          {isAuthenticated ? (
+          {isAuthenticated && currentUser ? (
             <>
               <Tooltip title="Account">
                 <IconButton
