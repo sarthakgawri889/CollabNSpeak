@@ -12,14 +12,16 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import Appbar from '../Components/Appbar';
 import { useLocation } from 'react-router-dom';
-import { updateUserProfile } from '../service/api'; // Import the API function to update user profile
+import { updateUserProfile } from '../service/api';
 import { useNavigate } from "react-router-dom";
+
 function EditProfile() {
     const location = useLocation();
     const { currentUser } = location.state || {};
     const navigate = useNavigate();
     const [nickname, setNickname] = useState(currentUser?.nickname || '');
     const [gender, setGender] = useState(currentUser?.gender || '');
+    const [picture, setPicture] = useState(null);
 
     const handleNicknameChange = (e) => {
         setNickname(e.target.value);
@@ -29,26 +31,39 @@ function EditProfile() {
         setGender(e.target.value);
     };
 
+    const handlePictureChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setPicture(file);
+        }
+    };
+
     const handleSave = async () => {
-        const updatedUser = {
-            ...currentUser,
-            nickname,
-            gender,
-        };
+        const formData = new FormData();
+        formData.append('nickname', nickname);
+        formData.append('gender', gender);
+        formData.append('sub', currentUser.sub);
+        if (picture) {
+            formData.append('picture', picture);
+        }
 
         try {
-            await updateUserProfile(updatedUser);
+            await updateUserProfile(formData);
             alert('Profile updated successfully!');
-            navigate('/profile')
+            navigate('/profile');
         } catch (error) {
             console.error('Error updating profile:', error);
             alert('Failed to update profile.');
         }
     };
 
+    const handleEditPictureClick = () => {
+        document.getElementById('picture-input').click();
+    };
+
     return (
         <>
-            <Appbar />
+            <Appbar currentUser={currentUser}/>
             <Container sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '9rem', position: 'relative' }}>
                 <Typography sx={{ fontFamily: 'Montserrat', fontWeight: '400', fontSize: '3rem' }}>
                     Edit Profile
@@ -57,13 +72,20 @@ function EditProfile() {
 
             <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem', position: 'relative' }}>
                 <Avatar
-                    src={currentUser?.picture}
+                    src={picture ? URL.createObjectURL(picture) : `http://localhost:8000/${currentUser.picture}`}
                     alt="Profile Photo"
                     sx={{ width: '10rem', height: '10rem' }}
                 />
-                <IconButton sx={{ position: 'absolute', right: '30rem', top: '7.5rem' }}>
+                <IconButton sx={{ position: 'absolute', right: '30rem', top: '7.5rem' }} onClick={handleEditPictureClick}>
                     <EditIcon />
                 </IconButton>
+                <input
+                    type="file"
+                    id="picture-input"
+                    style={{ display: 'none' }}
+                    onChange={handlePictureChange}
+                    accept="image/*"
+                />
             </Container>
 
             <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>

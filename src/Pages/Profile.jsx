@@ -98,7 +98,7 @@ function Profile() {
     color: "#00000096",
     margin: "30px 24px 30px 24px",
   }));
-
+  const [picture, ] = useState(null);
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -125,7 +125,18 @@ function Profile() {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
               >
-                <Avatar src={currentUser.picture} sx={{ width: 56, height: 56 }}>M</Avatar>
+                 <Avatar 
+  src={currentUser.picture ? 
+       (currentUser.picture.startsWith("http") ? 
+         currentUser.picture : 
+         `http://localhost:8000/${currentUser.picture}`) : 
+       (picture ? 
+         URL.createObjectURL(picture) : 
+         'fallback_image_url.jpg')}
+  sx={{ width: 56, height: 56 }}
+>
+  {currentUser.name}
+</Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -191,7 +202,18 @@ function Profile() {
             </Container>
 
             <Container sx={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
-              <Avatar sx={{ width: "150px", height: "150px" }} src={currentUser.picture} />
+            <Avatar 
+                src={currentUser.picture ? 
+                (currentUser.picture.startsWith("http") ? 
+                currentUser.picture : 
+                `http://localhost:8000/${currentUser.picture}`) : 
+                (picture ? 
+                URL.createObjectURL(picture) : 
+                'fallback_image_url.jpg')}
+  sx={{ width: '9rem', height: '9rem' }}
+>
+  {currentUser.name}
+</Avatar>
             </Container>
 
             <Container sx={{ display: "flex", marginTop: "1rem" }}>

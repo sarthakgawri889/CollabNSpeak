@@ -21,7 +21,8 @@ import Logout from "@mui/icons-material/Logout";
 import { useAuth0 } from "@auth0/auth0-react";
 import { addUser } from "../service/api";
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
+import { getUsers } from "../service/api";
 function Appbar() {
   const navigate = useNavigate();
   const { loginWithRedirect, user } = useAuth0();
@@ -85,6 +86,33 @@ function Appbar() {
   const navigateToHome = () => {
     navigate("/");
   };
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getUsers();
+        if (user) {
+          const loggedInUser = response.find((u) => u.sub === user.sub);
+          setCurrentUser(loggedInUser);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [user]);
+
+  const [picture, ] = useState(null);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated || !user || !currentUser) {
+    return <div>No user data available</div>;
+  }
 
   return (
     <CustomAppBar sx={{ boxShadow: 0 }}>
@@ -127,10 +155,19 @@ function Appbar() {
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
                 >
-                  <Avatar src={user.picture} sx={{ width: 56, height: 56 }}>
-                    {user.name}
+                  <Avatar 
+  src={currentUser.picture ? 
+       (currentUser.picture.startsWith("http") ? 
+         currentUser.picture : 
+         `http://localhost:8000/${currentUser.picture}`) : 
+       (picture ? 
+         URL.createObjectURL(picture) : 
+         'fallback_image_url.jpg')}
+  sx={{ width: 56, height: 56 }}
+>
+  {currentUser.name}
+</Avatar>
 
-                  </Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
