@@ -5,10 +5,12 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { addUserToLobby } from "../service/lobbyApi";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { CurrentUserContext } from "../context/CurrentUserContext";
+import { useContext } from "react";
 function Session({ lobby, isUserPresent }) {
   const theme = useTheme();
-
+  const { currentUser, loading } = useContext(CurrentUserContext);
+  const { isAuthenticated } = useAuth0();
   const StyledPaper = styled(Paper)(() => ({
     backgroundColor: theme.palette.gray.main,
     display: "flex",
@@ -50,17 +52,17 @@ function Session({ lobby, isUserPresent }) {
   }));
 
   const navigate = useNavigate();
-  const { user } = useAuth0();
 
   const handleClick = useCallback(() => {
     const data = {
       lobbyId: lobby.lobbyId,
       user: {
-        name: user.name,
-        email: user.email,
-        picture: user.picture,
+        name: currentUser.name,
+        email: currentUser.email,
+        picture: currentUser.picture,
       },
     };
+    
 
     const addUser = async () => {
       await addUserToLobby(data);
@@ -75,10 +77,18 @@ function Session({ lobby, isUserPresent }) {
     lobby.topicHeader,
     lobby.topicName,
     navigate,
-    user.email,
-    user.name,
-    user.picture,
+    currentUser.email,
+    currentUser.name,
+    currentUser.picture,
   ]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
+  if (!isAuthenticated || !currentUser) {
+    return <div>No user data available</div>;
+  }
 
   return (
     <StyledPaper>
@@ -94,8 +104,8 @@ function Session({ lobby, isUserPresent }) {
 
       <Box sx={{ display: "flex", marginTop: "1rem" }}>
         <AvatarBox>
-          {lobby.users.map((user) => {
-            const { picture } = user;
+          {lobby.users.map((currentUser) => {
+            const { picture } = currentUser;
             return <CustomAvatar alt="user" src={picture} />;
           })}
         </AvatarBox>

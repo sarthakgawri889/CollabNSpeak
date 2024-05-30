@@ -14,8 +14,10 @@ import Appbar from '../Components/Appbar';
 import { useLocation } from 'react-router-dom';
 import { updateUserProfile } from '../service/api';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function EditProfile() {
+    const { t } = useTranslation();
     const location = useLocation();
     const { currentUser } = location.state || {};
     const navigate = useNavigate();
@@ -49,11 +51,11 @@ function EditProfile() {
 
         try {
             await updateUserProfile(formData);
-            alert('Profile updated successfully!');
+            alert(t('profileUpdated'));
             navigate('/profile');
         } catch (error) {
             console.error('Error updating profile:', error);
-            alert('Failed to update profile.');
+            alert(t('profileUpdateFailed'));
         }
     };
 
@@ -63,10 +65,10 @@ function EditProfile() {
 
     return (
         <>
-            <Appbar currentUser={currentUser}/>
+            <Appbar currentUser={currentUser} />
             <Container sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '9rem', position: 'relative' }}>
                 <Typography sx={{ fontFamily: 'Montserrat', fontWeight: '400', fontSize: '3rem' }}>
-                    Edit Profile
+                    {t('editp')}
                 </Typography>
             </Container>
 
@@ -90,7 +92,7 @@ function EditProfile() {
 
             <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
                 <FormControl sx={{ width: '50%' }}>
-                    <InputLabel htmlFor="username-input">Username</InputLabel>
+                    <InputLabel htmlFor="username-input">{t('username')}</InputLabel>
                     <Input
                         type='text'
                         name='nickname'
@@ -103,7 +105,7 @@ function EditProfile() {
 
             <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
                 <FormControl sx={{ width: '50%' }}>
-                    <InputLabel htmlFor="gender-input">Gender</InputLabel>
+                    <InputLabel htmlFor="gender-input">{t('gender')}</InputLabel>
                     <Input
                         type='text'
                         id="gender-input"
@@ -115,7 +117,7 @@ function EditProfile() {
             </Container>
 
             <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-                <Button variant="contained" onClick={handleSave}>Save</Button>
+                <Button variant="contained" onClick={handleSave}>{t('save')}</Button>
             </Container>
         </>
     );

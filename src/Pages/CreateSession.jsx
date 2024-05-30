@@ -5,11 +5,13 @@ import TopicHeader from "../Components/TopicHeader";
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import AccountProvider from "../context/AccountProvider";
+import { useTranslation } from "react-i18next";
+
 
 function CreateSession() {
   const [language, setLanguage] = React.useState("");
   const [v, setV] = useState("");
-
+  const { t } = useTranslation();
   const handleChange = (event) => {
     if (event.target.value === 10) {
       setLanguage("Hindi");
@@ -66,9 +68,9 @@ function CreateSession() {
       </CustomFormControl>
 
       <TopicBox>
-        <TopicHeader topic={"Icebreaker"} />
-        <TopicHeader topic={"Group Discussion"} />
-        <TopicHeader topic={"Debate"} />
+        <TopicHeader topic={t("iceb")} />
+        <TopicHeader topic={t("gd")} />
+        <TopicHeader topic={t("debate")} />
       </TopicBox>
 
       <TopicListBox>

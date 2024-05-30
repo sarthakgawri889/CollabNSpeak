@@ -1,15 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Debate, GroupDiscussion, Icebreaker } from "../Assets/TopicDetail";
+import { useTranslation } from "react-i18next";
+import { 
+  Icebreaker, Debate, GroupDiscussion, 
+  Icebreakerhi, Debatehi, GroupDiscussionhi, 
+  Icebreakergr, Debategr, GroupDiscussiongr 
+} from "../Assets/TopicDetail";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const RoomPage = () => {
-  const { user } = useAuth0();
-  const { topicHeader, topic, roomId } = useParams();
+  const { isAuthenticated } = useAuth0();
+  const { topicHeader, topic, roomId,language } = useParams();
   const navigate = useNavigate();
-
+  const { currentUser, loading } = useContext(CurrentUserContext);
   const [seconds, setSeconds] = useState(900);
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    if (language) {
+      i18n.changeLanguage(language);
+    }
+  }, [language, i18n]);
 
   useEffect(() => {
     if (seconds > 0) {
@@ -25,15 +38,15 @@ const RoomPage = () => {
   };
 
   const myMeeting = async (element) => {
-    // generate Kit Token
+    // Generate Kit Token
     const appID = 1885512553;
     const serverSecret = "57e06e22f60d0afa7de7a4e82442c55e";
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,
       roomId,
-      user.nickname,
-      user.name
+      currentUser.nickname,
+      currentUser.name
     );
 
     const zc = ZegoUIKitPrebuilt.create(kitToken);
@@ -53,7 +66,6 @@ const RoomPage = () => {
       ],
       videoResolutionDefault: ZegoUIKitPrebuilt.VideoResolution_360P,
       showPreJoinView: false,
-
       onLeaveRoom: () => {
         navigate("/existsession");
       },
@@ -61,29 +73,52 @@ const RoomPage = () => {
     if (seconds === 0) zc.destroy();
   };
 
-  let index = 0;
+  const getTopicDetails = () => {
+    let topics, index = 0;
 
-  if (topicHeader === "Icebreaker") {
-    for (let i = 0; i < Icebreaker.length; i++) {
-      if (Icebreaker[i].topic === topic) {
-        index = i;
+    switch (language) {
+      case 'Hindi':
+        topics = { Icebreaker: Icebreakerhi, Debate: Debatehi, GroupDiscussion: GroupDiscussionhi };
         break;
+      case 'German':
+        topics = { Icebreaker: Icebreakergr, Debate: Debategr, GroupDiscussion: GroupDiscussiongr };
+        break;
+      default:
+        topics = { Icebreaker, Debate, GroupDiscussion };
+    }
+
+    if (topicHeader === "Icebreaker") {
+      for (let i = 0; i < topics.Icebreaker.length; i++) {
+        if (topics.Icebreaker[i].topic === topic) {
+          index = i;
+          break;
+        }
+      }
+    } else if (topicHeader === "Debate") {
+      for (let i = 0; i < topics.Debate.length; i++) {
+        if (topics.Debate[i].topic === topic) {
+          index = i;
+          break;
+        }
+      }
+    } else {
+      for (let i = 0; i < topics.GroupDiscussion.length; i++) {
+        if (topics.GroupDiscussion[i].topic === topic) {
+          index = i;
+          break;
+        }
       }
     }
-  } else if (topicHeader === "Debate") {
-    for (let i = 0; i < Debate.length; i++) {
-      if (Debate[i].topic === topic) {
-        index = i;
-        break;
-      }
-    }
-  } else {
-    for (let i = 0; i < GroupDiscussion.length; i++) {
-      if (GroupDiscussion[i].topic === topic) {
-        index = i;
-        break;
-      }
-    }
+
+    return topics[topicHeader][index].cuecards;
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated || !currentUser) {
+    return <div>No user data available</div>;
   }
 
   return (
@@ -127,57 +162,26 @@ const RoomPage = () => {
             style={{
               textAlign: "center",
               justifyContent: "center",
-              margin: "0rem 0.8rem 0rem  0.8rem",
+              margin: "0rem 0.8rem 0rem 0.8rem",
               height: "13%",
             }}
           >
             Cue Card
           </h1>
           <div>
-            {topicHeader === "Icebreaker"
-              ? Icebreaker[index].cuecards.map((item) => {
-                  return (
-                    <p
-                      style={{
-                        margin: "1rem 1.5rem 0rem 1.5rem",
-                        borderRadius: "12px",
-                        padding: "3px",
-                        fontWeight: "100",
-                      }}
-                    >
-                      {item}
-                    </p>
-                  );
-                })
-              : topicHeader === "Debate"
-              ? Debate[index].cuecards.map((item) => {
-                  return (
-                    <p
-                      style={{
-                        margin: "1rem 1.5rem 0rem 1.5rem",
-                        borderRadius: "12px",
-                        padding: "3px",
-                        fontWeight: "100",
-                      }}
-                    >
-                      {item}
-                    </p>
-                  );
-                })
-              : GroupDiscussion[index].cuecards.map((item) => {
-                  return (
-                    <p
-                      style={{
-                        margin: "1rem 1.5rem 0rem 1.5rem",
-                        borderRadius: "12px",
-                        padding: "3px",
-                        fontWeight: "100",
-                      }}
-                    >
-                      {item}
-                    </p>
-                  );
-                })}
+            {getTopicDetails().map((item, idx) => (
+              <p
+                key={idx}
+                style={{
+                  margin: "1rem 1.5rem 0rem 1.5rem",
+                  borderRadius: "12px",
+                  padding: "3px",
+                  fontWeight: "100",
+                }}
+              >
+                {item}
+              </p>
+            ))}
           </div>
         </div>
       </div>

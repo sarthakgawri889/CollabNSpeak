@@ -2,9 +2,19 @@ import { Card } from "@mui/material";
 import TopicItem from "./TopicItem";
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Debate, GroupDiscussion, Icebreaker } from "../Assets/TopicDetail";
+import {
+  Debate,
+  GroupDiscussion,
+  Icebreaker,
+  Icebreakerhi,
+  Debatehi,
+  GroupDiscussionhi,
+  Icebreakergr,
+  Debategr,
+  GroupDiscussiongr,
+} from "../Assets/TopicDetail";
 
-function Topic({ topicHeader, language }) {
+function Topic({ topicHeader, language}) {
   const theme = useTheme();
 
   const CustomCard = styled(Card)(() => ({
@@ -15,74 +25,45 @@ function Topic({ topicHeader, language }) {
     borderRadius: "12px",
   }));
 
+  const getTopicsByLanguage = (defaultTopics, hindiTopics, germanTopics) => {
+    switch (language) {
+      case "Hindi":
+        return hindiTopics;
+      case "German":
+        return germanTopics;
+      default:
+        return defaultTopics;
+    }
+  };
+
+  let topics = [];
   if (topicHeader === "Icebreaker") {
-    return (
-      <CustomCard
-        sx={{
-          boxShadow: "0",
-          overflowY: "auto",
-          "&::-webkit-scrollbar": {
-            display: "none",
-          },
-        }}
-      >
-        {Icebreaker.map((item) => {
-          return (
-            <TopicItem
-              topicHeader={topicHeader}
-              topic={item.topic}
-              language={language}
-            />
-          );
-        })}
-      </CustomCard>
-    );
+    topics = getTopicsByLanguage(Icebreaker, Icebreakerhi, Icebreakergr);
   } else if (topicHeader === "Debate") {
-    return (
-      <CustomCard
-        sx={{
-          boxShadow: "0",
-          overflowY: "auto",
-          "&::-webkit-scrollbar": {
-            display: "none",
-          },
-        }}
-      >
-        {Debate.map((item) => {
-          return (
-            <TopicItem
-              topicHeader={topicHeader}
-              topic={item.topic}
-              language={language}
-            />
-          );
-        })}
-      </CustomCard>
-    );
+    topics = getTopicsByLanguage(Debate, Debatehi, Debategr);
+  } else {
+    topics = getTopicsByLanguage(GroupDiscussion, GroupDiscussionhi, GroupDiscussiongr);
   }
 
   return (
-    <div>
-      <CustomCard
-        sx={{
-          boxShadow: "0",
-          overflowY: "auto",
-          "&::-webkit-scrollbar": {
-            display: "none",
-          },
-        }}
-      >
-        {GroupDiscussion.map((item) => {
-          return (
-            <TopicItem
-              topicHeader={topicHeader}
-              topic={item.topic}
-              language={language}
-            />
-          );
-        })}
-      </CustomCard>
-    </div>
+    <CustomCard
+      sx={{
+        boxShadow: "0",
+        overflowY: "auto",
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
+    >
+      {topics.map((item, index) => (
+        <TopicItem
+          key={index}
+          topicHeader={topicHeader}
+          topic={item.topic}
+          language={language}
+        />
+      ))}
+    </CustomCard>
   );
 }
 

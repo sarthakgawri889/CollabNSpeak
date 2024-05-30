@@ -3,9 +3,12 @@ import Appbar from "../Components/Appbar";
 import { useNavigate } from "react-router-dom";
 import AccountProvider from "../context/AccountProvider";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useTranslation } from "react-i18next";
+
 function HomePage() {
   const { isAuthenticated } = useAuth0();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const navigateToExistingPage = () => {
     navigate("/existsession");
@@ -40,9 +43,7 @@ function HomePage() {
           >
             <Container sx={{ width: "45rem", marginRight: "8rem" }}>
               <Typography variant="regular">
-                Welcome to our language learning community, where you can
-                collaborate and practice languages in a supportive and
-                interactive environment!
+                {t("homepmessage")}
               </Typography>
             </Container>
             <Container sx={{ marginTop: "2rem" }}>
@@ -51,7 +52,7 @@ function HomePage() {
                 color="pri"
                 sx={{
                   width: "220px",
-                  marginleft: "2rem",
+                  marginLeft: "2rem",
                   borderRadius: "25px",
                   marginX: ".5rem",
                   paddingY: "1rem",
@@ -62,7 +63,7 @@ function HomePage() {
                   variant="medium"
                   sx={{ color: "white", textTransform: "initial" }}
                 >
-                  New Session
+                  {t("newsession")}
                 </Typography>
               </Button>
               <Button
@@ -72,13 +73,13 @@ function HomePage() {
                   width: "220px",
                   borderRadius: "25px",
                   marginX: ".5rem",
-                  marginleft: "5rem",
+                  marginLeft: "5rem",
                   paddingY: "1rem",
                 }}
                 onClick={navigateToExistingPage}
               >
                 <Typography variant="medium" sx={{ textTransform: "initial" }}>
-                  Existing Session
+                  {t("existingsession")}
                 </Typography>
               </Button>
             </Container>

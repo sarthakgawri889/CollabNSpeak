@@ -9,6 +9,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { deleteUserFromLobby } from "../service/lobbyApi";
 import axios from "axios";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const url = "http://localhost:8000";
 
@@ -52,14 +53,11 @@ const Text = styled(Typography)`
   position: relative;
   width: 280px;
   height: 51px;
-
-  /* Body Thin Header */
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
   line-height: 18px;
-  /* or 83% */
   letter-spacing: 0.05em;
   color: #ffffff;
   text-transform: none;
@@ -67,23 +65,22 @@ const Text = styled(Typography)`
   align-items: center;
   justify-content: center;
 `;
+
 const TimerText = styled(Typography)`
   margin: 0 auto;
   position: relative;
   padding-left: 4.5rem;
   padding-top: 0.6rem;
-
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
   line-height: 18px;
-  /* or 83% */
   letter-spacing: 0.05em;
   color: #ffffff;
 `;
 
-const Start = styled(Button)`
+const StartButton = styled(Button)`
   position: absolute;
   width: 12rem;
   height: 3rem;
@@ -91,7 +88,8 @@ const Start = styled(Button)`
   top: 32.5rem;
   border-radius: 50px;
 `;
-const End = styled(Button)`
+
+const EndButton = styled(Button)`
   position: absolute;
   width: 12rem;
   height: 3rem;
@@ -100,57 +98,19 @@ const End = styled(Button)`
   border-radius: 50px;
 `;
 
-const renderer = ({ minutes, seconds }) => {
-  if (seconds >= 0 && seconds < 10 && Math.floor(seconds) === seconds) {
-    return (
-      <span>
-        0{minutes}:0{seconds}
-      </span>
-    );
-  }
-  return (
-    <span>
-      0{minutes}:{seconds}
-    </span>
-  );
-};
+const renderer = ({ minutes, seconds }) => (
+  <span>
+    0{minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+  </span>
+);
 
 function BarCat() {
-  const account = useContext(AccountContext);
-  const navigate = useNavigate();
   const { language, topicHeader, topic, lobbyId } = useParams();
-  const { user } = useAuth0();
+  const { isAuthenticated } = useAuth0();
+  const account = useContext(AccountContext);
+  const { currentUser, loading } = useContext(CurrentUserContext);
+  const navigate = useNavigate();
   const [lobby, setLobby] = useState({});
-
-  const handleJoinRoom = useCallback(() => {
-    const data = {
-      lobbyId: lobbyId,
-      email: user.email,
-      hasMeetingStarted: true,
-    };
-
-    const pullUser = async () => {
-      await deleteUserFromLobby(data);
-    };
-    pullUser();
-
-    navigate(`/room/${language}/${topicHeader}/${topic}/${lobbyId}`);
-  }, [language, lobbyId, navigate, topic, topicHeader, user.email]);
-
-  const handleEndNow = useCallback(() => {
-    const data = {
-      lobbyId: lobbyId,
-      email: user.email,
-      hasMeetingStarted: false,
-    };
-
-    const pullUser = async () => {
-      await deleteUserFromLobby(data);
-    };
-    pullUser();
-
-    navigate("/existsession");
-  }, [lobbyId, navigate, user.email]);
 
   useEffect(() => {
     const getLobby = async () => {
@@ -167,12 +127,54 @@ function BarCat() {
     return () => clearInterval(interval); // Cleanup on unmount
   }, [lobbyId]);
 
-  if (lobby?.hasMeetingStarted === true) {
-    return (
-      <>
-        <AccountProvider>
-          <Appbar account={account} />
-        </AccountProvider>
+  const handleEndNow = useCallback(() => {
+    if (!currentUser) return;
+
+    const data = {
+      lobbyId: lobbyId,
+      email: currentUser.email,
+      hasMeetingStarted: false,
+    };
+
+    const pullUser = async () => {
+      await deleteUserFromLobby(data);
+    };
+    pullUser();
+
+    navigate("/existsession");
+  }, [lobbyId, navigate, currentUser]);
+
+  const handleJoinRoom = useCallback(() => {
+    if (!currentUser) return;
+
+    const data = {
+      lobbyId: lobbyId,
+      email: currentUser.email,
+      hasMeetingStarted: true,
+    };
+
+    const pullUser = async () => {
+      await deleteUserFromLobby(data);
+    };
+    pullUser();
+
+    navigate(`/room/${language}/${topicHeader}/${topic}/${lobbyId}`);
+  }, [language, lobbyId, navigate, topic, topicHeader, currentUser]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated || !currentUser) {
+    return <div>No user data available</div>;
+  }
+
+  return (
+    <>
+      <AccountProvider>
+        <Appbar account={account} />
+      </AccountProvider>
+      {lobby?.hasMeetingStarted === true && (
         <Box
           sx={{
             position: "relative",
@@ -188,42 +190,10 @@ function BarCat() {
           }}
         >
           <Typography>
-            Meeting has started 🙋‍♂️!!, please entered before timer ends 🙏
+            Meeting has started 🙋‍♂️!!, please enter before timer ends 🙏
           </Typography>
         </Box>
-
-        <BackPart>
-          <FrontBox>
-            <Text>{topicHeader}</Text>
-          </FrontBox>
-          <FrontBox sx={{ width: "450px" }}>
-            <Text sx={{ width: "400px" }}>{topic}</Text>
-          </FrontBox>
-          <Timer>
-            <TimerText>
-              <Countdown
-                date={Date.now() + 150000}
-                renderer={renderer}
-              ></Countdown>
-            </TimerText>
-          </Timer>
-        </BackPart>
-        <NameSlide lobby={lobby} />
-        <Start variant="contained" onClick={handleJoinRoom} color="success">
-          <Text>Start</Text>
-        </Start>
-        <End variant="contained" onClick={handleEndNow} color="error">
-          <Text>End</Text>
-        </End>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <AccountProvider>
-        <Appbar account={account} />
-      </AccountProvider>
+      )}
       <BackPart>
         <FrontBox>
           <Text>{topicHeader}</Text>
@@ -241,12 +211,12 @@ function BarCat() {
         </Timer>
       </BackPart>
       <NameSlide lobby={lobby} />
-      <Start variant="contained" onClick={handleJoinRoom} color="success">
+      <StartButton variant="contained" onClick={handleJoinRoom} color="success">
         <Text>Start</Text>
-      </Start>
-      <End variant="contained" onClick={handleEndNow} color="error">
+      </StartButton>
+      <EndButton variant="contained" onClick={handleEndNow} color="error">
         <Text>End</Text>
-      </End>
+      </EndButton>
     </>
   );
 }

@@ -9,33 +9,38 @@ import {
   Toolbar,
   Typography,
   Button,
+  Dialog,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Tooltip,
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItemIcon,
 } from "@mui/material";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import Logout from "@mui/icons-material/Logout";
-import { useAuth0 } from "@auth0/auth0-react";
-import { addUser } from "../service/api";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { getUsers } from "../service/api";
+import Logout from "@mui/icons-material/Logout";
+import LanguageIcon from "@mui/icons-material/Language";
+import { useAuth0 } from "@auth0/auth0-react";
+import { addUser, getUsers } from "../service/api";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
+
 function Appbar() {
   const navigate = useNavigate();
-  const { loginWithRedirect, user } = useAuth0();
-  const { logout, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, user, logout, isAuthenticated } = useAuth0();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [languageDialogOpen, setLanguageDialogOpen] = useState(false);
+  const [, setSelectedValue] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const languageOptions = { English: "en", Hindi: "hi", German: "de" };
   const open = Boolean(anchorEl);
-  const handleClickb = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  
+  const { t } = useTranslation();
   const theme = useTheme();
 
   const CustomAppBar = styled(AppBar)(() => ({
@@ -56,16 +61,7 @@ function Appbar() {
     marginTop: "3px",
   }));
 
-  const Linked = styled(Link)`
-    text-decoration: none; /* Remove default underline */
-    color: inherit; /* Inherit color from parent */
-    cursor: pointer;
-  `;
-  const [, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked(true);
-  };
+  
 
   const adduser = async () => {
     if (isAuthenticated) {
@@ -86,8 +82,11 @@ function Appbar() {
   const navigateToHome = () => {
     navigate("/");
   };
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+
+  const navigateToProfile = ()=>{
+    navigate("/profile", { state: { language: i18n.language } });
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -110,10 +109,24 @@ function Appbar() {
     return <div>Loading...</div>;
   }
 
+  const handleLanguageIconClick = () => {
+    setLanguageDialogOpen(true);
+  };
 
-  
+  const handleLanguageDialogClose = (value) => {
+    setLanguageDialogOpen(false);
+    setSelectedValue(value);
+  };
 
-  
+  const handleListItemClick = (value) => {
+    const languageCode = languageOptions[value];
+    i18n.changeLanguage(languageCode);
+    handleLanguageDialogClose(value);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <CustomAppBar sx={{ boxShadow: 0 }}>
@@ -129,54 +142,71 @@ function Appbar() {
         <Toolbar>
           <Button onClick={navigateToHome}>
             <Typography variant="medium" color="black" sx={{ paddingX: "5px" }}>
-              Home
+              {t("home")}
             </Typography>
           </Button>
 
           <Button onClick={navigateToServices}>
             <Typography variant="medium" color="black" sx={{ paddingX: "5px" }}>
-              Services
+              {t("services")}
             </Typography>
           </Button>
 
           <Button>
             <Typography variant="medium" color="black" sx={{ paddingX: "5px" }}>
-              About Us
+              {t("about")}
             </Typography>
           </Button>
+
+          <IconButton onClick={handleLanguageIconClick}>
+            <LanguageIcon />
+          </IconButton>
+
+          <Dialog onClose={handleLanguageDialogClose} open={languageDialogOpen}>
+            <DialogTitle>Select Language</DialogTitle>
+            <List sx={{ pt: 0 }}>
+              {Object.keys(languageOptions).map((language) => (
+                <ListItem disableGutters key={language}>
+                  <ListItemButton onClick={() => handleListItemClick(language)}>
+                    <ListItemText primary={language} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Dialog>
 
           {isAuthenticated && currentUser ? (
             <>
               <Tooltip title="Account">
                 <IconButton
-                  onClick={handleClickb}
+                  onClick={(e) => setAnchorEl(e.currentTarget)}
                   size="small"
                   sx={{ ml: 1 }}
                   aria-controls={open ? "account-menu" : undefined}
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
                 >
-                  <Avatar 
-  src={currentUser.picture ? 
-       (currentUser.picture.startsWith("http") ? 
-         currentUser.picture : 
-         `http://localhost:8000/${currentUser.picture}`) : 
-       (picture ? 
-         URL.createObjectURL(picture) : 
-         'fallback_image_url.jpg')}
-  sx={{ width: 56, height: 56 }}
->
-  {currentUser.name}
-</Avatar>
-
+                  <Avatar
+                    src={
+                      currentUser.picture
+                        ? currentUser.picture.startsWith("http")
+                          ? currentUser.picture
+                          : `http://localhost:8000/${currentUser.picture}`
+                        : picture
+                        ? URL.createObjectURL(picture)
+                        : "fallback_image_url.jpg"
+                    }
+                    sx={{ width: 56, height: 56 }}
+                  >
+                    {currentUser.name}
+                  </Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
                 open={open}
-                onClose={handleClose}
-                onClick={handleClose}
+                onClose={handleMenuClose}
                 PaperProps={{
                   elevation: 0,
                   sx: {
@@ -207,12 +237,12 @@ function Appbar() {
                 transformOrigin={{ horizontal: "right", vertical: "top" }}
                 anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
               >
-                <Linked to="/profile" onClick={handleClick}>
-                  <MenuItem onClick={handleClose}>
-                    <Avatar />{" "}
-                    <Box sx={{ textDecoration: "none" }}>Profile</Box>
+                <Box onClick={navigateToProfile}>
+                <MenuItem onClick={handleMenuClose}>
+                    <Avatar /> <Box sx={{ textDecoration: "none" }}>{t("profile")}</Box>
                   </MenuItem>
-                </Linked>
+                </Box>
+                
                 <Box
                   onClick={() =>
                     logout({
@@ -220,11 +250,11 @@ function Appbar() {
                     })
                   }
                 >
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleMenuClose}>
                     <ListItemIcon>
                       <Logout fontSize="small" />
                     </ListItemIcon>
-                    Logout
+                    {t("logout")}
                   </MenuItem>
                 </Box>
               </Menu>

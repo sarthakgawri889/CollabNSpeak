@@ -25,15 +25,17 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { getUsers } from "../service/api";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 function Profile() {
   const theme = useTheme();
   const { user, logout, isAuthenticated } = useAuth0();
   const [anchorEl, setAnchorEl] = useState(null);
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
-  
+  const location = useLocation();
   const handleClickb = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -43,6 +45,11 @@ function Profile() {
   };
 
 
+  useEffect(() => {
+    if (location.state && location.state.language) {
+      i18n.changeLanguage(location.state.language);
+    }
+  }, [location.state]);
 
 
   const [currentUser, setCurrentUser] = useState(null);
@@ -112,7 +119,7 @@ function Profile() {
       <CustomPaper>
         <Container sx={{ display: "flex", alignItems: "center" }}>
           <Paper sx={{ width: "100%", height: "60px", marginY: "1rem", borderRadius: 0 }}>
-            <ProfileHeading>Profile</ProfileHeading>
+          <ProfileHeading>{t('profile')}</ProfileHeading>
           </Paper>
 
           <Container sx={{ width: "100%", height: "60px", marginY: "1rem", display: "flex", justifyContent: "flex-end", background: "white" }}>
@@ -180,7 +187,7 @@ function Profile() {
                   <ListItemIcon>
                     <HomeIcon fontSize="small" />
                   </ListItemIcon>
-                  Home
+                  {t("home")}
                 </MenuItem>
               </Linked>
               <Box onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
@@ -188,7 +195,7 @@ function Profile() {
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
-                  Logout
+                  {t("logout")}
                 </MenuItem>
               </Box>
             </Menu>
@@ -198,8 +205,9 @@ function Profile() {
         <Container sx={{ display: "flex" }}>
           <Card sx={{ height: "570px", width: "380px" }}>
             <Container sx={{ marginY: "9px" }}>
-              <UserDetails>Details</UserDetails>
+              <UserDetails>{t("details")}</UserDetails>
             </Container>
+            
 
             <Container sx={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
             <Avatar 
@@ -259,7 +267,7 @@ function Profile() {
                onClick={navigateToEdit}
               >
                 <Typography variant="small" sx={{ fontWeight: "900", color: "White" }}>
-                  Edit Profile
+                  {t("editp")}
                 </Typography>
               </Button>
               <Button
@@ -274,7 +282,7 @@ function Profile() {
                 }}
               >
                 <Typography variant="small" sx={{ fontWeight: "900", color: "White" }}>
-                  Take Test
+                  {t("taket")}
                 </Typography>
               </Button>
             </Container>

@@ -5,13 +5,13 @@ import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 import AccountProvider from "../context/AccountProvider";
 import { getLobbies } from "../service/lobbyApi.js";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { CurrentUserContext } from "../context/CurrentUserContext";
 function ExistingSession() {
-  const { user } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   const [lobbies, setLobbies] = useState([]);
-
+  const { currentUser, loading } = useContext(CurrentUserContext);
   useEffect(() => {
     const fetchLobbies = async () => {
       const data = await getLobbies();
@@ -63,6 +63,14 @@ function ExistingSession() {
     },
   }));
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated || !currentUser) {
+    return <div>No user data available</div>;
+  }
+
   if (lobbies.length === 0) {
     return (
       <div>
@@ -101,8 +109,8 @@ function ExistingSession() {
         {lobbies.map((lobby) => {
           let isUserPresent = false;
           for (let i = 0; i < lobby.users.length; i++) {
-            console.log(lobby.users[i].email + "," + user.email);
-            if (lobby.users[i].email === user.email) {
+            console.log(lobby.users[i].email + "," + currentUser.email);
+            if (lobby.users[i].email === currentUser.email) {
               isUserPresent = true;
               break;
             }

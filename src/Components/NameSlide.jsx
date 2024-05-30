@@ -5,6 +5,9 @@ import {
   Avatar,
   CircularProgress,
 } from "@mui/material";
+import { CurrentUserContext } from "../context/CurrentUserContext";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useContext,useState } from "react";
 
 const BackPartN = styled(Box)`
   position: relative;
@@ -35,19 +38,40 @@ const Name = styled(Typography)`
   color: white;
 `;
 
+
+
 function NameSlide({ lobby }) {
+const { currentUser, loading } = useContext(CurrentUserContext);
+const { isAuthenticated } = useAuth0();
+const [picture, ] = useState(null);
   if (lobby === null) {
     return <CircularProgress />;
   }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
+  if (!isAuthenticated || !currentUser) {
+    return <div>No user data available</div>;
+  }
+  console.log(currentUser.picture)
   return (
     <div>
       {lobby.users?.map((user) => {
         return (
           <BackPartN>
-            <Name>{user.name}</Name>
+            <Name>{currentUser.nickname}</Name>
             <Avatar
               alt="Remy Sharp"
-              src={user.picture}
+              src={currentUser.picture ? 
+                (currentUser.picture.startsWith("http") ? 
+                  currentUser.picture : 
+                  `http://localhost:8000/${currentUser.picture}`) : 
+                (picture ? 
+                  URL.createObjectURL(picture) : 
+                  'fallback_image_url.jpg')}
+            
               sx={{
                 width: 35,
                 height: 35 /* Ellipse 18 */,
@@ -57,8 +81,10 @@ function NameSlide({ lobby }) {
               }}
             />
           </BackPartN>
+          
         );
       })}
+      
     </div>
   );
 }
