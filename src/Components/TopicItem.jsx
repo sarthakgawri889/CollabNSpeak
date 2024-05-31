@@ -6,14 +6,13 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { createLobby } from "../service/lobbyApi";
 import { CurrentUserContext } from "../context/CurrentUserContext";
-import { useContext,useState } from "react";
+import { useContext, useState } from "react";
 
 function TopicItem({ topicHeader, topic, language }) {
   const theme = useTheme();
   const { currentUser, loading } = useContext(CurrentUserContext);
-const { isAuthenticated } = useAuth0();
-const [picture, ] = useState(null);
-
+  const { isAuthenticated } = useAuth0();
+  const [picture] = useState(null);
 
   // Custom styled components using emotion
   const CustomCard = styled(Card)(() => ({
@@ -57,13 +56,19 @@ const [picture, ] = useState(null);
       language: language,
       userCount: 1,
       hasMeetingStarted: false,
-      users: [{ name: currentUser?.name, email: currentUser?.email, picture: currentUser.picture ? 
-        (currentUser.picture.startsWith("http") ? 
-          currentUser.picture : 
-          `http://localhost:8000/${currentUser.picture}`) : 
-        (picture ? 
-          URL.createObjectURL(picture) : 
-          'fallback_image_url.jpg')}],
+      users: [
+        {
+          name: currentUser?.name,
+          email: currentUser?.email,
+          picture: currentUser?.picture
+            ? currentUser?.picture.startsWith("http")
+              ? currentUser?.picture
+              : `http://localhost:8000/${currentUser?.picture}`
+            : picture
+            ? URL.createObjectURL(picture)
+            : "fallback_image_url.jpg",
+        },
+      ],
     };
 
     const addLobby = async () => {
@@ -73,12 +78,22 @@ const [picture, ] = useState(null);
     // Create lobby and navigate to the newly created lobby page
     addLobby();
     navigate(`/barcat/${language}/${topicHeader}/${topic}/${lobbyId}`);
-  }, [language, lobbyId, navigate, topic, topicHeader, currentUser?.email, currentUser?.name, picture, currentUser.picture]);
+  }, [
+    language,
+    lobbyId,
+    navigate,
+    topic,
+    topicHeader,
+    currentUser?.email,
+    currentUser?.name,
+    picture,
+    currentUser?.picture,
+  ]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
-  
+
   if (!isAuthenticated || !currentUser) {
     return <div>No user data available</div>;
   }

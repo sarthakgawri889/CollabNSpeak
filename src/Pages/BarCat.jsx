@@ -80,7 +80,7 @@ const TimerText = styled(Typography)`
   color: #ffffff;
 `;
 
-const StartButton = styled(Button)`
+const Start = styled(Button)`
   position: absolute;
   width: 12rem;
   height: 3rem;
@@ -89,7 +89,7 @@ const StartButton = styled(Button)`
   border-radius: 50px;
 `;
 
-const EndButton = styled(Button)`
+const End = styled(Button)`
   position: absolute;
   width: 12rem;
   height: 3rem;
@@ -128,8 +128,6 @@ function BarCat() {
   }, [lobbyId]);
 
   const handleEndNow = useCallback(() => {
-    if (!currentUser) return;
-
     const data = {
       lobbyId: lobbyId,
       email: currentUser.email,
@@ -145,8 +143,6 @@ function BarCat() {
   }, [lobbyId, navigate, currentUser]);
 
   const handleJoinRoom = useCallback(() => {
-    if (!currentUser) return;
-
     const data = {
       lobbyId: lobbyId,
       email: currentUser.email,
@@ -169,12 +165,12 @@ function BarCat() {
     return <div>No user data available</div>;
   }
 
-  return (
-    <>
-      <AccountProvider>
-        <Appbar account={account} />
-      </AccountProvider>
-      {lobby?.hasMeetingStarted === true && (
+  if (lobby?.hasMeetingStarted === true) {
+    return (
+      <>
+        <AccountProvider>
+          <Appbar account={account} />
+        </AccountProvider>
         <Box
           sx={{
             position: "relative",
@@ -190,10 +186,42 @@ function BarCat() {
           }}
         >
           <Typography>
-            Meeting has started 🙋‍♂️!!, please enter before timer ends 🙏
+            Meeting has started 🙋‍♂️!!, please entered before timer ends 🙏
           </Typography>
         </Box>
-      )}
+
+        <BackPart>
+          <FrontBox>
+            <Text>{topicHeader}</Text>
+          </FrontBox>
+          <FrontBox sx={{ width: "450px" }}>
+            <Text sx={{ width: "400px" }}>{topic}</Text>
+          </FrontBox>
+          <Timer>
+            <TimerText>
+              <Countdown
+                date={Date.now() + 150000}
+                renderer={renderer}
+              ></Countdown>
+            </TimerText>
+          </Timer>
+        </BackPart>
+        <NameSlide lobby={lobby} />
+        <Start variant="contained" onClick={handleJoinRoom} color="success">
+          <Text>Start</Text>
+        </Start>
+        <End variant="contained" onClick={handleEndNow} color="error">
+          <Text>End</Text>
+        </End>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <AccountProvider>
+        <Appbar account={account} />
+      </AccountProvider>
       <BackPart>
         <FrontBox>
           <Text>{topicHeader}</Text>
@@ -211,12 +239,12 @@ function BarCat() {
         </Timer>
       </BackPart>
       <NameSlide lobby={lobby} />
-      <StartButton variant="contained" onClick={handleJoinRoom} color="success">
+      <Start variant="contained" onClick={handleJoinRoom} color="success">
         <Text>Start</Text>
-      </StartButton>
-      <EndButton variant="contained" onClick={handleEndNow} color="error">
+      </Start>
+      <End variant="contained" onClick={handleEndNow} color="error">
         <Text>End</Text>
-      </EndButton>
+      </End>
     </>
   );
 }

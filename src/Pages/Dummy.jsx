@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-
 import {
   Icebreaker,
   Debate,
@@ -17,48 +16,56 @@ import { CurrentUserContext } from "../context/CurrentUserContext";
 import { Timer } from "../Components/Timer";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const RoomPage = () => {
+const Dummy = () => {
   const { topicHeader, topic, roomId, language } = useParams();
   const navigate = useNavigate();
   const { loading } = useContext(CurrentUserContext);
   const { user } = useAuth0();
+  const meetingContainerRef = useRef(null);
 
-  const myMeeting = async (element) => {
-    // Generate Kit Token
-    const appID = 1885512553;
-    const serverSecret = "57e06e22f60d0afa7de7a4e82442c55e";
-    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-      appID,
-      serverSecret,
-      roomId,
-      user?.email,
-      user?.name
-    );
+  const myMeeting = useCallback(
+    async (element) => {
+      const appID = 1885512553;
+      const serverSecret = "57e06e22f60d0afa7de7a4e82442c55e";
+      const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+        appID,
+        serverSecret,
+        roomId,
+        user?.email,
+        user?.name
+      );
 
-    const zc = ZegoUIKitPrebuilt.create(kitToken);
+      const zc = ZegoUIKitPrebuilt.create(kitToken);
 
-    zc.joinRoom({
-      container: element,
-      maxUsers: 4,
-      scenario: {
-        mode: ZegoUIKitPrebuilt.GroupCall,
-      },
-      showScreenSharingButton: false,
-      showUserList: false,
-      videoResolutionList: [
-        ZegoUIKitPrebuilt.VideoResolution_360P,
-        ZegoUIKitPrebuilt.VideoResolution_180P,
-        ZegoUIKitPrebuilt.VideoResolution_480P,
-        ZegoUIKitPrebuilt.VideoResolution_720P,
-      ],
-      videoResolutionDefault: ZegoUIKitPrebuilt.VideoResolution_360P,
-      showPreJoinView: false,
+      zc.joinRoom({
+        container: element,
+        maxUsers: 4,
+        scenario: {
+          mode: ZegoUIKitPrebuilt.GroupCall,
+        },
+        showScreenSharingButton: false,
+        showUserList: false,
+        videoResolutionList: [
+          ZegoUIKitPrebuilt.VideoResolution_360P,
+          ZegoUIKitPrebuilt.VideoResolution_180P,
+          ZegoUIKitPrebuilt.VideoResolution_480P,
+          ZegoUIKitPrebuilt.VideoResolution_720P,
+        ],
+        videoResolutionDefault: ZegoUIKitPrebuilt.VideoResolution_360P,
+        showPreJoinView: false,
+        showLeavingView: false,
+        onLeaveRoom: () => {
+          navigate("/");
+        },
+      });
 
-      onLeaveRoom: () => {
-        navigate("/endcall");
-      },
-    });
-  };
+      setTimeout(() => {
+        zc.destroy();
+        navigate("/");
+      }, 30000);
+    },
+    [navigate, roomId, user?.email, user?.name]
+  );
 
   const getTopicDetails = () => {
     let topics;
@@ -83,23 +90,13 @@ const RoomPage = () => {
     }
 
     if (topicHeader === "Icebreaker") {
-      for (let i = 0; i < topics.Icebreaker.length; i++) {
-        if (topics.Icebreaker[i].topic === topic) {
-          return topics.Icebreaker[i].cuecards;
-        }
-      }
+      return topics.Icebreaker.find((t) => t.topic === topic)?.cuecards || [];
     } else if (topicHeader === "Debate") {
-      for (let i = 0; i < topics.Debate.length; i++) {
-        if (topics.Debate[i].topic === topic) {
-          return topics.Debate[i].cuecards;
-        }
-      }
+      return topics.Debate.find((t) => t.topic === topic)?.cuecards || [];
     }
-    for (let i = 0; i < topics.GroupDiscussion.length; i++) {
-      if (topics.GroupDiscussion[i].topic === topic) {
-        return topics.GroupDiscussion[i].cuecards;
-      }
-    }
+    return (
+      topics.GroupDiscussion.find((t) => t.topic === topic)?.cuecards || []
+    );
   };
 
   const topicDetail = getTopicDetails();
@@ -176,4 +173,4 @@ const RoomPage = () => {
   );
 };
 
-export default RoomPage;
+export default Dummy;

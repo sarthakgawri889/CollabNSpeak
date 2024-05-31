@@ -1,4 +1,4 @@
-export const questions = [
+export const questionsEng = [
   {
     question: "Which of the following is a noun?",
     option1: "Quickly",
@@ -79,6 +79,177 @@ export const questions = [
     option2: "The dog's tail is wagging.",
     option3: "The dogs tail is wagging.",
     option4: "Its' a beautiful day.",
+    ans: 2,
+  },
+];
+
+export const questionsGr = [
+  {
+    question: "Welches der folgenden ist ein Nomen?",
+    option1: "Schnell",
+    option2: "Laufen",
+    option3: "Glück",
+    option4: "Blau",
+    ans: 3,
+  },
+  {
+    question: "Welcher Satz ist in der Vergangenheitsform?",
+    option1: "Sie wird zum Laden gehen.",
+    option2: "Sie geht zum Laden.",
+    option3: "Sie geht zum Laden.",
+    option4: "Sie ging zum Laden.",
+    ans: 4,
+  },
+  {
+    question: "Identifizieren Sie die korrekte Pluralform des Wortes 'Maus'",
+    option1: "Mouses",
+    option2: "Mices",
+    option3: "Mäuse",
+    option4: "Miceses",
+    ans: 3,
+  },
+  {
+    question:
+      "Wählen Sie die richtige Form des Verbs, um den Satz zu vervollständigen: 'Sie ____ jeden Tag ins Fitnessstudio.'",
+    option1: "gehen",
+    option2: "gehen",
+    option3: "gegangen",
+    option4: "geht",
+    ans: 4,
+  },
+  {
+    question: "Welcher Satz verwendet das richtige Vergleichsadjektiv?",
+    option1: "Sie ist größer als er.",
+    option2: "Sie ist die Größere als er.",
+    option3: "Sie ist größer als er.",
+    option4: "Sie ist groß als er.",
+    ans: 3,
+  },
+  {
+    question: "Welcher Satz verwendet das Semikolon korrekt?",
+    option1: "Sie liebt es zu lesen; und er liebt es zu schreiben.",
+    option2: "Sie liebt es zu lesen; er liebt es zu schreiben.",
+    option3: "Sie liebt es zu lesen; aber er liebt es zu schreiben.",
+    option4: "Sie liebt es zu lesen; jedoch liebt er es zu schreiben.",
+    ans: 2,
+  },
+  {
+    question:
+      "Identifizieren Sie den Satz mit der richtigen Subjekt-Verb-Übereinstimmung.",
+    option1: "Die Hunde rennt schnell.",
+    option2: "Der Hund rennen schnell.",
+    option3: "Die Hunde rennen schnell.",
+    option4: "Der Hund rennt schnell.",
+    ans: 3,
+  },
+  {
+    question: "Welcher der folgenden Sätze ist im Passiv?",
+    option1: "Der Koch kocht das Essen.",
+    option2: "Das Essen wird vom Koch gekocht.",
+    option3: "Der Koch kocht das Essen.",
+    option4: "Das Essen vom Koch gekocht.",
+    ans: 2,
+  },
+  {
+    question:
+      "Wählen Sie die richtige Form des Pronomens, um den Satz zu vervollständigen: 'Zwischen dir und ____, das ist ein Geheimnis.'",
+    option1: "mir",
+    option2: "ich",
+    option3: "mich selbst",
+    option4: "mein",
+    ans: 1,
+  },
+  {
+    question: "Welcher Satz verwendet ein Apostroph korrekt?",
+    option1: "Its ein schöner Tag.",
+    option2: "Der Schwanz des Hundes wedelt.",
+    option3: "Der Schwanz des Hundes wedelt.",
+    option4: "Its' ein schöner Tag.",
+    ans: 2,
+  },
+];
+
+export const questionsHi = [
+  {
+    question: "निम्नलिखित में से कौन सा संज्ञा है?",
+    option1: "शीघ्र",
+    option2: "दौड़",
+    option3: "खुशी",
+    option4: "नीला",
+    ans: 3,
+  },
+  {
+    question: "कौन सा वाक्य भूतकाल में है?",
+    option1: "वह दुकान पर जाएगी",
+    option2: "वह दुकान पर जाती है।",
+    option3: "वह दुकान पर जा रही है।",
+    option4: "वह दुकान पर गई।",
+    ans: 4,
+  },
+  {
+    question: "शब्द 'mouse' का सही बहुवचन रूप पहचाने",
+    option1: "Mouses",
+    option2: "Mices",
+    option3: "Mice",
+    option4: "Miceses",
+    ans: 3,
+  },
+  {
+    question:
+      "वाक्य को पूरा करने के लिए क्रिया का सही रूप चुनें: 'वह हर दिन जिम ____।'",
+    option1: "जाना",
+    option2: "जाना",
+    option3: "गया",
+    option4: "जाती है",
+    ans: 4,
+  },
+  {
+    question: "कौन सा वाक्य सही तुलनात्मक विशेषण का उपयोग करता है?",
+    option1: "वह उससे अधिक लंबी है।",
+    option2: "वह उससे लंबी है।",
+    option3: "वह उससे अधिक लंबी है।",
+    option4: "वह उससे लंबा है।",
+    ans: 3,
+  },
+  {
+    question: "कौन सा वाक्य सही ढंग से अर्धविराम का उपयोग करता है?",
+    option1: "वह पढ़ना पसंद करती है; और वह लिखना पसंद करता है।",
+    option2: "वह पढ़ना पसंद करती है; वह लिखना पसंद करता है।",
+    option3: "वह पढ़ना पसंद करती है; लेकिन वह लिखना पसंद करता है।",
+    option4: "वह पढ़ना पसंद करती है; हालांकि, वह लिखना पसंद करता है।",
+    ans: 2,
+  },
+  {
+    question: "सही विषय-क्रिया समझौते के साथ वाक्य की पहचान करें।",
+    option1: "कुत्ते तेजी से दौड़ते हैं।",
+    option2: "कुत्ता तेजी से दौड़ता है।",
+    option3: "कुत्ते तेजी से दौड़ते हैं।",
+    option4: "कुत्ता तेजी से दौड़ता है।",
+    ans: 3,
+  },
+  {
+    question: "निम्नलिखित में से कौन सा वाक्य निष्क्रिय वाक्य में है?",
+    option1: "शेफ भोजन बनाता है।",
+    option2: "भोजन शेफ द्वारा बनाया जाता है।",
+    option3: "शेफ भोजन बना रहा है।",
+    option4: "भोजन शेफ द्वारा बनाया गया।",
+    ans: 2,
+  },
+  {
+    question:
+      "वाक्य को पूरा करने के लिए सर्वनाम का सही रूप चुनें: 'आप और ____ के बीच, यह एक रहस्य है।'",
+    option1: "मुझे",
+    option2: "मैं",
+    option3: "स्वयं",
+    option4: "मेरा",
+    ans: 1,
+  },
+  {
+    question: "कौन सा वाक्य सही ढंग से अपोस्ट्रॉफ का उपयोग करता है?",
+    option1: "यह एक खूबसूरत दिन है।",
+    option2: "कुत्ते की पूंछ हिल रही है।",
+    option3: "कुत्ते की पूंछ हिल रही है।",
+    option4: "यह एक खूबसूरत दिन है।",
     ans: 2,
   },
 ];

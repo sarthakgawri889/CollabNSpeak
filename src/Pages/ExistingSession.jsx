@@ -116,7 +116,13 @@ function ExistingSession() {
             }
           }
 
-          return <Session lobby={lobby} isUserPresent={isUserPresent} />;
+          return (
+            <Session
+              key={lobby.lobbyId}
+              lobby={lobby}
+              isUserPresent={isUserPresent}
+            />
+          );
         })}
       </StyledPaper>
     </div>

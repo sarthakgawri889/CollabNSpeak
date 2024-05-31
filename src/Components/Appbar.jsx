@@ -61,8 +61,6 @@ function Appbar() {
     marginTop: "3px",
   }));
 
-  
-
   const adduser = async () => {
     if (isAuthenticated) {
       await addUser(user);
@@ -83,9 +81,9 @@ function Appbar() {
     navigate("/");
   };
 
-  const navigateToProfile = ()=>{
+  const navigateToProfile = () => {
     navigate("/profile", { state: { language: i18n.language } });
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -196,7 +194,7 @@ function Appbar() {
                         ? URL.createObjectURL(picture)
                         : "fallback_image_url.jpg"
                     }
-                    sx={{ width: 56, height: 56 }}
+                    sx={{ width: 35, height: 35 }}
                   >
                     {currentUser.name}
                   </Avatar>
@@ -238,11 +236,12 @@ function Appbar() {
                 anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
               >
                 <Box onClick={navigateToProfile}>
-                <MenuItem onClick={handleMenuClose}>
-                    <Avatar /> <Box sx={{ textDecoration: "none" }}>{t("profile")}</Box>
+                  <MenuItem onClick={handleMenuClose}>
+                    <Avatar />{" "}
+                    <Box sx={{ textDecoration: "none" }}>{t("profile")}</Box>
                   </MenuItem>
                 </Box>
-                
+
                 <Box
                   onClick={() =>
                     logout({
