@@ -12,6 +12,7 @@ import RoomPage from "./Pages/RoomPage";
 import EditProfile from "./Pages/EditProfile";
 
 import Quiz from "./Pages/Quiz";
+import About from "./Pages/About";
 
 
 
@@ -108,6 +109,12 @@ const router = createBrowserRouter([
   {
     path: "/quiz",
     element: <Quiz />,
+
+  },
+
+  {
+    path: "/aboutus",
+    element: <About />,
 
   },
 ]);

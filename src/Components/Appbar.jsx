@@ -83,6 +83,10 @@ function Appbar() {
     navigate("/");
   };
 
+  const navigateToAbout = () => {
+    navigate("/aboutus");
+  };
+
   const navigateToProfile = ()=>{
     navigate("/profile", { state: { language: i18n.language } });
   }
@@ -152,7 +156,7 @@ function Appbar() {
             </Typography>
           </Button>
 
-          <Button>
+          <Button onClick={navigateToAbout}>
             <Typography variant="medium" color="black" sx={{ paddingX: "5px" }}>
               {t("about")}
             </Typography>
