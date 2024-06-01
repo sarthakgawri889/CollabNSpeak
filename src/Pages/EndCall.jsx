@@ -9,6 +9,7 @@ const EndCall = () => {
   const handleClick = () => {
     navigate("/");
   };
+
   return (
     <>
       <Appbar />

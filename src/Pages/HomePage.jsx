@@ -19,23 +19,6 @@ function HomePage() {
     navigate("/createsession");
   };
 
-  useEffect(() => {
-    const handleBackButton = (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      // Perform your custom logic here
-      window.alert("Navigation to Previous Page is not allowed.");
-      return false; // Prevent navigation
-    };
-
-    window.history.pushState(null, "", window.location.pathname);
-    window.addEventListener("popstate", handleBackButton);
-
-    return () => {
-      window.removeEventListener("popstate", handleBackButton);
-    };
-  }, []);
-
   return (
     <div>
       <AccountProvider>
