@@ -43,3 +43,12 @@ export const updateUserLevel = async (email, score) => {
     throw error;
   }
 };
+
+export const updateUserRecent = async (data) => {
+  try {
+    const res = await axios.put(`${url}/updateRecent`, data);
+    return res.data;
+  } catch (error) {
+    console.error("Error while calling updateUserRecent API:", error.message);
+  }
+};

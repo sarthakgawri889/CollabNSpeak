@@ -10,6 +10,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { deleteUserFromLobby } from "../service/lobbyApi";
 import axios from "axios";
 import { CurrentUserContext } from "../context/CurrentUserContext";
+import { updateUserRecent } from "../service/api";
 
 const url = "http://localhost:8000";
 
@@ -166,6 +167,16 @@ function BarCat() {
       );
       return;
     }
+
+    const rec = {
+      email: currentUser.email,
+      recent: `${url}/room/${language}/${topicHeader}/${topic}/${lobbyId}`,
+    };
+
+    const updateRecent = async () => {
+      await updateUserRecent(rec);
+    };
+
     const data = {
       lobbyId: lobbyId,
       email: currentUser.email,
@@ -175,6 +186,8 @@ function BarCat() {
     const pullUser = async () => {
       await deleteUserFromLobby(data);
     };
+
+    updateRecent();
     pullUser();
 
     navigate(`/room/${language}/${topicHeader}/${topic}/${lobbyId}`);

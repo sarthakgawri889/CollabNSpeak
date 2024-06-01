@@ -63,7 +63,6 @@ export const addUser = async (req, res) => {
   }
 };
 
-
 export const getUsers = async (req, res) => {
   try {
     const users = await User.find({});
@@ -102,5 +101,18 @@ export const updateUserLevel = async (req, res) => {
   } catch (error) {
     console.error("Error updating user level:", error);
     res.status(500).json({ error: "Failed to update user level" });
+  }
+};
+
+export const updateUserRecent = async (req, res) => {
+  try {
+    const response = await User.updateOne(
+      { email: req.body.email },
+      { $set: { recent: req.body.recent } }
+    );
+    res.status(200).json(response);
+  } catch (error) {
+    console.error("Error updating user Recent:", error);
+    res.status(500).json({ error: "Failed to update user recent" });
   }
 };

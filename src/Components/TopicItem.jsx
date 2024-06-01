@@ -12,6 +12,7 @@ function TopicItem({ topicHeader, topic, language }) {
   const theme = useTheme();
   const { currentUser, loading } = useContext(CurrentUserContext);
   const { isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
   const [picture] = useState(null);
 
   // Custom styled components using emotion
@@ -70,6 +71,8 @@ function TopicItem({ topicHeader, topic, language }) {
         },
       ],
     };
+
+    console.log(lobby);
 
     const addLobby = async () => {
       await createLobby(lobby);
