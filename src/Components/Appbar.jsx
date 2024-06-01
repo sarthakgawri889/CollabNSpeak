@@ -216,8 +216,8 @@ function Appbar() {
                   sx: {
                     overflow: "visible",
                     filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                    mt: 11.5,
-                    ml: 149,
+                    mt: '3.7rem',
+                    ml: '75.5rem',
                     "& .MuiAvatar-root": {
                       width: 32,
                       height: 32,
@@ -266,7 +266,7 @@ function Appbar() {
             </>
           ) : (
             <Button onClick={() => loginWithRedirect()} color="primary">
-              Log In
+              {t("login")}
             </Button>
           )}
         </Toolbar>

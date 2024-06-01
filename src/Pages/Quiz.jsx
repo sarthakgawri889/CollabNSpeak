@@ -1,15 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useContext } from "react";
 import "../styles/Quiz.css";
 import { questionsHi, questionsEng, questionsGr } from "../Assets/Questions";
 import Appbar from "../Components/Appbar";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";  // Import axios for making HTTP requests
+import { CurrentUserContext } from "../context/CurrentUserContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Quiz = () => {
   const navigate = useNavigate();
   const { lang } = useParams();
   let [index, setIndex] = useState(0);
   let questions = [];
-
+  const { currentUser, loading } = useContext(CurrentUserContext);
+  const { isAuthenticated } = useAuth0();
   if (lang === "Hindi") {
     questions = questionsHi;
   } else if (lang === "English") {
@@ -48,6 +52,7 @@ const Quiz = () => {
     if (lock === true) {
       if (index === questions.length - 1) {
         setResult(true);
+        sendScoreToServer();
         return 0;
       }
       setIndex(++index);
@@ -70,34 +75,26 @@ const Quiz = () => {
     navigate("/");
   };
 
-  /*
-  const handleGoToHome = useCallback(() => {
-    let level = "Beginner";
-    if (score < 8) level = "Advanced";
-    else if (score < 8 && score >= 5) level = "Intermediate";
-    else level = "Beginner";
+  const sendScoreToServer = async () => {
+    try {
+      const email = currentUser.email; // Replace with the actual user's email
+      const response = await axios.put("http://localhost:8000/updateLevel", {
+        email,
+        score,
+      });
+      console.log("User level updated:", response.data);
+    } catch (error) {
+      console.error("Error updating user level:", error);
+    }
+  };
 
-    const data = {
-      email: user.email,
-      level: level,
-    };
-    const addLevel = async () => {
-      await updateUserByEmail(data);
-    };
-    addLevel();
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    const reset = () => {
-      setIndex(0);
-      setQuestion(questions[0]);
-      setScore(0);
-      setLock(false);
-      setResult(false);
-      navigate("/");
-    };
-
-    reset();
-  }, [navigate, questions, score, user.email]);
-  */
+  if (!isAuthenticated || !currentUser) {
+    return <div>No user data available</div>;
+  }
 
   return (
     <>

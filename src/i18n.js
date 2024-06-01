@@ -59,8 +59,14 @@ i18next
           contactintro: "We love hearing from our users! Whether you have a question, feedback, or just want to say hello, feel free to reach out to us at contact@collabnspeak.com. We're here to help and support you on your language learning journey.",
           join: "Join CollabNSpeak today and become part of a global community of language learners and enthusiasts. Together, we can achieve our language goals and create a more connected world.",
           start: "Start",
-          end: "End"
-
+          end: "End",
+          breakthelanguagebarrier:"Break the Language Barrier",
+          innovativelanguagepracticeapp:"Innovative Language Practice App",
+          collabnspeak_description:"CollabNSpeak is an innovative language practice app that focuses on building your confidence in speaking a new language. Our app offers icebreaking sessions, debates, and group discussions using video calling features. We understand the lack of confidence users face, particularly in interview situations, which is why we created this app. Start practicing with CollabNSpeak today! ",
+          tryitforfree:"Try it for free",
+          learnmore:"Learn more",
+          login:"Log In",
+          oops:"Oops no Meetings for now 🥲😢"
         },
       },
       hi: {
@@ -111,7 +117,14 @@ i18next
           contactintro: "हम अपने उपयोगकर्ताओं से सुनना पसंद करते हैं! चाहे आपके पास कोई प्रश्न हो, प्रतिक्रिया हो, या बस हैलो कहना चाहते हों, बेझिझक हमसे संपर्क करें contact@collabnspeak.com पर। हम आपकी भाषा सीखने की यात्रा में आपकी मदद और समर्थन के लिए यहाँ हैं।",
           join: "आज ही CollabNSpeak में शामिल हों और भाषा शिक्षार्थियों और उत्साही लोगों के वैश्विक समुदाय का हिस्सा बनें। एक साथ, हम अपने भाषा लक्ष्यों को प्राप्त कर सकते हैं और एक अधिक जुड़ी हुई दुनिया बना सकते हैं।",
           start: "शुरू",
-          end: "अंत"
+          end: "अंत",
+          breakthelanguagebarrier:"भाषा बाधा को तोड़ें",
+          innovativelanguagepracticeapp:"नवाचारात्मक भाषा अभ्यास ऐप",
+          collabnspeak_description:"CollabNSpeak एक नवाचारात्मक भाषा अभ्यास ऐप है जो आपकी नई भाषा में बोलने में आत्मविश्वास बनाने पर ध्यान केंद्रित करता है। हमारा ऐप आइसब्रेकिंग सत्र, वाद-विवाद, और वीडियो कॉलिंग सुविधाओं का उपयोग करके समूह चर्चाओं की पेशकश करता है। हमें यह समझ में है कि उपयोगकर्ताओं को किसी विशेषत: साक्षात्कार की स्थिति में विश्वास की कमी का सामना करना पड़ता है, इसीलिए हमने यह ऐप बनाई है। CollabNSpeak के साथ अभ्यास शुरू करें आज!",
+          tryitforfree:"मुफ्त में आज़माएं",
+          learnmore:"और अधिक जानें",
+          login:"लॉगिन",
+          oops:"अभी कोई मीटिंग नहीं है 🥲😢"
         },
       },
       de: {
@@ -162,7 +175,15 @@ i18next
           contactintro: "Wir hören gerne von unseren Nutzern! Ob Sie eine Frage haben, Feedback geben oder einfach nur Hallo sagen möchten, zögern Sie nicht, uns unter contact@collabnspeak.com zu kontaktieren. Wir sind hier, um Ihnen auf Ihrer Sprachlernreise zu helfen und Sie zu unterstützen.",
           join: "Treten Sie noch heute CollabNSpeak bei und werden Sie Teil einer globalen Gemeinschaft von Sprachlernenden und Enthusiasten. Gemeinsam können wir unsere Sprachziele erreichen und eine stärker vernetzte Welt schaffen.",
           start: "Start",
-          end: "Ende"
+          end: "Ende",
+          breakthelanguagebarrier:"Sprachbarrieren überwinden",
+          innovativelanguagepracticeapp:"Innovative Sprachübungs-App",
+          collabnspeak_description:"CollabNSpeak ist eine innovative Sprachübungs-App, die sich darauf konzentriert, Ihr Selbstvertrauen beim Sprechen einer neuen Sprache aufzubauen. Unsere App bietet Eisbrecher-Sitzungen, Debatten und Gruppendiskussionen mit Videoanruffunktionen an. Wir verstehen die mangelnde Zuversicht, mit der Benutzer insbesondere in Interviewsituationen konfrontiert sind, und deshalb haben wir diese App entwickelt. Beginnen Sie noch heute mit dem Üben mit CollabNSpeak!",
+          tryitforfree:"Kostenlos ausprobieren",
+          learnmore:"Mehr erfahren",
+          login:"Anmeldung",
+          oops: "Oops, im Moment keine Meetings 🥲😢"
+
         },
       },
     },
