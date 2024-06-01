@@ -94,6 +94,7 @@ function HomePage() {
         </Container>
       ) : (
         <>
+        
           <Container
             sx={{
               display: "flex",
@@ -102,6 +103,7 @@ function HomePage() {
               top: "10rem",
             }}
           >
+            
             <Container
               sx={{ width: "60%", position: "relative", top: "14rem" }}
             >
