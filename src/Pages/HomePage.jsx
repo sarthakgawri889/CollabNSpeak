@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AccountProvider from "../context/AccountProvider";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 function HomePage() {
   const { isAuthenticated } = useAuth0();
@@ -17,6 +18,23 @@ function HomePage() {
   const navigateToCreateSession = () => {
     navigate("/createsession");
   };
+
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      // Perform your custom logic here
+      window.alert("Navigation to Previous Page is not allowed.");
+      return false; // Prevent navigation
+    };
+
+    window.history.pushState(null, "", window.location.pathname);
+    window.addEventListener("popstate", handleBackButton);
+
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, []);
 
   return (
     <div>

@@ -127,6 +127,23 @@ function BarCat() {
     return () => clearInterval(interval); // Cleanup on unmount
   }, [lobbyId]);
 
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      // Perform your custom logic here
+      window.alert("Click on the End button for Navigation to Previous Page.");
+      return false; // Prevent navigation
+    };
+
+    window.history.pushState(null, "", window.location.pathname);
+    window.addEventListener("popstate", handleBackButton);
+
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, []);
+
   const handleEndNow = useCallback(() => {
     const data = {
       lobbyId: lobbyId,
@@ -143,6 +160,12 @@ function BarCat() {
   }, [lobbyId, navigate, currentUser]);
 
   const handleJoinRoom = useCallback(() => {
+    if (!(lobby.countUser > 1 || lobby.hasMeetingStarted === true)) {
+      alert(
+        "You can't enter the meeting as number of user is 1 or meeting has not started yet!"
+      );
+      return;
+    }
     const data = {
       lobbyId: lobbyId,
       email: currentUser.email,
@@ -155,7 +178,17 @@ function BarCat() {
     pullUser();
 
     navigate(`/room/${language}/${topicHeader}/${topic}/${lobbyId}`);
-  }, [language, lobbyId, navigate, topic, topicHeader, currentUser]);
+    window.location.reload();
+  }, [
+    lobby?.countUser,
+    lobby?.hasMeetingStarted,
+    lobbyId,
+    currentUser?.email,
+    navigate,
+    language,
+    topicHeader,
+    topic,
+  ]);
 
   if (loading) {
     return <div>Loading...</div>;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 
@@ -23,42 +23,66 @@ const RoomPage = () => {
   const { loading } = useContext(CurrentUserContext);
   const { user } = useAuth0();
 
-  const myMeeting = async (element) => {
-    // Generate Kit Token
-    const appID = 1885512553;
-    const serverSecret = "57e06e22f60d0afa7de7a4e82442c55e";
-    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-      appID,
-      serverSecret,
-      roomId,
-      user?.email,
-      user?.name
-    );
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      // Perform your custom logic here
+      window.alert("Navigation to Previous Page is not allowed.");
+      return false; // Prevent navigation
+    };
 
-    const zc = ZegoUIKitPrebuilt.create(kitToken);
+    window.history.pushState(null, "", window.location.pathname);
+    window.addEventListener("popstate", handleBackButton);
 
-    zc.joinRoom({
-      container: element,
-      maxUsers: 4,
-      scenario: {
-        mode: ZegoUIKitPrebuilt.GroupCall,
-      },
-      showScreenSharingButton: false,
-      showUserList: false,
-      videoResolutionList: [
-        ZegoUIKitPrebuilt.VideoResolution_360P,
-        ZegoUIKitPrebuilt.VideoResolution_180P,
-        ZegoUIKitPrebuilt.VideoResolution_480P,
-        ZegoUIKitPrebuilt.VideoResolution_720P,
-      ],
-      videoResolutionDefault: ZegoUIKitPrebuilt.VideoResolution_360P,
-      showPreJoinView: false,
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, []);
 
-      onLeaveRoom: () => {
+  const myMeeting = useCallback(
+    async (element) => {
+      const appID = 1885512553;
+      const serverSecret = "57e06e22f60d0afa7de7a4e82442c55e";
+      const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+        appID,
+        serverSecret,
+        roomId,
+        user?.email,
+        user?.name
+      );
+
+      const zc = ZegoUIKitPrebuilt.create(kitToken);
+
+      zc.joinRoom({
+        container: element,
+        maxUsers: 4,
+        scenario: {
+          mode: ZegoUIKitPrebuilt.GroupCall,
+        },
+        showScreenSharingButton: false,
+        showUserList: false,
+        videoResolutionList: [
+          ZegoUIKitPrebuilt.VideoResolution_360P,
+          ZegoUIKitPrebuilt.VideoResolution_180P,
+          ZegoUIKitPrebuilt.VideoResolution_480P,
+          ZegoUIKitPrebuilt.VideoResolution_720P,
+        ],
+        videoResolutionDefault: ZegoUIKitPrebuilt.VideoResolution_360P,
+        showPreJoinView: false,
+        showLeavingView: false,
+        onLeaveRoom: () => {
+          navigate("/endcall");
+        },
+      });
+
+      setTimeout(() => {
+        zc.destroy();
         navigate("/endcall");
-      },
-    });
-  };
+      }, 900000);
+    },
+    [navigate, roomId, user?.email, user?.name]
+  );
 
   const getTopicDetails = () => {
     let topics;
