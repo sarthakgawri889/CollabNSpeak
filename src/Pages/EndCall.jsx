@@ -2,13 +2,31 @@ import React from "react";
 import Appbar from "../Components/Appbar";
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 const EndCall = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate("/");
   };
+
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      // Perform your custom logic here
+      window.alert("Navigation to Previous Page is not allowed.");
+      return false; // Prevent navigation
+    };
+
+    window.history.pushState(null, "", window.location.pathname);
+    window.addEventListener("popstate", handleBackButton);
+
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, []);
+
   return (
     <>
       <Appbar />
