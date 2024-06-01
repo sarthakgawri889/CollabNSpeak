@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import AccountProvider from "../context/AccountProvider";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
 
 function HomePage() {
   const { isAuthenticated } = useAuth0();
@@ -43,7 +42,9 @@ function HomePage() {
             }}
           >
             <Container sx={{ width: "45rem", marginRight: "8rem" }}>
-              <Typography variant="regular">{t("homepmessage")}</Typography>
+              <Typography variant="regular">
+                {t("homepmessage")}
+              </Typography>
             </Container>
             <Container sx={{ marginTop: "2rem" }}>
               <Button
@@ -72,7 +73,7 @@ function HomePage() {
                   width: "220px",
                   borderRadius: "25px",
                   marginX: ".5rem",
-                  marginLeft: "1rem",
+                  marginLeft: "5rem",
                   paddingY: "1rem",
                 }}
                 onClick={navigateToExistingPage}
