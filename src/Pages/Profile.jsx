@@ -79,6 +79,10 @@ function Profile() {
     navigate("/quizstart");
   };
 
+  const navigateToRecent = () => {
+    navigate("/recent");
+  };
+
   const Linked = styled(Link)`
     text-decoration: none; /* Remove default underline */
     color: inherit; /* Inherit color from parent */
@@ -229,11 +233,19 @@ function Profile() {
         </Container>
 
         <Container sx={{ display: "flex" }}>
-          <Card sx={{ height: "33.4375rem", width: "30rem", borderRadius: "0.9375rem" }}> {/* 535px 480px 15px */}
-            <Container sx={{ marginY: "0.5625rem" }}> {/* 9px */}
+          <Card
+            sx={{
+              height: "33.4375rem",
+              width: "32rem",
+              borderRadius: "0.9375rem",
+            }}
+          >
+            {/* 535px 480px 15px */}
+            <Container sx={{ marginY: "0.5625rem" }}>
+              {" "}
+              {/* 9px */}
               <UserDetails>{t("details")}</UserDetails>
             </Container>
-
             <Container
               sx={{
                 display: "flex",
@@ -256,9 +268,11 @@ function Profile() {
                 {currentUser.name}
               </Avatar>
             </Container>
-
-            <Container sx={{ display: "flex", marginTop: "1rem" }}>
-              <AccountCircleIcon sx={{ width: "1.875rem", height: "1.875rem" }} /> {/* 30px */}
+            <Container sx={{ display: "flex", marginTop: "0.7rem" }}>
+              <AccountCircleIcon
+                sx={{ width: "1.875rem", height: "1.875rem" }}
+              />{" "}
+              {/* 30px */}
               <Typography
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
@@ -266,9 +280,9 @@ function Profile() {
                 {currentUser.nickname}
               </Typography>
             </Container>
-
             <Container sx={{ display: "flex", marginY: "0.7rem" }}>
-              <AssessmentIcon sx={{ width: "1.875rem", height: "1.875rem" }} /> {/* 30px */}
+              <AssessmentIcon sx={{ width: "1.875rem", height: "1.875rem" }} />{" "}
+              {/* 30px */}
               <Typography
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
@@ -277,7 +291,8 @@ function Profile() {
               </Typography>
             </Container>
             <Container sx={{ display: "flex", marginY: "0.7rem" }}>
-              <MailIcon sx={{ width: "1.875rem", height: "1.875rem" }} /> {/* 30px */}
+              <MailIcon sx={{ width: "1.875rem", height: "1.875rem" }} />{" "}
+              {/* 30px */}
               <Typography
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
@@ -285,8 +300,15 @@ function Profile() {
                 {currentUser.email}
               </Typography>
             </Container>
-            <Container sx={{ display: "flex", marginTop: "0.7rem" }}>
-              <WcIcon sx={{ width: "1.875rem", height: "1.875rem" }} /> {/* 30px */}
+            <Container
+              sx={{
+                display: "flex",
+                marginTop: "0.7rem",
+                marginBottom: "1rem",
+              }}
+            >
+              <WcIcon sx={{ width: "1.875rem", height: "1.875rem" }} />{" "}
+              {/* 30px */}
               <Typography
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
@@ -294,11 +316,27 @@ function Profile() {
                 {currentUser.gender}
               </Typography>
             </Container>
-
-            <Container
-              sx={{ display: "flex", marginY: "1rem", marginTop: "2.7rem" }}
-            />
             <Container>
+              <Button
+                variant="contained"
+                color="pri"
+                sx={{
+                  marginX: "3rem",
+                  borderRadius: "0.9375rem", // 15px
+                  color: "Black",
+                  padding: "0.8rem",
+                  width: "14.0625rem", // 225px
+                  marginY: "0.5rem",
+                }}
+                onClick={navigateToRecent}
+              >
+                <Typography
+                  variant="small"
+                  sx={{ fontWeight: "900", color: "White" }}
+                >
+                  Recent Meeting
+                </Typography>
+              </Button>
               <Button
                 variant="contained"
                 color="pri"

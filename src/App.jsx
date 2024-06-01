@@ -13,6 +13,7 @@ import About from "./Pages/About";
 import QuizzStart from "./Pages/QuizzStart";
 import EndCall from "./Pages/EndCall";
 import RoomPage from "./Pages/RoomPage";
+import RecentMeeting from "./Pages/RecentMeeting";
 
 const theme = createTheme({
   palette: {
@@ -118,6 +119,10 @@ const router = createBrowserRouter([
   {
     path: "/aboutus",
     element: <About />,
+  },
+  {
+    path: "/recent",
+    element: <RecentMeeting />,
   },
 ]);
 

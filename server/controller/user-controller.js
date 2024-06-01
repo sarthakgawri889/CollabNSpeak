@@ -38,7 +38,17 @@ export const updateUser = [
 
 export const addUser = async (req, res) => {
   try {
-    const { sub, email, nickname,picture,given_name,family_name,name,email_verified,locale } = req.body;
+    const {
+      sub,
+      email,
+      nickname,
+      picture,
+      given_name,
+      family_name,
+      name,
+      email_verified,
+      locale,
+    } = req.body;
     const exist = await User.findOne({ sub });
 
     if (exist) {
@@ -50,11 +60,15 @@ export const addUser = async (req, res) => {
       sub,
       email,
       nickname,
-      picture,given_name,family_name,name,email_verified,locale,
+      picture,
+      given_name,
+      family_name,
+      name,
+      email_verified,
+      locale,
       gender: "choose",
       level: "Take Test",
       recent: "link",
-      
     });
 
     await newUser.save();

@@ -13,6 +13,7 @@ import { CurrentUserContext } from "../context/CurrentUserContext";
 import { updateUserRecent } from "../service/api";
 
 const url = "http://localhost:8000";
+const app = "http://localhost:5173";
 
 const BackPart = styled(Box)`
   position: absolute;
@@ -170,7 +171,7 @@ function BarCat() {
 
     const rec = {
       email: currentUser.email,
-      recent: `${url}/room/${language}/${topicHeader}/${topic}/${lobbyId}`,
+      recent: `/room/${language}/${topicHeader}/${topic}/${lobbyId}`,
     };
 
     const updateRecent = async () => {

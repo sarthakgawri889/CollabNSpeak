@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useTranslation } from "react-i18next";
 
 function HomePage() {
-  const { isAuthenticated,loginWithRedirect } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -65,13 +65,13 @@ function HomePage() {
                 </Typography>
               </Button>
               <Button
-                variant="contained"
-                color="bg"
+                variant="outlined"
+                color="primary"
                 sx={{
                   width: "220px",
                   borderRadius: "25px",
                   marginX: ".5rem",
-                  marginLeft: "5rem",
+                  marginLeft: "2rem",
                   paddingY: "1rem",
                 }}
                 onClick={navigateToExistingPage}
@@ -100,60 +100,76 @@ function HomePage() {
               top: "10rem",
             }}
           >
-            <Container
-              sx={{ width: "60%", position: "relative", top: "4rem" }}
-            >
+            <Container sx={{ width: "60%", position: "relative", top: "4rem" }}>
               <Container sx={{ width: "45rem", marginRight: "8rem" }}>
-                <Typography variant="h2" component="div" sx={{fontFamily: "Roboto"}}>
-                {t("breakthelanguagebarrier")}
+                <Typography
+                  variant="h2"
+                  component="div"
+                  sx={{ fontFamily: "Roboto" }}
+                >
+                  {t("breakthelanguagebarrier")}
                 </Typography>
-              <Container/>
-              <Container sx={{ width: "100%", position: "relative", top: "2rem", right:'1.4rem' }}>
-              <Typography variant="h6" component="div"  sx={{fontFamily: "Roboto"}}>
-                  {t("innovativelanguagepracticeapp")}
-                </Typography>
-                <Typography variant="body1" component="div" sx={{fontFamily:"Montserrat"}}>
-                  {t("collabnspeak_description")}
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="pri"
+                <Container />
+                <Container
                   sx={{
-                    width: "220px",
-                    marginTop: "1rem",
-                    borderRadius: "25px",
-                    paddingY: "1rem",
-                    marginRight: "1rem",
+                    width: "100%",
+                    position: "relative",
+                    top: "2rem",
+                    right: "1.4rem",
                   }}
-                  onClick={() => loginWithRedirect()}
                 >
                   <Typography
-                    variant="medium"
-                    sx={{ color: "white", textTransform: "initial" }}
+                    variant="h6"
+                    component="div"
+                    sx={{ fontFamily: "Roboto" }}
                   >
-                    {t("tryitforfree")}
+                    {t("innovativelanguagepracticeapp")}
                   </Typography>
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  sx={{
-                    width: "220px",
-                    marginTop: "1rem",
-                    borderRadius: "25px",
-                    paddingY: "1rem",
-                  }}
-                  onClick={() => navigate("/services")}
-                >
                   <Typography
-                    variant="medium"
-                    sx={{ textTransform: "initial" }}
+                    variant="body1"
+                    component="div"
+                    sx={{ fontFamily: "Montserrat" }}
                   >
-                    {t("learnmore")}
+                    {t("collabnspeak_description")}
                   </Typography>
-                </Button>
-              </Container>
-                
+                  <Button
+                    variant="contained"
+                    color="pri"
+                    sx={{
+                      width: "220px",
+                      marginTop: "1rem",
+                      borderRadius: "25px",
+                      paddingY: "1rem",
+                      marginRight: "1rem",
+                    }}
+                    onClick={() => loginWithRedirect()}
+                  >
+                    <Typography
+                      variant="medium"
+                      sx={{ color: "white", textTransform: "initial" }}
+                    >
+                      {t("tryitforfree")}
+                    </Typography>
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    sx={{
+                      width: "220px",
+                      marginTop: "1rem",
+                      borderRadius: "25px",
+                      paddingY: "1rem",
+                    }}
+                    onClick={() => navigate("/services")}
+                  >
+                    <Typography
+                      variant="medium"
+                      sx={{ textTransform: "initial" }}
+                    >
+                      {t("learnmore")}
+                    </Typography>
+                  </Button>
+                </Container>
               </Container>
             </Container>
             <Container sx={{ width: "40%" }}>
