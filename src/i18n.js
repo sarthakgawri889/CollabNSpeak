@@ -65,7 +65,8 @@ i18next
           collabnspeak_description:"CollabNSpeak is an innovative language practice app that focuses on building your confidence in speaking a new language. Our app offers icebreaking sessions, debates, and group discussions using video calling features. We understand the lack of confidence users face, particularly in interview situations, which is why we created this app. Start practicing with CollabNSpeak today! ",
           tryitforfree:"Try it for free",
           learnmore:"Learn more",
-          login:"Log In"
+          login:"Log In",
+          oops:"Oops no Meetings for now 🥲😢"
         },
       },
       hi: {
@@ -122,7 +123,8 @@ i18next
           collabnspeak_description:"CollabNSpeak एक नवाचारात्मक भाषा अभ्यास ऐप है जो आपकी नई भाषा में बोलने में आत्मविश्वास बनाने पर ध्यान केंद्रित करता है। हमारा ऐप आइसब्रेकिंग सत्र, वाद-विवाद, और वीडियो कॉलिंग सुविधाओं का उपयोग करके समूह चर्चाओं की पेशकश करता है। हमें यह समझ में है कि उपयोगकर्ताओं को किसी विशेषत: साक्षात्कार की स्थिति में विश्वास की कमी का सामना करना पड़ता है, इसीलिए हमने यह ऐप बनाई है। CollabNSpeak के साथ अभ्यास शुरू करें आज!",
           tryitforfree:"मुफ्त में आज़माएं",
           learnmore:"और अधिक जानें",
-          login:"लॉगिन"
+          login:"लॉगिन",
+          oops:"अभी कोई मीटिंग नहीं है 🥲😢"
         },
       },
       de: {
@@ -179,7 +181,8 @@ i18next
           collabnspeak_description:"CollabNSpeak ist eine innovative Sprachübungs-App, die sich darauf konzentriert, Ihr Selbstvertrauen beim Sprechen einer neuen Sprache aufzubauen. Unsere App bietet Eisbrecher-Sitzungen, Debatten und Gruppendiskussionen mit Videoanruffunktionen an. Wir verstehen die mangelnde Zuversicht, mit der Benutzer insbesondere in Interviewsituationen konfrontiert sind, und deshalb haben wir diese App entwickelt. Beginnen Sie noch heute mit dem Üben mit CollabNSpeak!",
           tryitforfree:"Kostenlos ausprobieren",
           learnmore:"Mehr erfahren",
-          login:"Anmeldung"
+          login:"Anmeldung",
+          oops: "Oops, im Moment keine Meetings 🥲😢"
 
         },
       },
