@@ -69,9 +69,29 @@ function Appbar() {
     }
   };
 
-  if (isAuthenticated) {
-    adduser();
-  }
+  useEffect(() => {
+    const handleAddUser = async () => {
+      if (isAuthenticated) {
+        await adduser();
+      }
+      const fetchData = async () => {
+        try {
+          const response = await getUsers();
+          if (user) {
+            const loggedInUser = response.find((u) => u.sub === user.sub);
+            setCurrentUser(loggedInUser);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();
+    };
+
+    handleAddUser();
+  }, [isAuthenticated, user]);
 
   const navigateToServices = () => {
     navigate("/services");
@@ -81,32 +101,13 @@ function Appbar() {
     navigate("/");
   };
 
-
   const navigateToAbout = () => {
     navigate("/aboutus");
   };
 
-
   const navigateToProfile = () => {
     navigate("/profile", { state: { language: i18n.language } });
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getUsers();
-        if (user) {
-          const loggedInUser = response.find((u) => u.sub === user.sub);
-          setCurrentUser(loggedInUser);
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [user]);
 
   const [picture] = useState(null);
   if (loading) {
@@ -265,7 +266,7 @@ function Appbar() {
               </Menu>
             </>
           ) : (
-            <Button onClick={() => loginWithRedirect()} color="primary">
+            <Button onClick={() => loginWithRedirect()} color="pri">
               {t("login")}
             </Button>
           )}
