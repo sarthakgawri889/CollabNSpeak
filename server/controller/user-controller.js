@@ -38,24 +38,31 @@ export const updateUser = [
 
 export const addUser = async (req, res) => {
   try {
-    let exist = await User.findOne({ sub: req.body.sub });
+    const { sub, email, nickname } = req.body;
+    const exist = await User.findOne({ sub });
+
     if (exist) {
       res.status(200).json({ msg: "User already exists" });
       return;
     }
 
     const newUser = new User({
-      ...req.body,
+      sub,
+      email,
+      nickname,
       gender: "choose",
       level: "Take Test",
+      recent: "link",
     });
+
     await newUser.save();
     res.status(200).json(newUser);
   } catch (error) {
-    console.error("Error adding user:", error); // Debugging: Log the error
-    return res.status(500).json(error.message);
+    console.error("Error adding user:", error);
+    res.status(500).json({ error: "Failed to add user" });
   }
 };
+
 
 export const getUsers = async (req, res) => {
   try {

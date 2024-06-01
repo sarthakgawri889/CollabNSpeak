@@ -38,6 +38,9 @@ const userSchema = mongoose.Schema({
   level: {
     type: String,
   },
+  recent: {
+    type: String,
+  }
 });
 
 const User = mongoose.model("user", userSchema);
