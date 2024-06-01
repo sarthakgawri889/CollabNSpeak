@@ -8,10 +8,12 @@ import { getLobbies } from "../service/lobbyApi.js";
 import { useEffect, useState, useContext } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CurrentUserContext } from "../context/CurrentUserContext";
+import { useTranslation } from "react-i18next";
 function ExistingSession() {
   const { isAuthenticated } = useAuth0();
   const [lobbies, setLobbies] = useState([]);
   const { currentUser, loading } = useContext(CurrentUserContext);
+  const { t } = useTranslation();
   useEffect(() => {
     const fetchLobbies = async () => {
       const data = await getLobbies();
@@ -92,7 +94,7 @@ function ExistingSession() {
               textAlign: "center",
             }}
           >
-            Oops no Meetings for now 🥲😢
+            {t("oops")}
           </Typography>
         </NoMeeting>
       </div>

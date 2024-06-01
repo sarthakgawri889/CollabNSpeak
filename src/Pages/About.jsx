@@ -101,7 +101,7 @@ function About() {
             <li>{t("v2")}</li>
             <li>{t("v3")}</li>
             <li>{t("v4")}</li>
-            <li>{t("v4")}</li>
+            <li>{t("v5")}</li>
           </ul>
         </Typography>
       </Container>

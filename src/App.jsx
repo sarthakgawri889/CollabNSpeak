@@ -9,15 +9,10 @@ import BarCat from "./Pages/BarCat";
 import Services from "./Pages/Services";
 import EditProfile from "./Pages/EditProfile";
 import Quiz from "./Pages/Quiz";
-
 import About from "./Pages/About";
-
-
-
-import QuizzStart from "./Components/QuizzStart";
+import QuizzStart from "./Pages/QuizzStart";
 import EndCall from "./Pages/EndCall";
 import RoomPage from "./Pages/RoomPage";
-
 
 const theme = createTheme({
   palette: {
@@ -123,7 +118,6 @@ const router = createBrowserRouter([
   {
     path: "/aboutus",
     element: <About />,
-
   },
 ]);
 

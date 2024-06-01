@@ -23,6 +23,27 @@ function CreateSession() {
     setV(event.target.value);
   };
 
+  const topics = {
+    Hindi: {
+      icebreaker: "परिचय",
+      groupDiscussion: "समूह चर्चा",
+      debate: "विवाद"
+    },
+    English: {
+      icebreaker: "Icebreaker",
+      groupDiscussion: "Group Discussion",
+      debate: "Debate"
+    },
+    German: {
+      icebreaker: "Eisbrecher",
+      groupDiscussion: "Gruppendiskussion",
+      debate: "Debatte"
+    }
+  };
+
+  const selectedTopics = topics[language] || topics.English;
+
+
   const CustomFormControl = styled(FormControl)(() => ({
     width: "288px",
     position: "relative",
@@ -74,9 +95,9 @@ function CreateSession() {
       </TopicBox>
 
       <TopicListBox>
-        <Topic topicHeader={"Icebreaker"} language={language} />
-        <Topic topicHeader={"Group Discussion"} language={language} />
-        <Topic topicHeader={"Debate"} language={language} />
+        <Topic topicHeader={selectedTopics.icebreaker} language={language} />
+        <Topic topicHeader={selectedTopics.groupDiscussion} language={language} />
+        <Topic topicHeader={selectedTopics.debate} language={language} />
       </TopicListBox>
     </div>
   );

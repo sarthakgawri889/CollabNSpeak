@@ -33,3 +33,13 @@ export const updateUserProfile = async (formData) => {
     throw error;
   }
 };
+
+export const updateUserLevel = async (email, score) => {
+  try {
+    const response = await axios.put(`${url}/updateLevel`, { email, score });
+    return response.data;
+  } catch (error) {
+    console.error("Error while calling updateUserLevel API:", error.message);
+    throw error;
+  }
+};
