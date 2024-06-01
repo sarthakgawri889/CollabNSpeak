@@ -28,6 +28,7 @@ import { getUsers } from "../service/api";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
+
 function Profile() {
   const theme = useTheme();
   const { user, logout, isAuthenticated } = useAuth0();
@@ -85,27 +86,29 @@ function Profile() {
   `;
 
   const CustomPaper = styled(Paper)(() => ({
-    height: "650px",
-    width: "900px",
+    height: "40.625rem", // 650px
+    width: "56.25rem", // 900px
     backgroundColor: theme.palette.gray.main,
-    borderRadius: "25px",
-    margin: "1.4rem 17rem 1.4rem 17rem",
+    borderRadius: "1.5625rem", // 25px
+    margin: "1.4rem auto",
   }));
 
   const ProfileHeading = styled(Typography)(() => ({
     font: theme.typography.header1,
-    fontSize: "30px",
+    fontSize: "1.875rem", // 30px
     margin: "0.5rem 0 0.2rem 1rem",
   }));
 
   const UserDetails = styled(Typography)(() => ({
     fontFamily: "Montserrat",
     fontWeight: "600",
-    fontSize: "20px",
+    fontSize: "1.25rem", // 20px
     color: "#00000096",
-    margin: "30px 24px 30px 24px",
+    margin: "1.875rem 1.5rem", // 30px 24px
   }));
+
   const [picture] = useState(null);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -121,9 +124,9 @@ function Profile() {
           <Paper
             sx={{
               width: "100%",
-              height: "60px",
+              height: "3.75rem", // 60px
               marginY: "1rem",
-              borderRadius: "15px 0px 0px 15px",
+              borderRadius: "0.9375rem 0 0 0.9375rem", // 15px 0px 0px 15px
             }}
           >
             <ProfileHeading>{t("profile")}</ProfileHeading>
@@ -132,12 +135,12 @@ function Profile() {
           <Container
             sx={{
               width: "100%",
-              height: "60px",
+              height: "3.75rem", // 60px
               marginY: "1rem",
               display: "flex",
               justifyContent: "flex-end",
               background: "white",
-              borderRadius: "0px 15px 15px 0px",
+              borderRadius: "0 0.9375rem 0.9375rem 0", // 0px 15px 15px 0px
             }}
           >
             <Tooltip title="Account">
@@ -159,7 +162,7 @@ function Profile() {
                       ? URL.createObjectURL(picture)
                       : "fallback_image_url.jpg"
                   }
-                  sx={{ width: 40, height: 40 }}
+                  sx={{ width: "2.5rem", height: "2.5rem" }} // 40px
                 >
                   {currentUser.name}
                 </Avatar>
@@ -176,11 +179,11 @@ function Profile() {
                 sx: {
                   overflow: "visible",
                   filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                  mt: 9.5,
-                  ml: 129,
+                  mt: "4.5rem", // 152px
+                  ml: "64rem", // 129px
                   "& .MuiAvatar-root": {
-                    width: 32,
-                    height: 32,
+                    width: "2rem", // 32px
+                    height: "2rem", // 32px
                     ml: -0.5,
                     mr: 1,
                   },
@@ -190,8 +193,8 @@ function Profile() {
                     position: "absolute",
                     top: 0,
                     right: 14,
-                    width: 10,
-                    height: 10,
+                    width: "0.625rem", // 10px
+                    height: "0.625rem", // 10px
                     bgcolor: "background.paper",
                     transform: "translateY(-50%) rotate(45deg)",
                     zIndex: 0,
@@ -226,8 +229,8 @@ function Profile() {
         </Container>
 
         <Container sx={{ display: "flex" }}>
-          <Card sx={{ height: "535px", width: "380px", borderRadius: "15px" }}>
-            <Container sx={{ marginY: "9px" }}>
+          <Card sx={{ height: "33.4375rem", width: "30rem", borderRadius: "0.9375rem" }}> {/* 535px 480px 15px */}
+            <Container sx={{ marginY: "0.5625rem" }}> {/* 9px */}
               <UserDetails>{t("details")}</UserDetails>
             </Container>
 
@@ -248,14 +251,14 @@ function Profile() {
                     ? URL.createObjectURL(picture)
                     : "fallback_image_url.jpg"
                 }
-                sx={{ width: "7rem", height: "7rem" }}
+                sx={{ width: "7rem", height: "7rem" }} // 112px
               >
                 {currentUser.name}
               </Avatar>
             </Container>
 
             <Container sx={{ display: "flex", marginTop: "1rem" }}>
-              <AccountCircleIcon sx={{ width: "30px", height: "30px" }} />
+              <AccountCircleIcon sx={{ width: "1.875rem", height: "1.875rem" }} /> {/* 30px */}
               <Typography
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
@@ -265,7 +268,7 @@ function Profile() {
             </Container>
 
             <Container sx={{ display: "flex", marginY: "0.7rem" }}>
-              <AssessmentIcon sx={{ width: "30px", height: "30px" }} />
+              <AssessmentIcon sx={{ width: "1.875rem", height: "1.875rem" }} /> {/* 30px */}
               <Typography
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
@@ -274,7 +277,7 @@ function Profile() {
               </Typography>
             </Container>
             <Container sx={{ display: "flex", marginY: "0.7rem" }}>
-              <MailIcon sx={{ width: "30px", height: "30px" }} />
+              <MailIcon sx={{ width: "1.875rem", height: "1.875rem" }} /> {/* 30px */}
               <Typography
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
@@ -283,7 +286,7 @@ function Profile() {
               </Typography>
             </Container>
             <Container sx={{ display: "flex", marginTop: "0.7rem" }}>
-              <WcIcon sx={{ width: "30px", height: "30px" }} />
+              <WcIcon sx={{ width: "1.875rem", height: "1.875rem" }} /> {/* 30px */}
               <Typography
                 variant="medium"
                 sx={{ marginY: "0.68rem", marginX: "1rem" }}
@@ -300,11 +303,11 @@ function Profile() {
                 variant="contained"
                 color="pri"
                 sx={{
-                  marginX: "1.8rem",
-                  borderRadius: "15px",
+                  marginX: "3rem",
+                  borderRadius: "0.9375rem", // 15px
                   color: "Black",
                   padding: "0.8rem",
-                  width: "225px",
+                  width: "14.0625rem", // 225px
                   marginY: "0.5rem",
                 }}
                 onClick={navigateToEdit}
@@ -320,11 +323,11 @@ function Profile() {
                 variant="contained"
                 color="pri"
                 sx={{
-                  marginX: "1.8rem",
-                  borderRadius: "15px",
+                  marginX: "3rem",
+                  borderRadius: "0.9375rem", // 15px
                   color: "Black",
                   padding: "0.8rem",
-                  width: "225px",
+                  width: "14.0625rem", // 225px
                 }}
                 onClick={navigateToQuizz}
               >
@@ -339,36 +342,34 @@ function Profile() {
           </Card>
           <Card
             sx={{
-              height: "535px",
-              width: "568px",
+              height: "33.4375rem", // 535px
+              width: "35.5rem", // 568px
               marginLeft: "1.5rem",
               position: "relative",
-              borderRadius: "15px",
+              borderRadius: "0.9375rem", // 15px
             }}
           >
             <Container>
               <Container>
-                {
-                  <Container
+                <Container
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  <Avatar
+                    alt="Profile Picture"
+                    src={"/src/images/xmpKItamQSS5555tCSJevg.jpg"}
                     sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "100%",
+                      width: "34.875rem", // 558px
+                      height: "35.625rem", // 570px
+                      objectFit: "cover",
+                      borderRadius: 0,
                     }}
-                  >
-                    <Avatar
-                      alt="Profile Picture"
-                      src={"/src/images/xmpKItamQSS5555tCSJevg.jpg"}
-                      sx={{
-                        width: "558px",
-                        height: "570px",
-                        objectFit: "cover",
-                        borderRadius: 0,
-                      }}
-                    />
-                  </Container>
-                }
+                  />
+                </Container>
               </Container>
             </Container>
           </Card>

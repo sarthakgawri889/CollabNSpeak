@@ -1,6 +1,5 @@
 import User from "../model/User.js";
 import upload from "./multer.js";
-import path from "path";
 
 // Update user profile including the picture
 export const updateUser = [
@@ -65,5 +64,36 @@ export const getUsers = async (req, res) => {
   } catch (error) {
     console.error("Error fetching users:", error); // Debugging: Log the error
     return res.status(500).json(error.message);
+  }
+};
+
+// Update user level based on the quiz score
+export const updateUserLevel = async (req, res) => {
+  const { email, score } = req.body;
+  let level;
+
+  if (score >= 7) {
+    level = "Advanced";
+  } else if (score >= 4) {
+    level = "Intermediate";
+  } else {
+    level = "Beginner";
+  }
+
+  try {
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      { level },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error updating user level:", error);
+    res.status(500).json({ error: "Failed to update user level" });
   }
 };
