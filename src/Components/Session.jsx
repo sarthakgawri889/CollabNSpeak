@@ -62,7 +62,6 @@ function Session({ lobby, isUserPresent }) {
         picture: currentUser.picture,
       },
     };
-    
 
     const addUser = async () => {
       await addUserToLobby(data);
@@ -85,7 +84,7 @@ function Session({ lobby, isUserPresent }) {
   if (loading) {
     return <div>Loading...</div>;
   }
-  
+
   if (!isAuthenticated || !currentUser) {
     return <div>No user data available</div>;
   }
@@ -106,7 +105,9 @@ function Session({ lobby, isUserPresent }) {
         <AvatarBox>
           {lobby.users.map((currentUser) => {
             const { picture } = currentUser;
-            return <CustomAvatar alt="user" src={picture} />;
+            return (
+              <CustomAvatar key={currentUser.email} alt="user" src={picture} />
+            );
           })}
         </AvatarBox>
 

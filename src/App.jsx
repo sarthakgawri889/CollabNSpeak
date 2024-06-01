@@ -7,13 +7,16 @@ import CreateSession from "./Pages/CreateSession";
 import Profile from "./Pages/Profile";
 import BarCat from "./Pages/BarCat";
 import Services from "./Pages/Services";
-import RoomPage from "./Pages/RoomPage";
-
 import EditProfile from "./Pages/EditProfile";
-
 import Quiz from "./Pages/Quiz";
+
 import About from "./Pages/About";
 
+
+
+import QuizzStart from "./Components/QuizzStart";
+import EndCall from "./Pages/EndCall";
+import RoomPage from "./Pages/RoomPage";
 
 
 const theme = createTheme({
@@ -101,15 +104,20 @@ const router = createBrowserRouter([
     element: <RoomPage />,
   },
   {
-
     path: "/editp",
     element: <EditProfile />,
   },
-
   {
-    path: "/quiz",
+    path: "/quizstart",
+    element: <QuizzStart />,
+  },
+  {
+    path: "/quiz/:lang",
     element: <Quiz />,
-
+  },
+  {
+    path: "/endcall",
+    element: <EndCall />,
   },
 
   {

@@ -1,12 +1,23 @@
 import React, { useRef, useState } from "react";
 import "../styles/Quiz.css";
-import { questions } from "../Assets/Questions";
+import { questionsHi, questionsEng, questionsGr } from "../Assets/Questions";
 import Appbar from "../Components/Appbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Quiz = () => {
   const navigate = useNavigate();
+  const { lang } = useParams();
   let [index, setIndex] = useState(0);
+  let questions = [];
+
+  if (lang === "Hindi") {
+    questions = questionsHi;
+  } else if (lang === "English") {
+    questions = questionsEng;
+  } else {
+    questions = questionsGr;
+  }
+
   let [question, setQuestion] = useState(questions[index]);
   let [lock, setLock] = useState(false);
   let [score, setScore] = useState(0);
@@ -58,6 +69,35 @@ const Quiz = () => {
     setResult(false);
     navigate("/");
   };
+
+  /*
+  const handleGoToHome = useCallback(() => {
+    let level = "Beginner";
+    if (score < 8) level = "Advanced";
+    else if (score < 8 && score >= 5) level = "Intermediate";
+    else level = "Beginner";
+
+    const data = {
+      email: user.email,
+      level: level,
+    };
+    const addLevel = async () => {
+      await updateUserByEmail(data);
+    };
+    addLevel();
+
+    const reset = () => {
+      setIndex(0);
+      setQuestion(questions[0]);
+      setScore(0);
+      setLock(false);
+      setResult(false);
+      navigate("/");
+    };
+
+    reset();
+  }, [navigate, questions, score, user.email]);
+  */
 
   return (
     <>

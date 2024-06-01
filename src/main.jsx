@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import { Auth0Provider } from "@auth0/auth0-react";
 import AccountProvider from "./context/AccountProvider.jsx";
 import "./index.css";
-import './i18n';
+import "./i18n";
 import { CurrentUserProvider } from "./context/CurrentUserContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -18,13 +18,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       useRefreshTokens={true}
       cacheLocation="localstorage"
     >
-    <CurrentUserProvider>
-     
-   
-      <AccountProvider>
-        <App />
-      </AccountProvider>
-    </CurrentUserProvider>
+      <CurrentUserProvider>
+        <AccountProvider>
+          <App />
+        </AccountProvider>
+      </CurrentUserProvider>
     </Auth0Provider>
   </React.StrictMode>
 );

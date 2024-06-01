@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AccountProvider from "../context/AccountProvider";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 function HomePage() {
   const { isAuthenticated } = useAuth0();
@@ -17,6 +18,23 @@ function HomePage() {
   const navigateToCreateSession = () => {
     navigate("/createsession");
   };
+
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      // Perform your custom logic here
+      window.alert("Navigation to Previous Page is not allowed.");
+      return false; // Prevent navigation
+    };
+
+    window.history.pushState(null, "", window.location.pathname);
+    window.addEventListener("popstate", handleBackButton);
+
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, []);
 
   return (
     <div>
@@ -42,9 +60,7 @@ function HomePage() {
             }}
           >
             <Container sx={{ width: "45rem", marginRight: "8rem" }}>
-              <Typography variant="regular">
-                {t("homepmessage")}
-              </Typography>
+              <Typography variant="regular">{t("homepmessage")}</Typography>
             </Container>
             <Container sx={{ marginTop: "2rem" }}>
               <Button
@@ -73,7 +89,7 @@ function HomePage() {
                   width: "220px",
                   borderRadius: "25px",
                   marginX: ".5rem",
-                  marginLeft: "5rem",
+                  marginLeft: "1rem",
                   paddingY: "1rem",
                 }}
                 onClick={navigateToExistingPage}

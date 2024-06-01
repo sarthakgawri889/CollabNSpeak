@@ -11,25 +11,25 @@ export const addUser = async (data) => {
 };
 
 export const getUsers = async () => {
-    try {
-        let response = await axios.get(`${url}/users`);
-        return response.data;
-    } catch (error) {
-        console.log('error while calling getUsers api', error.message);
-    }
-}
+  try {
+    let response = await axios.get(`${url}/users`);
+    return response.data;
+  } catch (error) {
+    console.log("error while calling getUsers api", error.message);
+  }
+};
 
 export const updateUserProfile = async (formData) => {
-    try {
-        const response = await axios.put(`${url}/editusers`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
+  try {
+    const response = await axios.put(`${url}/editusers`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
-        return response.data;
-    } catch (error) {
-        console.error('Error while calling updateUserProfile API:', error.message);
-        throw error;
-    }
+    return response.data;
+  } catch (error) {
+    console.error("Error while calling updateUserProfile API:", error.message);
+    throw error;
+  }
 };

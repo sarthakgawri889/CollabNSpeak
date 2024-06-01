@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useContext,useState } from "react";
+import { useContext, useState } from "react";
 
 const BackPartN = styled(Box)`
   position: relative;
@@ -38,12 +38,10 @@ const Name = styled(Typography)`
   color: white;
 `;
 
-
-
 function NameSlide({ lobby }) {
-const { currentUser, loading } = useContext(CurrentUserContext);
-const { isAuthenticated } = useAuth0();
-const [picture, ] = useState(null);
+  const { loading } = useContext(CurrentUserContext);
+  const { isAuthenticated } = useAuth0();
+  const [picture] = useState(null);
   if (lobby === null) {
     return <CircularProgress />;
   }
@@ -51,27 +49,24 @@ const [picture, ] = useState(null);
   if (loading) {
     return <div>Loading...</div>;
   }
-  
-  if (!isAuthenticated || !currentUser) {
-    return <div>No user data available</div>;
-  }
-  console.log(currentUser.picture)
+
   return (
     <div>
       {lobby.users?.map((user) => {
         return (
-          <BackPartN>
-            <Name>{currentUser.nickname}</Name>
+          <BackPartN key={user.email}>
+            <Name>{user.name}</Name>
             <Avatar
               alt="Remy Sharp"
-              src={currentUser.picture ? 
-                (currentUser.picture.startsWith("http") ? 
-                  currentUser.picture : 
-                  `http://localhost:8000/${currentUser.picture}`) : 
-                (picture ? 
-                  URL.createObjectURL(picture) : 
-                  'fallback_image_url.jpg')}
-            
+              src={
+                user.picture
+                  ? user.picture.startsWith("http")
+                    ? user.picture
+                    : `http://localhost:8000/${user.picture}`
+                  : picture
+                  ? URL.createObjectURL(picture)
+                  : "fallback_image_url.jpg"
+              }
               sx={{
                 width: 35,
                 height: 35 /* Ellipse 18 */,
@@ -81,10 +76,8 @@ const [picture, ] = useState(null);
               }}
             />
           </BackPartN>
-          
         );
       })}
-      
     </div>
   );
 }
