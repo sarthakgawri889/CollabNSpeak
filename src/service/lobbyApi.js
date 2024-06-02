@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url= import.meta.env.VITE_API_URL;
+const url= import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export const getLobbies = async () => {
   try {
