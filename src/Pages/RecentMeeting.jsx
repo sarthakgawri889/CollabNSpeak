@@ -13,6 +13,7 @@ const RecentMeeting = () => {
 const {t} = useTranslation();
   const handleClick = () => {
     navigate(currentUser.recent);
+    window.location.reload();
   };
 
   if (loading) {
