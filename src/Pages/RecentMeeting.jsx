@@ -10,9 +10,10 @@ const RecentMeeting = () => {
   const navigate = useNavigate();
   const { currentUser, loading } = useContext(CurrentUserContext);
   const { isAuthenticated } = useAuth0();
-const {t} = useTranslation();
+  const { t } = useTranslation();
   const handleClick = () => {
     navigate(currentUser.recent);
+    window.location.reload();
   };
 
   if (loading) {
