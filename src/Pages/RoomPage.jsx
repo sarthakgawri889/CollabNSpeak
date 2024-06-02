@@ -56,7 +56,7 @@ const RoomPage = () => {
 
       zc.joinRoom({
         container: element,
-        maxUsers: 4,
+        maxUsers: 5,
         scenario: {
           mode: ZegoUIKitPrebuilt.GroupCall,
         },
