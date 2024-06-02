@@ -66,7 +66,13 @@ i18next
           tryitforfree:"Try it for free",
           learnmore:"Learn more",
           login:"Log In",
-          oops:"Oops no Meetings for now 🥲😢"
+          oops:"Oops no Meetings for now 🥲😢",
+          lef: "Left your meeting due to Issues?😢",
+          cli: "Click this button to join the meeting you left😊",
+          joinm: "Join Meeting",
+          nrm:"No Recent Meeting",
+          mhs: "Meeting has started 🙋‍♂️!!, please entered before timer ends 🙏"
+ 
         },
       },
       hi: {
@@ -124,7 +130,12 @@ i18next
           tryitforfree:"मुफ्त में आज़माएं",
           learnmore:"और अधिक जानें",
           login:"लॉगिन",
-          oops:"अभी कोई मीटिंग नहीं है 🥲😢"
+          oops:"अभी कोई मीटिंग नहीं है 🥲😢",
+          lef: "समस्याओं के कारण आपने अपनी बैठक छोड़ दी?😢",
+          cli:  "जिस बैठक को आपने छोड़ा है उसमें शामिल होने के लिए इस बटन पर क्लिक करें😊",
+          joinm:  "बैठक में शामिल हों",
+          nrm: "कोई हालिया बैठक नहीं",
+          mhs:"बैठक शुरू हो चुकी है 🙋‍♂️!! कृपया टाइमर समाप्त होने से पहले प्रवेश करें 🙏"
         },
       },
       de: {
@@ -182,8 +193,12 @@ i18next
           tryitforfree:"Kostenlos ausprobieren",
           learnmore:"Mehr erfahren",
           login:"Anmeldung",
-          oops: "Oops, im Moment keine Meetings 🥲😢"
-
+          oops: "Oops, im Moment keine Meetings 🥲😢",
+          lef: "Haben Sie Ihre Besprechung wegen Problemen verlassen?😢",
+          cli: "Klicken Sie auf diese Schaltfläche, um der verlassenen Besprechung beizutreten😊",
+          joinm: "Besprechung beitreten",
+          nrm:"Keine kürzliche Besprechung",
+          mhs:"Das Meeting hat begonnen 🙋‍♂️!! Bitte treten Sie ein, bevor der Timer abläuft 🙏"
         },
       },
     },

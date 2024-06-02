@@ -235,7 +235,7 @@ const {t} = useTranslation();
           }}
         >
           <Typography>
-            Meeting has started 🙋‍♂️!!, please entered before timer ends 🙏
+            {t("mhs")}
           </Typography>
         </Box>
 

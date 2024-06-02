@@ -4,12 +4,13 @@ import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useTranslation } from "react-i18next";
 
 const RecentMeeting = () => {
   const navigate = useNavigate();
   const { currentUser, loading } = useContext(CurrentUserContext);
   const { isAuthenticated } = useAuth0();
-
+const {t} = useTranslation();
   const handleClick = () => {
     navigate(currentUser.recent);
   };
@@ -51,7 +52,7 @@ const RecentMeeting = () => {
               paddingBottom: "1rem",
             }}
           >
-            Left your meeting due to Issues?😢
+            {t("lef")}
           </Typography>
           <Typography
             sx={{
@@ -61,10 +62,10 @@ const RecentMeeting = () => {
               paddingBottom: "1rem",
             }}
           >
-            Click this button to join the meeting you left😊
+            {t("cli")}
           </Typography>
 
-          {currentUser.recent != "link" ? (
+          {currentUser.recent !== "link" ? (
             <Button
               sx={{
                 position: "relative",
@@ -76,7 +77,7 @@ const RecentMeeting = () => {
               color="success"
               onClick={handleClick}
             >
-              Join Meeting
+              {t("joinm")}
             </Button>
           ) : (
             <Typography
@@ -87,7 +88,7 @@ const RecentMeeting = () => {
                 paddingBottom: "1rem",
               }}
             >
-              No Recent Meeting
+              {t("nrm")}
             </Typography>
           )}
         </div>
