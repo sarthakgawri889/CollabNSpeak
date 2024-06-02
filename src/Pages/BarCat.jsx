@@ -13,9 +13,7 @@ import { CurrentUserContext } from "../context/CurrentUserContext";
 import { updateUserRecent } from "../service/api";
 import { useTranslation } from "react-i18next";
 
-
 const url = `${import.meta.env.VITE_API_URL}`;
-
 
 const BackPart = styled(Box)`
   position: absolute;
@@ -73,7 +71,7 @@ const Text = styled(Typography)`
 const TimerText = styled(Typography)`
   margin: 0 auto;
   position: relative;
-  padding-left: 4.5rem;
+  padding-left: 3.6rem;
   padding-top: 0.6rem;
   font-family: "Montserrat";
   font-style: normal;
@@ -102,12 +100,6 @@ const End = styled(Button)`
   border-radius: 50px;
 `;
 
-const renderer = ({ minutes, seconds }) => (
-  <span>
-    0{minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-  </span>
-);
-
 function BarCat() {
   const { language, topicHeader, topic, lobbyId } = useParams();
   const { isAuthenticated } = useAuth0();
@@ -115,7 +107,7 @@ function BarCat() {
   const { currentUser, loading } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const [lobby, setLobby] = useState({});
-const {t} = useTranslation();
+  const { t } = useTranslation();
   useEffect(() => {
     const getLobby = async () => {
       try {
@@ -234,9 +226,7 @@ const {t} = useTranslation();
             height: "2rem",
           }}
         >
-          <Typography>
-            {t("mhs")}
-          </Typography>
+          <Typography>{t("mhs")}</Typography>
         </Box>
 
         <BackPart>
@@ -248,10 +238,7 @@ const {t} = useTranslation();
           </FrontBox>
           <Timer>
             <TimerText>
-              <Countdown
-                date={Date.now() + 150000}
-                renderer={renderer}
-              ></Countdown>
+              <TimerText>{language}</TimerText>
             </TimerText>
           </Timer>
         </BackPart>
@@ -279,12 +266,7 @@ const {t} = useTranslation();
           <Text sx={{ width: "400px" }}>{topic}</Text>
         </FrontBox>
         <Timer>
-          <TimerText>
-            <Countdown
-              date={Date.now() + 150000}
-              renderer={renderer}
-            ></Countdown>
-          </TimerText>
+          <TimerText>{language}</TimerText>
         </Timer>
       </BackPart>
       <NameSlide lobby={lobby} />
