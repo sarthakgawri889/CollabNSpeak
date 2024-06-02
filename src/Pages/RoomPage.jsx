@@ -49,7 +49,7 @@ const RoomPage = () => {
         serverSecret,
         roomId,
         user?.email,
-        user?.name
+        user?.nickname
       );
 
       const zc = ZegoUIKitPrebuilt.create(kitToken);
