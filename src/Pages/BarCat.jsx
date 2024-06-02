@@ -11,6 +11,8 @@ import { deleteUserFromLobby } from "../service/lobbyApi";
 import axios from "axios";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 import { updateUserRecent } from "../service/api";
+import { useTranslation } from "react-i18next";
+
 
 const url = "http://localhost:8000";
 const app = "http://localhost:5173";
@@ -113,7 +115,7 @@ function BarCat() {
   const { currentUser, loading } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const [lobby, setLobby] = useState({});
-
+const {t} = useTranslation();
   useEffect(() => {
     const getLobby = async () => {
       try {
@@ -255,10 +257,10 @@ function BarCat() {
         </BackPart>
         <NameSlide lobby={lobby} />
         <Start variant="contained" onClick={handleJoinRoom} color="success">
-          <Text>Start</Text>
+          <Text>{t("start")}</Text>
         </Start>
         <End variant="contained" onClick={handleEndNow} color="error">
-          <Text>End</Text>
+          <Text>{t("end")}</Text>
         </End>
       </>
     );
@@ -287,10 +289,10 @@ function BarCat() {
       </BackPart>
       <NameSlide lobby={lobby} />
       <Start variant="contained" onClick={handleJoinRoom} color="success">
-        <Text>Start</Text>
+        <Text>{t("start")}</Text>
       </Start>
       <End variant="contained" onClick={handleEndNow} color="error">
-        <Text>End</Text>
+        <Text>{t("end")}</Text>
       </End>
     </>
   );

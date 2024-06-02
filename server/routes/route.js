@@ -10,7 +10,7 @@ const route = express.Router();
 
 route.post("/add", addUser);
 route.get("/users", getUsers);
-route.put("/editusers", updateUser);
+route.put("/editusers", updateUser); 
 route.put("/updateLevel", updateUserLevel);
 route.put("/updateRecent", updateUserRecent);
 export default route;

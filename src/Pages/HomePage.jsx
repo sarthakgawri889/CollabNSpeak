@@ -28,39 +28,40 @@ function HomePage() {
         <Container
           sx={{
             display: "flex",
-            height: "23rem",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: "center",
+            height: { xs: "auto", md: "23rem" },
             position: "relative",
-            top: "10rem",
+            top: { xs: "10rem", md: "10rem" },
+            padding: { xs: "2rem 1rem", md: "0" },
           }}
         >
           <Container
             sx={{
-              width: "60%",
+              width: { xs: "100%", md: "60%" },
               position: "relative",
-              top: "14rem",
-              left: "-5rem",
+              top: { xs: "0", md: "6rem" },
+              left: { xs: "0", md: "-2rem" },
+              marginBottom: { xs: "2rem", md: "0" },
             }}
           >
-            <Container sx={{ width: "45rem", marginRight: "8rem" }}>
+            <Container sx={{ width: { xs: "100%", md: "45rem" }, marginRight: { md: "8rem" } }}>
               <Typography variant="regular">{t("homepmessage")}</Typography>
             </Container>
-            <Container sx={{ marginTop: "2rem" }}>
+            <Container sx={{ marginTop: "2rem", display: "flex", flexDirection: { xs: "column", md: "row" }, alignItems: "center" }}>
               <Button
                 variant="contained"
                 color="pri"
                 sx={{
-                  width: "220px",
-                  marginLeft: "2rem",
+                  width: { xs: "100%", md: "220px" },
                   borderRadius: "25px",
-                  marginX: ".5rem",
                   paddingY: "1rem",
+                  marginBottom: { xs: "1rem", md: "0" },
+                  marginX: { md: ".5rem" },
                 }}
                 onClick={navigateToCreateSession}
               >
-                <Typography
-                  variant="medium"
-                  sx={{ color: "white", textTransform: "initial" }}
-                >
+                <Typography variant="medium" sx={{ color: "white", textTransform: "initial" }}>
                   {t("newsession")}
                 </Typography>
               </Button>
@@ -68,11 +69,10 @@ function HomePage() {
                 variant="outlined"
                 color="primary"
                 sx={{
-                  width: "220px",
+                  width: { xs: "100%", md: "220px" },
                   borderRadius: "25px",
-                  marginX: ".5rem",
-                  marginLeft: "2rem",
                   paddingY: "1rem",
+                  marginX: { md: ".5rem" },
                 }}
                 onClick={navigateToExistingPage}
               >
@@ -82,107 +82,76 @@ function HomePage() {
               </Button>
             </Container>
           </Container>
-          <Container sx={{ width: "40%" }}>
-            <Avatar
-              alt="Remy Sharp"
-              src="src/images/HomePage.jpg"
-              sx={{ width: "30rem", height: "30rem", left: "1rem" }}
-            />
+          <Container sx={{ width: { xs: "100%", md: "40%" }, display: "flex", justifyContent: "center" }}>
+            <Avatar alt="Remy Sharp" src="src/images/HomePage.jpg" sx={{ width: { xs: "20rem", md: "30rem" }, height: { xs: "20rem", md: "30rem" } }} />
           </Container>
         </Container>
       ) : (
-        <>
-          <Container
-            sx={{
-              display: "flex",
-              height: "23rem",
-              position: "relative",
-              top: "10rem",
-            }}
-          >
-            <Container sx={{ width: "60%", position: "relative", top: "4rem" }}>
-              <Container sx={{ width: "45rem", marginRight: "8rem" }}>
-                <Typography
-                  variant="h2"
-                  component="div"
-                  sx={{ fontFamily: "Roboto" }}
-                >
-                  {t("breakthelanguagebarrier")}
+        <Container
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: "center",
+            height: { xs: "auto", md: "23rem" },
+            position: "relative",
+            top: { xs: "10rem", md: "10rem" },
+            padding: { xs: "2rem 1rem", md: "0" },
+          }}
+        >
+          <Container sx={{ width: { xs: "100%", md: "60%" }, position: "relative", top: { xs: "0", md: "4rem" }, marginBottom: { xs: "2rem", md: "0" } }}>
+            <Container sx={{ width: { xs: "100%", md: "45rem" }, marginRight: { md: "8rem" } }}>
+              <Typography variant="h2" component="div" sx={{ fontFamily: "Roboto" }}>
+                {t("breakthelanguagebarrier")}
+              </Typography>
+              <Container />
+              <Container sx={{ width: "100%", position: "relative", top: "2rem", right: { md: "1.4rem" } }}>
+                <Typography variant="h6" component="div" sx={{ fontFamily: "Roboto" }}>
+                  {t("innovativelanguagepracticeapp")}
                 </Typography>
-                <Container />
-                <Container
+                <Typography variant="body1" component="div" sx={{ fontFamily: "Montserrat" }}>
+                  {t("collabnspeak_description")}
+                </Typography>
+                <Button
+                  variant="contained"
+                  color="pri"
                   sx={{
-                    width: "100%",
-                    position: "relative",
-                    top: "2rem",
-                    right: "1.4rem",
+                    width: { xs: "100%", md: "220px" },
+                    marginTop: "1rem",
+                    borderRadius: "25px",
+                    paddingY: "1rem",
+                    marginRight: { md: "1rem" },
                   }}
+                  onClick={() => loginWithRedirect()}
                 >
-                  <Typography
-                    variant="h6"
-                    component="div"
-                    sx={{ fontFamily: "Roboto" }}
-                  >
-                    {t("innovativelanguagepracticeapp")}
+                  <Typography variant="medium" sx={{ color: "white", textTransform: "initial" }}>
+                    {t("tryitforfree")}
                   </Typography>
-                  <Typography
-                    variant="body1"
-                    component="div"
-                    sx={{ fontFamily: "Montserrat" }}
-                  >
-                    {t("collabnspeak_description")}
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  sx={{
+                    width: { xs: "100%", md: "220px" },
+                    marginTop: "1rem",
+                    borderRadius: "25px",
+                    paddingY: "1rem",
+                  }}
+                  onClick={() => navigate("/services")}
+                >
+                  <Typography variant="medium" sx={{ textTransform: "initial" }}>
+                    {t("learnmore")}
                   </Typography>
-                  <Button
-                    variant="contained"
-                    color="pri"
-                    sx={{
-                      width: "220px",
-                      marginTop: "1rem",
-                      borderRadius: "25px",
-                      paddingY: "1rem",
-                      marginRight: "1rem",
-                    }}
-                    onClick={() => loginWithRedirect()}
-                  >
-                    <Typography
-                      variant="medium"
-                      sx={{ color: "white", textTransform: "initial" }}
-                    >
-                      {t("tryitforfree")}
-                    </Typography>
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    sx={{
-                      width: "220px",
-                      marginTop: "1rem",
-                      borderRadius: "25px",
-                      paddingY: "1rem",
-                    }}
-                    onClick={() => navigate("/services")}
-                  >
-                    <Typography
-                      variant="medium"
-                      sx={{ textTransform: "initial" }}
-                    >
-                      {t("learnmore")}
-                    </Typography>
-                  </Button>
-                </Container>
+                </Button>
               </Container>
             </Container>
-            <Container sx={{ width: "40%" }}>
-              <Avatar
-                alt="Remy Sharp"
-                src="src/images/HomePage.jpg"
-                sx={{ width: "30rem", height: "30rem", left: "1rem" }}
-              />
-            </Container>
           </Container>
-        </>
+          <Container sx={{ width: { xs: "100%", md: "40%" }, display: "flex", justifyContent: "center" }}>
+            <Avatar alt="Remy Sharp" src="src/images/HomePage.jpg" sx={{ width: { xs: "20rem", md: "30rem" }, height: { xs: "20rem", md: "30rem" } }} />
+          </Container>
+        </Container>
       )}
     </div>
   );
 }
+
 export default HomePage;

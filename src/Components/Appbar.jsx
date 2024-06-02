@@ -20,6 +20,7 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
+  useMediaQuery,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -42,23 +43,25 @@ function Appbar() {
   const open = Boolean(anchorEl);
   const { t } = useTranslation();
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const CustomAppBar = styled(AppBar)(() => ({
+  const CustomAppBar = styled(AppBar)(({ theme }) => ({
     backgroundColor: "white",
-    padding: "1.2rem 9rem 1rem 9rem",
+    padding: isMobile ? "0.5rem 1rem" : "1.2rem 9rem",
     display: "flex",
+    flexDirection: isMobile ? "column" : "row",
+    alignItems: isMobile ? "start" : "center",
   }));
 
-  const Logo = styled(Card)(() => ({
+  const Logo = styled(Card)(({ theme }) => ({
     backgroundColor: theme.palette.bg.main,
-    width: 260,
+    width: isMobile ? "100%" : 260,
     height: 55,
     borderRadius: "15px",
-  }));
-
-  const LogoContent = styled(CardContent)(() => ({
-    textAlign: "center",
-    marginTop: "3px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: isMobile ? "0.5rem" : "0",
   }));
 
   const adduser = async () => {
@@ -136,15 +139,23 @@ function Appbar() {
   return (
     <CustomAppBar sx={{ boxShadow: 0 }}>
       <Logo sx={{ boxShadow: 0 }}>
-        <LogoContent>
+        <CardContent sx={{ textAlign: "center", marginTop: "10px" }}>
           <Typography variant="header2" color="black">
             CollabNSpeak
           </Typography>
-        </LogoContent>
+        </CardContent>
       </Logo>
 
-      <Box sx={{ marginLeft: "auto", marginTop: "-60px" }}>
-        <Toolbar>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: isMobile ? "start" : "center",
+          width: isMobile ? "100%" : "auto",
+          marginLeft: isMobile ? "0" : "auto",
+        }}
+      >
+        <Toolbar sx={{ padding: 0 }}>
           <Button onClick={navigateToHome}>
             <Typography variant="medium" color="black" sx={{ paddingX: "5px" }}>
               {t("home")}
@@ -217,8 +228,8 @@ function Appbar() {
                   sx: {
                     overflow: "visible",
                     filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                    mt: '3.7rem',
-                    ml: '75.5rem',
+                    mt: isMobile ? "7rem" : "3.4rem",
+                    ml: isMobile ? "1rem" : "75.4rem",
                     "& .MuiAvatar-root": {
                       width: 32,
                       height: 32,
