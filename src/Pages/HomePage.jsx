@@ -83,7 +83,7 @@ function HomePage() {
             </Container>
           </Container>
           <Container sx={{ width: { xs: "100%", md: "40%" }, display: "flex", justifyContent: "center" }}>
-            <Avatar alt="Remy Sharp" src="../images/HomePage.jpg" sx={{ width: { xs: "20rem", md: "30rem" }, height: { xs: "20rem", md: "30rem" } }} />
+            <Avatar alt="Remy Sharp" src="/HomePage.jpg" sx={{ width: { xs: "20rem", md: "30rem" }, height: { xs: "20rem", md: "30rem" } }} />
           </Container>
         </Container>
       ) : (
@@ -146,7 +146,7 @@ function HomePage() {
             </Container>
           </Container>
           <Container sx={{ width: { xs: "100%", md: "40%" }, display: "flex", justifyContent: "center" }}>
-            <Avatar alt="Remy Sharp" src="../images/HomePage.jpg" sx={{ width: { xs: "20rem", md: "30rem" }, height: { xs: "20rem", md: "30rem" } }} />
+            <Avatar alt="Remy Sharp" src="/HomePage.jpg" sx={{ width: { xs: "20rem", md: "30rem" }, height: { xs: "20rem", md: "30rem" } }} />
           </Container>
         </Container>
       )}
