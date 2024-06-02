@@ -14,8 +14,8 @@ import { updateUserRecent } from "../service/api";
 import { useTranslation } from "react-i18next";
 
 
-const url = "${import.meta.env.VITE_API_URL}";
-const app = "http://localhost:5173";
+const url = `${import.meta.env.VITE_API_URL}`;
+
 
 const BackPart = styled(Box)`
   position: absolute;
