@@ -78,7 +78,7 @@ const Quiz = () => {
   const sendScoreToServer = async () => {
     try {
       const email = currentUser.email; // Replace with the actual user's email
-      const response = await axios.put("http://localhost:8000/updateLevel", {
+      const response = await axios.put("import.meta.env.VITE_API_URL/updateLevel", {
         email,
         score,
       });

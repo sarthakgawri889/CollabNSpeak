@@ -207,7 +207,7 @@ function Appbar() {
                       currentUser.picture
                         ? currentUser.picture.startsWith("http")
                           ? currentUser.picture
-                          : `http://localhost:8000/${currentUser.picture}`
+                          : `import.meta.env.VITE_API_URL/${currentUser.picture}`
                         : picture
                         ? URL.createObjectURL(picture)
                         : "fallback_image_url.jpg"

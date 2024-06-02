@@ -74,7 +74,7 @@ function EditProfile() {
 
             <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem', position: 'relative' }}>
                 <Avatar
-                    src={picture ? URL.createObjectURL(picture) : `http://localhost:8000/${currentUser.picture}`}
+                    src={picture ? URL.createObjectURL(picture) : `import.meta.env.VITE_API_URL/${currentUser.picture}`}
                     alt="Profile Photo"
                     sx={{ width: '10rem', height: '10rem' }}
                 />
