@@ -399,7 +399,7 @@ function Profile() {
                 >
                   <Avatar
                     alt="Profile Picture"
-                    src={"/src/images/xmpKItamQSS5555tCSJevg.jpg"}
+                    src={"../images/xmpKItamQSS5555tCSJevg.jpg"}
                     sx={{
                       width: "34.875rem", // 558px
                       height: "35.625rem", // 570px
