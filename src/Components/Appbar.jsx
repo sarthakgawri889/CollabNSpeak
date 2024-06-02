@@ -203,17 +203,17 @@ function Appbar() {
                   aria-expanded={open ? "true" : undefined}
                 >
                   <Avatar
-                    src={
-                      currentUser.picture
-                        ? currentUser.picture.startsWith("http")
-                          ? currentUser.picture
-                          : `import.meta.env.VITE_API_URL/${currentUser.picture}`
-                        : picture
-                        ? URL.createObjectURL(picture)
-                        : "fallback_image_url.jpg"
-                    }
-                    sx={{ width: 35, height: 35 }}
-                  >
+                  src={
+                    currentUser.picture
+                      ? currentUser.picture.startsWith("http")
+                        ? currentUser.picture
+                        : `${import.meta.env.VITE_API_URL}/${currentUser.picture}`
+                      : picture
+                      ? URL.createObjectURL(picture)
+                      : "fallback_image_url.jpg"
+                  }
+                  sx={{ width: "2.5rem", height: "2.5rem" }} // 40px
+                >
                     {currentUser.name}
                   </Avatar>
                 </IconButton>
