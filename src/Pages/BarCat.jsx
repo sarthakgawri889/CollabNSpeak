@@ -119,7 +119,7 @@ function BarCat() {
     };
     getLobby();
 
-    const interval = setInterval(getLobby, 3000); // Poll every 3 seconds
+    const interval = setInterval(getLobby, 7000); // Poll every 7 seconds
     return () => clearInterval(interval); // Cleanup on unmount
   }, [lobbyId]);
 
@@ -185,14 +185,13 @@ function BarCat() {
     updateRecent();
     pullUser();
 
-    navigate(`/room/${language}/${topicHeader}/${topic}/${lobbyId}`);
-    window.location.reload();
+    //navigate(`/room/${language}/${topicHeader}/${topic}/${lobbyId}`);
+    //window.location.reload();
   }, [
-    lobby?.countUser,
-    lobby?.hasMeetingStarted,
+    lobby.countUser,
+    lobby.hasMeetingStarted,
     lobbyId,
-    currentUser?.email,
-    navigate,
+    currentUser.email,
     language,
     topicHeader,
     topic,
