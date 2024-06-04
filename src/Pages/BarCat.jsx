@@ -119,7 +119,7 @@ function BarCat() {
     };
     getLobby();
 
-    const interval = setInterval(getLobby, 3000); // Poll every 3 seconds
+    const interval = setInterval(getLobby, 7000); // Poll every 7 seconds
     return () => clearInterval(interval); // Cleanup on unmount
   }, [lobbyId]);
 
