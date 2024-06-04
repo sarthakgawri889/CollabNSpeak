@@ -71,6 +71,7 @@ const RoomPage = () => {
         videoResolutionDefault: ZegoUIKitPrebuilt.VideoResolution_360P,
         showPreJoinView: false,
         showLeavingView: false,
+        showRoomDetailsButton: false,
         onLeaveRoom: () => {
           navigate("/endcall");
         },

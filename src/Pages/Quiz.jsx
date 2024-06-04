@@ -1,9 +1,9 @@
-import React, { useRef, useState,useContext } from "react";
+import React, { useRef, useState, useContext } from "react";
 import "../styles/Quiz.css";
 import { questionsHi, questionsEng, questionsGr } from "../Assets/Questions";
 import Appbar from "../Components/Appbar";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";  // Import axios for making HTTP requests
+import axios from "axios"; // Import axios for making HTTP requests
 import { CurrentUserContext } from "../context/CurrentUserContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -78,10 +78,13 @@ const Quiz = () => {
   const sendScoreToServer = async () => {
     try {
       const email = currentUser.email; // Replace with the actual user's email
-      const response = await axios.put("${import.meta.env.VITE_API_URL}/updateLevel", {
-        email,
-        score,
-      });
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/updateLevel`,
+        {
+          email,
+          score,
+        }
+      );
       console.log("User level updated:", response.data);
     } catch (error) {
       console.error("Error updating user level:", error);
