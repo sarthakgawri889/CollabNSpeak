@@ -161,7 +161,9 @@ function Profile() {
                     currentUser.picture
                       ? currentUser.picture.startsWith("http")
                         ? currentUser.picture
-                        : `${import.meta.env.VITE_API_URL}/${currentUser.picture}`
+                        : `${import.meta.env.VITE_API_URL}/${
+                            currentUser.picture
+                          }`
                       : picture
                       ? URL.createObjectURL(picture)
                       : "fallback_image_url.jpg"

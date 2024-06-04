@@ -14,6 +14,7 @@ function ExistingSession() {
   const [lobbies, setLobbies] = useState([]);
   const { currentUser, loading } = useContext(CurrentUserContext);
   const { t } = useTranslation();
+
   useEffect(() => {
     const fetchLobbies = async () => {
       const data = await getLobbies();
@@ -73,7 +74,7 @@ function ExistingSession() {
     return <div>No user data available</div>;
   }
 
-  if (lobbies.length === 0) {
+  if (lobbies?.length === 0) {
     return (
       <div>
         <AccountProvider>
@@ -108,11 +109,11 @@ function ExistingSession() {
       </AccountProvider>
 
       <StyledPaper>
-        {lobbies.map((lobby) => {
+        {lobbies?.map((lobby) => {
           let isUserPresent = false;
           for (let i = 0; i < lobby.users.length; i++) {
-            console.log(lobby.users[i].email + "," + currentUser.email);
-            if (lobby.users[i].email === currentUser.email) {
+            console.log(lobby?.users[i].email + "," + currentUser?.email);
+            if (lobby?.users[i].email === currentUser?.email) {
               isUserPresent = true;
               break;
             }
