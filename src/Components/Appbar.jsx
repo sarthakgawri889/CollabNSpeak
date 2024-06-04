@@ -22,15 +22,15 @@ import {
   ListItemIcon,
   useMediaQuery,
 } from "@mui/material";
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import Logout from "@mui/icons-material/Logout";
 import LanguageIcon from "@mui/icons-material/Language";
 import { useAuth0 } from "@auth0/auth0-react";
-import { addUser } from "../service/api";
+import { addUser,getUsers } from "../service/api";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
-import { CurrentUserContext } from "../context/CurrentUserContext";
+
 
 function Appbar() {
   const navigate = useNavigate();
@@ -38,9 +38,9 @@ function Appbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [languageDialogOpen, setLanguageDialogOpen] = useState(false);
   const [, setSelectedValue] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
  
-  
-  const { currentUser, loading } = useContext(CurrentUserContext);
   const languageOptions = { English: "en", Hindi: "hi", German: "de" };
   const open = Boolean(anchorEl);
   const { t } = useTranslation();
@@ -74,15 +74,28 @@ function Appbar() {
     }
   };
 
+  if (isAuthenticated) {
+    adduser();
+  }
+
   useEffect(() => {
-    const handleAddUser = async () => {
-      if (isAuthenticated) {
-        await adduser();
+    const fetchData = async () => {
+      try {
+        const response = await getUsers();
+        if (user) {
+          const loggedInUser = response.find((u) => u.sub === user.sub);
+          setCurrentUser(loggedInUser);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
       }
     };
+    fetchData();
+  }, [user,isAuthenticated]);
 
-    handleAddUser();
-  }, [isAuthenticated, user]);
+  
 
   const navigateToServices = () => {
     navigate("/services");
@@ -178,6 +191,10 @@ function Appbar() {
               ))}
             </List>
           </Dialog>
+
+          {
+            
+          }
 
           {isAuthenticated && currentUser ? (
             <>
