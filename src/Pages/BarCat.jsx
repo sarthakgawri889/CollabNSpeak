@@ -1,5 +1,4 @@
 import { Box, Typography, styled, Button } from "@mui/material";
-import Countdown from "react-countdown";
 import NameSlide from "../Components/NameSlide";
 import { useNavigate, useParams } from "react-router-dom";
 import AccountProvider from "../context/AccountProvider";

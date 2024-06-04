@@ -6,8 +6,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { CurrentUserContext } from "../context/CurrentUserContext";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useContext, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const BackPartN = styled(Box)`
   position: relative;
@@ -39,7 +39,7 @@ const Name = styled(Typography)`
 `;
 
 function NameSlide({ lobby }) {
-  const { loading } = useContext(CurrentUserContext);
+  const { currentUser, loading } = useContext(CurrentUserContext);
   const { isAuthenticated } = useAuth0();
   const [picture] = useState(null);
   if (lobby === null) {
@@ -48,6 +48,10 @@ function NameSlide({ lobby }) {
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated || !currentUser) {
+    return <div>No user data available</div>;
   }
 
   return (
