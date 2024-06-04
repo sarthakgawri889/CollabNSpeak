@@ -1,5 +1,4 @@
 import { Box, Typography, styled, Button } from "@mui/material";
-import Countdown from "react-countdown";
 import NameSlide from "../Components/NameSlide";
 import { useNavigate, useParams } from "react-router-dom";
 import AccountProvider from "../context/AccountProvider";
@@ -49,6 +48,9 @@ const Timer = styled(Box)`
   top: 7.5px;
   background: #747487;
   border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Text = styled(Typography)`
@@ -71,8 +73,6 @@ const Text = styled(Typography)`
 const TimerText = styled(Typography)`
   margin: 0 auto;
   position: relative;
-  padding-left: 3.6rem;
-  padding-top: 0.6rem;
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
@@ -108,6 +108,7 @@ function BarCat() {
   const navigate = useNavigate();
   const [lobby, setLobby] = useState({});
   const { t } = useTranslation();
+
   useEffect(() => {
     const getLobby = async () => {
       try {
@@ -143,7 +144,7 @@ function BarCat() {
   const handleEndNow = useCallback(() => {
     const data = {
       lobbyId: lobbyId,
-      email: currentUser.email,
+      email: currentUser?.email,
       hasMeetingStarted: false,
     };
 
@@ -156,7 +157,7 @@ function BarCat() {
   }, [lobbyId, navigate, currentUser]);
 
   const handleJoinRoom = useCallback(() => {
-    if (!(lobby.countUser > 1 || lobby.hasMeetingStarted === true)) {
+    if (!(lobby?.countUser > 1 || lobby?.hasMeetingStarted === true)) {
       alert(
         "You can't enter the meeting as number of user is 1 or meeting has not started yet!"
       );
@@ -164,7 +165,7 @@ function BarCat() {
     }
 
     const rec = {
-      email: currentUser.email,
+      email: currentUser?.email,
       recent: `/room/${language}/${topicHeader}/${topic}/${lobbyId}`,
     };
 
@@ -174,7 +175,7 @@ function BarCat() {
 
     const data = {
       lobbyId: lobbyId,
-      email: currentUser.email,
+      email: currentUser?.email,
       hasMeetingStarted: true,
     };
 
@@ -190,12 +191,12 @@ function BarCat() {
   }, [
     lobby?.countUser,
     lobby?.hasMeetingStarted,
-    lobbyId,
     currentUser?.email,
-    navigate,
     language,
     topicHeader,
     topic,
+    lobbyId,
+    navigate,
   ]);
 
   if (loading) {
